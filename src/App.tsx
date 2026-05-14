@@ -155,7 +155,7 @@ export default function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-sand-100/90 backdrop-blur-md border-b border-sand-400/20 transition-all">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="font-semibold text-earth-900 text-xl tracking-tight">
-            Landing Pages
+            
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a
@@ -185,44 +185,51 @@ export default function App() {
 
       <main className="pt-20">
         {/* 1. Hero */}
-        <Section className="pb-16 pt-24 md:pt-32">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center flex-col-reverse md:flex-row">
-            <FadeIn className="w-full">
-              <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight text-earth-900 leading-[1.1] mb-6">
-                Landing pages simples, bonitas e prontas para divulgar sua
-                oferta.
-              </h1>
-              <p className="text-xl text-earth-800 leading-relaxed mb-8 font-medium max-w-lg">
-                Criação de LPs estratégicas para campanhas, promoções, serviços,
-                imóveis, cursos, eventos e ações pontuais, com foco em clareza,
-                conversão e contato direto pelo WhatsApp.
-              </p>
-              <p className="text-earth-800 leading-relaxed mb-10 max-w-lg">
-                Se você precisa divulgar uma oferta específica, talvez não
-                precise de um site completo. Uma landing page bem feita pode
-                apresentar sua solução com clareza, valorizar seus diferenciais e
-                levar o visitante para uma ação simples: chamar, cadastrar, pedir
-                orçamento ou agendar uma conversa.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button href={waLink} className="flex-1 sm:flex-none">
-                  Quero criar minha LP
-                  <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
-                </Button>
-                <Button href="#aplicacoes" variant="secondary" className="flex-1 sm:flex-none">
-                  Ver onde usar
-                </Button>
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2} className="relative w-full order-first md:order-last">
-              <InteractiveImage
-                src={images.hero}
-                alt="Apresentação do serviço de Landing Pages"
-                containerClass="bg-sand-100/80 p-2 md:p-3"
-              />
-            </FadeIn>
+        <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center pt-24 pb-24 px-6 overflow-hidden border-b border-sand-400/20">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src={images.hero}
+              alt="Apresentação do serviço de Landing Pages"
+              className="w-full h-full object-cover object-[70%_center] md:object-[80%_center]"
+            />
+            {/* Overlays para garantir a leitura do texto */}
+            <div className="absolute inset-0 bg-sand-100/85 md:hidden backdrop-blur-[2px]"></div>
+            <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-sand-100/95 via-sand-100/85 to-sand-100/20 backdrop-blur-[2px]"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-sand-100 via-transparent to-transparent"></div>
           </div>
-        </Section>
+
+          <div className="max-w-6xl mx-auto relative z-10 w-full">
+            <div className="max-w-2xl lg:max-w-3xl">
+              <FadeIn>
+                <h1 className="text-4xl md:text-5xl lg:text-[64px] font-bold tracking-tight text-earth-900 leading-[1.05] mb-6">
+                  Landing pages simples, bonitas e prontas para divulgar sua
+                  oferta.
+                </h1>
+                <p className="text-base md:text-lg text-earth-900 leading-relaxed mb-6 font-medium max-w-2xl">
+                  Uma landing page é uma página única, feita para apresentar uma oferta específica e levar o visitante a uma ação: chamar no WhatsApp, pedir orçamento, se cadastrar ou agendar uma conversa.
+                </p>
+                <div className="space-y-4 text-lg md:text-xl text-earth-800 leading-relaxed mb-10 max-w-2xl">
+                  <p>
+                    Crio LPs estratégicas para campanhas, promoções, serviços, imóveis, cursos, eventos e ações pontuais, com foco em clareza, conversão e contato direto pelo WhatsApp.
+                  </p>
+                  <p>
+                    Se você precisa divulgar algo de forma objetiva, talvez não precise de um site completo. Precise apenas de uma página clara, bem construída e pensada para gerar contato.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button href={waLink} className="flex-1 sm:flex-none">
+                    Quero criar minha LP
+                    <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
+                  </Button>
+                  <Button href="#aplicacoes" variant="secondary" className="flex-1 sm:flex-none bg-sand-50/50 backdrop-blur-md border-sand-400/50 hover:bg-sand-50/80">
+                    Ver onde usar
+                  </Button>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
 
         {/* 2. Seção de Esclarecimento Rápido */}
         <Section className="bg-sand-50/50 border-y border-sand-400/10">
