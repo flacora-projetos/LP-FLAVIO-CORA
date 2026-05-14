@@ -121,6 +121,33 @@ const Card = ({
   </div>
 );
 
+const InteractiveImage = ({
+  src,
+  alt,
+  className = '',
+  aspectClass = 'bg-sand-100/50',
+  imageClassName = 'object-cover object-center',
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  aspectClass?: string;
+  imageClassName?: string;
+}) => (
+  <div className={`overflow-hidden rounded-[36px] relative border border-sand-400/20 shadow-xl shadow-earth-900/5 flex items-center justify-center ${aspectClass} ${className}`}>
+    <motion.img
+      src={src}
+      alt={alt}
+      className={`w-full h-full transform-gpu origin-center cursor-default ${imageClassName}`}
+      initial={{ scale: 1.04 }}
+      whileInView={{ scale: 1 }}
+      whileHover={{ scale: 1.015 }}
+      transition={{ duration: 0.8, ease: 'easeOut' }}
+      viewport={{ once: true, margin: '-50px 0px -10% 0px' }}
+    />
+  </div>
+);
+
 export default function App() {
   return (
     <div className="min-h-screen bg-sand-100 font-sans selection:bg-terracotta/20">
@@ -188,13 +215,12 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="relative w-full order-first md:order-last">
-              <div className="aspect-[4/3] lg:aspect-square rounded-[36px] overflow-hidden bg-sand-300 relative border border-sand-400/20 shadow-2xl shadow-earth-900/10">
-                <img
-                  src={images.hero}
-                  alt="Apresentação do serviço de Landing Pages"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <InteractiveImage
+                src={images.hero}
+                alt="Apresentação do serviço de Landing Pages"
+                aspectClass="aspect-[4/3] lg:aspect-[5/4] bg-sand-100/80"
+                imageClassName="object-contain p-4 md:p-8"
+              />
             </FadeIn>
           </div>
         </Section>
@@ -275,13 +301,12 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="lg:order-last order-first content-center">
-              <div className="aspect-[4/3] lg:aspect-square rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20 flex">
-                <img
-                  src={images.audience}
-                  alt="Diferentes públicos que podem usar landing pages"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <InteractiveImage
+                src={images.audience}
+                alt="Diferentes públicos que podem usar landing pages"
+                aspectClass="aspect-[4/3] md:aspect-[4/5] bg-sand-100/80"
+                imageClassName="object-contain p-4 md:p-8"
+              />
             </FadeIn>
           </div>
         </Section>
@@ -295,13 +320,12 @@ export default function App() {
           </FadeIn>
 
           <FadeIn className="mb-20 max-w-5xl mx-auto">
-            <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20 bg-sand-100 flex">
-              <img
-                src={images.applications}
-                alt="Exemplos de aplicações práticas"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <InteractiveImage
+              src={images.applications}
+              alt="Exemplos de aplicações práticas"
+              aspectClass="aspect-video md:aspect-[21/9] bg-white"
+              imageClassName="object-contain p-4 md:p-8"
+            />
           </FadeIn>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
@@ -360,13 +384,12 @@ export default function App() {
               </h2>
             </FadeIn>
             <FadeIn delay={0.2} className="mb-16">
-              <div className="aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden shadow-xl shadow-earth-900/10 border border-sand-400/20 bg-sand-100 flex">
-                <img
-                  src={images.problem}
-                  alt="Contraste entre uma jornada confusa e uma clara"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <InteractiveImage
+                src={images.problem}
+                alt="Contraste entre uma jornada confusa e uma clara"
+                aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
+                imageClassName="object-contain p-4 md:p-8"
+              />
             </FadeIn>
             
             <FadeIn delay={0.3}>
@@ -440,13 +463,12 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="lg:order-last order-first content-center relative">
-              <div className="aspect-square rounded-[36px] overflow-hidden border border-sand-400/10 shadow-2xl bg-sand-900 flex">
-                <img
-                  src={images.deliverables}
-                  alt="Processo estruturado de entrega"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <InteractiveImage
+                src={images.deliverables}
+                alt="Processo estruturado de entrega"
+                aspectClass="aspect-square lg:aspect-[4/5] bg-[#282522]"
+                imageClassName="object-contain p-6 md:p-10"
+              />
             </FadeIn>
           </div>
         </Section>
@@ -462,9 +484,12 @@ export default function App() {
           </div>
 
           <FadeIn className="mb-16 max-w-5xl mx-auto">
-            <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg bg-sand-100 flex">
-              <img src={images.differentials} alt="Imagem de apoio" className="w-full h-full object-cover" />
-            </div>
+            <InteractiveImage
+              src={images.differentials}
+              alt="Imagem de apoio"
+              aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
+              imageClassName="object-contain p-4 md:p-8"
+            />
           </FadeIn>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
@@ -522,13 +547,12 @@ export default function App() {
           </FadeIn>
 
           <FadeIn className="mb-16 max-w-5xl mx-auto">
-            <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20 bg-sand-100 flex">
-              <img
-                src={images.process}
-                alt="Etapas do processo"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <InteractiveImage
+              src={images.process}
+              alt="Etapas do processo"
+              aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
+              imageClassName="object-contain p-4 md:p-8"
+            />
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
@@ -558,11 +582,14 @@ export default function App() {
             </h2>
           </FadeIn>
           
-          <FadeIn className="mb-16 max-w-5xl mx-auto">
-             <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg relative bg-sand-100 flex">
-               <img src={images.examples} alt="Exemplos" className="w-full h-full object-cover" />
-               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-             </div>
+          <FadeIn className="mb-16 max-w-5xl mx-auto relative group">
+             <InteractiveImage
+               src={images.examples}
+               alt="Exemplos"
+               aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
+               imageClassName="object-contain p-4 md:p-8"
+             />
+             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none rounded-[36px] transition-opacity duration-1000 group-hover:opacity-40" />
           </FadeIn>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
@@ -604,13 +631,12 @@ export default function App() {
           </div>
 
           <FadeIn className="mb-16 max-w-4xl mx-auto">
-            <div className="w-full aspect-video md:aspect-[16/9] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20 bg-sand-100 flex">
-              <img
-                src={images.comparison}
-                alt="Comparativo visual entre Site completo e Landing Page"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <InteractiveImage
+              src={images.comparison}
+              alt="Comparativo visual entre Site completo e Landing Page"
+              aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
+              imageClassName="object-contain p-4 md:p-8"
+            />
           </FadeIn>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 items-stretch">
@@ -661,9 +687,12 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="relative h-full flex items-end">
-              <div className="w-full aspect-square rounded-[36px] overflow-hidden object-cover border border-sand-400/10 shadow-2xl bg-[#282522] flex">
-                 <img src={images.authority} alt="Autoridade" className="w-full h-full object-cover object-top" />
-              </div>
+              <InteractiveImage
+                src={images.authority}
+                alt="Autoridade"
+                aspectClass="w-full aspect-[4/3] md:aspect-[4/5] bg-[#282522]"
+                imageClassName="object-cover object-top"
+              />
             </FadeIn>
           </div>
         </Section>
