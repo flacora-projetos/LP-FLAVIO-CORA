@@ -653,37 +653,44 @@ export default function App() {
         </Section>
 
         {/* 11. Autoridade */}
-        <Section className="bg-[#1C1A18] text-sand-50 pb-0">
-          <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-center pb-20">
-            <FadeIn>
-              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-sand-50 leading-tight">
-                Feita por quem entende de tráfego, copy e conversão.
-              </h2>
-              <div className="space-y-6 text-sand-300 text-lg leading-relaxed mb-10 max-w-lg">
-                <p>
-                  Meu trabalho une criação de página, visão de marketing e experiência com campanhas de tráfego pago. 
-                </p>
-                <p>
-                  Isso ajuda a construir LPs pensadas para receber visitantes de anúncios, redes sociais e WhatsApp com uma mensagem clara e um caminho simples até a conversão definitiva.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {['Tráfego Pago', 'Copywriting', 'Design de Conversão'].map((tag, i) => (
-                  <span key={i} className="px-5 py-2.5 rounded-full border border-sand-400/20 text-sand-100 text-sm font-semibold tracking-wide bg-white/5 backdrop-blur-sm shadow-sm">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2} className="relative h-full flex items-end">
-              <InteractiveImage
-                src={images.authority}
-                alt="Autoridade"
-                containerClass="w-full bg-[#282522] p-2 md:p-3"
-              />
-            </FadeIn>
+        <section className="relative min-h-[70vh] flex items-center py-24 px-6 overflow-hidden bg-[#1C1A18]">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src={images.authority}
+              alt="Autoridade"
+              className="w-full h-full object-cover object-[70%_center] md:object-[80%_center]"
+            />
+            {/* Overlays para garantir a leitura do texto */}
+            <div className="absolute inset-0 bg-[#1C1A18]/85 md:hidden backdrop-blur-[2px]"></div>
+            <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-[#1C1A18]/95 via-[#1C1A18]/85 to-[#1C1A18]/20 backdrop-blur-[2px]"></div>
           </div>
-        </Section>
+
+          <div className="max-w-6xl mx-auto relative z-10 w-full">
+            <div className="max-w-2xl lg:max-w-3xl">
+              <FadeIn>
+                <h2 className="text-3xl md:text-5xl font-bold mb-8 text-sand-50 leading-tight">
+                  Feita por quem entende de tráfego, copy e conversão.
+                </h2>
+                <div className="space-y-6 text-sand-300 text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
+                  <p>
+                    Meu trabalho une criação de página, visão de marketing e experiência com campanhas de tráfego pago. 
+                  </p>
+                  <p>
+                    Isso ajuda a construir LPs pensadas para receber visitantes de anúncios, redes sociais e WhatsApp com uma mensagem clara e um caminho simples até a conversão definitiva.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {['Tráfego Pago', 'Copywriting', 'Design de Conversão'].map((tag, i) => (
+                    <span key={i} className="px-5 py-2.5 rounded-full border border-sand-400/20 text-sand-100 text-sm font-semibold tracking-wide bg-white/5 backdrop-blur-sm shadow-sm ring-1 ring-white/10">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </section>
 
         {/* 12. Oferta Comercial & CTA */}
         <Section className="bg-terracotta text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
