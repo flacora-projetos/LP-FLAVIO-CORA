@@ -209,14 +209,9 @@ export default function App() {
                 <p className="text-base md:text-lg text-earth-900 leading-relaxed mb-6 font-medium max-w-2xl">
                   Uma landing page é uma página única, feita para apresentar uma oferta específica e levar o visitante a uma ação: chamar no WhatsApp, pedir orçamento, se cadastrar ou agendar uma conversa.
                 </p>
-                <div className="space-y-4 text-lg md:text-xl text-earth-800 leading-relaxed mb-10 max-w-2xl">
-                  <p>
-                    Crio LPs estratégicas para campanhas, promoções, serviços, imóveis, cursos, eventos e ações pontuais, com foco em clareza, conversão e contato direto pelo WhatsApp.
-                  </p>
-                  <p>
-                    Se você precisa divulgar algo de forma objetiva, talvez não precise de um site completo. Precise apenas de uma página clara, bem construída e pensada para gerar contato.
-                  </p>
-                </div>
+                <p className="text-lg md:text-xl text-earth-800 leading-relaxed mb-10 max-w-2xl">
+                  Crio LPs estratégicas para campanhas, promoções, serviços, imóveis, cursos, eventos e ações pontuais, com foco em clareza, conversão e contato direto pelo WhatsApp.
+                </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button href={waLink} className="flex-1 sm:flex-none">
                     Quero criar minha LP
@@ -238,6 +233,9 @@ export default function App() {
               <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
                 Não é um site completo.<br />É uma página feita para gerar ação.
               </h2>
+              <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto mb-6">
+                Se você precisa divulgar algo de forma objetiva, talvez não precise de um site completo. Precise apenas de uma página clara, bem construída e pensada para gerar contato.
+              </p>
               <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto">
                 Meu trabalho é criar landing pages simples e objetivas para
                 campanhas, divulgações pontuais e ofertas específicas.
