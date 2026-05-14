@@ -69,7 +69,7 @@ const Section = ({
   id?: string;
 }) => (
   <section id={id} className={`py-20 md:py-32 px-6 ${className}`}>
-    <div className="max-w-7xl mx-auto">{children}</div>
+    <div className="max-w-6xl mx-auto">{children}</div>
   </section>
 );
 
@@ -85,7 +85,7 @@ const Button = ({
   className?: string;
 }) => {
   const baseStyle =
-    'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 px-8 py-4 text-[16px]';
+    'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 px-8 py-4 text-[16px]';
   const primaryStyle =
     'bg-terracotta text-sand-50 shadow-md shadow-terracotta/20 hover:bg-caramel hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0';
   const secondaryStyle =
@@ -112,12 +112,12 @@ const Card = ({
   title: string;
   text?: string;
 }) => (
-  <div className="bg-sand-50 p-8 rounded-3xl border border-sand-400/30 shadow-sm hover:shadow-md transition-shadow duration-300">
-    <div className="bg-sand-100 w-12 h-12 rounded-2xl flex items-center justify-center mb-6">
+  <div className="h-full bg-sand-50 p-8 rounded-3xl border border-sand-400/30 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col">
+    <div className="bg-sand-100 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shrink-0">
       <Icon className="w-6 h-6 text-copper" />
     </div>
     <h3 className="text-xl font-semibold text-earth-900 mb-3">{title}</h3>
-    {text && <p className="text-earth-800 leading-relaxed">{text}</p>}
+    {text && <p className="text-earth-800 leading-relaxed max-w-[95%]">{text}</p>}
   </div>
 );
 
@@ -125,8 +125,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-sand-100 font-sans selection:bg-terracotta/20">
       {/* Navbar Minimalist */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-sand-100/80 backdrop-blur-md border-b border-sand-400/20">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-sand-100/90 backdrop-blur-md border-b border-sand-400/20 transition-all">
+        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="font-semibold text-earth-900 text-xl tracking-tight">
             Landing Pages
           </div>
@@ -159,18 +159,18 @@ export default function App() {
       <main className="pt-20">
         {/* 1. Hero */}
         <Section className="pb-16 pt-24 md:pt-32">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <FadeIn>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-earth-900 leading-[1.1] mb-6">
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center flex-col-reverse md:flex-row">
+            <FadeIn className="w-full">
+              <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold tracking-tight text-earth-900 leading-[1.1] mb-6">
                 Landing pages simples, bonitas e prontas para divulgar sua
                 oferta.
               </h1>
-              <p className="text-xl text-earth-800 leading-relaxed mb-8 font-medium">
+              <p className="text-xl text-earth-800 leading-relaxed mb-8 font-medium max-w-lg">
                 Criação de LPs estratégicas para campanhas, promoções, serviços,
                 imóveis, cursos, eventos e ações pontuais, com foco em clareza,
                 conversão e contato direto pelo WhatsApp.
               </p>
-              <p className="text-earth-800 leading-relaxed mb-10">
+              <p className="text-earth-800 leading-relaxed mb-10 max-w-lg">
                 Se você precisa divulgar uma oferta específica, talvez não
                 precise de um site completo. Uma landing page bem feita pode
                 apresentar sua solução com clareza, valorizar seus diferenciais e
@@ -178,17 +178,17 @@ export default function App() {
                 orçamento ou agendar uma conversa.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button href={waLink}>
+                <Button href={waLink} className="flex-1 sm:flex-none">
                   Quero criar minha LP
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
                 </Button>
-                <Button href="#aplicacoes" variant="secondary">
-                  Ver onde uma LP pode ser usada
+                <Button href="#aplicacoes" variant="secondary" className="flex-1 sm:flex-none">
+                  Ver onde usar
                 </Button>
               </div>
             </FadeIn>
-            <FadeIn delay={0.2} className="relative">
-              <div className="aspect-[4/3] md:aspect-[3/4] lg:aspect-square rounded-[36px] overflow-hidden bg-sand-300 relative border border-sand-400/20 shadow-xl shadow-earth-900/5">
+            <FadeIn delay={0.2} className="relative w-full order-first md:order-last">
+              <div className="aspect-[4/3] md:aspect-square lg:aspect-[4/5] rounded-[36px] overflow-hidden bg-sand-300 relative border border-sand-400/20 shadow-2xl shadow-earth-900/10">
                 <img
                   src={images.hero}
                   alt="Apresentação do serviço de Landing Pages"
@@ -200,26 +200,26 @@ export default function App() {
         </Section>
 
         {/* 2. Seção de Esclarecimento Rápido */}
-        <Section className="bg-sand-50/50">
+        <Section className="bg-sand-50/50 border-y border-sand-400/10">
           <FadeIn>
             <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-                Não é um site completo. É uma página feita para gerar ação.
+              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
+                Não é um site completo.<br />É uma página feita para gerar ação.
               </h2>
-              <p className="text-lg text-earth-800 leading-relaxed">
+              <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto">
                 Meu trabalho é criar landing pages simples e objetivas para
                 campanhas, divulgações pontuais e ofertas específicas.
                 <br />
-                <br />A ideia não é construir um portal, um site institucional
-                cheio de abas ou uma plataforma complexa. A ideia é criar uma
+                <br />A ideia não é produzir um portal, um site institucional
+                cheio de abas ou uma plataforma complexa. É criar uma
                 página clara, rápida e bem estruturada para apresentar uma oferta
                 e conduzir o visitante para o próximo passo.
               </p>
             </div>
-            <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6 max-w-4xl mx-auto">
               {[
                 { text: 'Campanhas de tráfego pago', icon: Target },
-                { text: 'Promoções e ofertas específicas', icon: Zap },
+                { text: 'Promoções e ofertas', icon: Zap },
                 { text: 'Captação de leads', icon: Users },
                 { text: 'Divulgação de serviços', icon: Briefcase },
                 { text: 'Lançamentos simples', icon: Rocket },
@@ -227,10 +227,14 @@ export default function App() {
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="bg-sand-100 border border-sand-400/40 rounded-full py-3 px-6 flex items-center gap-3 text-earth-900 font-medium whitespace-nowrap"
+                  className="bg-white border border-sand-400/30 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover:border-sand-400/60 transition-colors"
                 >
-                  <item.icon className="w-4 h-4 text-copper" />
-                  {item.text}
+                  <div className="w-10 h-10 rounded-xl bg-sand-50 flex items-center justify-center shrink-0">
+                    <item.icon className="w-5 h-5 text-copper" />
+                  </div>
+                  <span className="text-earth-900 font-semibold text-sm md:text-base leading-tight">
+                    {item.text}
+                  </span>
                 </div>
               ))}
             </div>
@@ -239,17 +243,8 @@ export default function App() {
 
         {/* 3. Para quem é */}
         <Section id="para-quem-e">
-          <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
             <FadeIn>
-              <div className="aspect-[4/5] rounded-[36px] overflow-hidden">
-                <img
-                  src={images.audience}
-                  alt="Diferentes públicos que podem usar landing pages"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2}>
               <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
                 Para quem precisa divulgar uma oferta de forma simples e
                 profissional.
@@ -259,7 +254,7 @@ export default function App() {
                 oferta específica sem distrair o visitante com várias páginas,
                 menus e caminhos desnecessários.
               </p>
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-x-4 gap-y-3">
                 {[
                   'Profissionais liberais',
                   'Prestadores de serviço',
@@ -272,11 +267,20 @@ export default function App() {
                   'Agências (para clientes)',
                   'Eventos e workshops',
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-copper shrink-0 mt-0.5" />
-                    <span className="text-earth-900 font-medium">{item}</span>
+                  <div key={i} className="flex items-center gap-3 bg-sand-50/50 p-3.5 rounded-xl border border-sand-400/20">
+                    <CheckCircle2 className="w-5 h-5 text-copper shrink-0" />
+                    <span className="text-earth-900 font-medium text-sm">{item}</span>
                   </div>
                 ))}
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.2} className="lg:order-last order-first content-center">
+              <div className="aspect-[4/3] lg:aspect-[4/5] rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20">
+                <img
+                  src={images.audience}
+                  alt="Diferentes públicos que podem usar landing pages"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </FadeIn>
           </div>
@@ -290,17 +294,17 @@ export default function App() {
             </h2>
           </FadeIn>
 
-          <FadeIn className="mb-16">
-            <div className="w-full h-48 md:h-80 rounded-[32px] overflow-hidden shadow-lg shadow-earth-900/5">
+          <FadeIn className="mb-20 max-w-5xl mx-auto">
+            <div className="w-full h-64 md:h-[400px] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20">
               <img
                 src={images.applications}
                 alt="Exemplos de aplicações práticas"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-bottom"
               />
             </div>
           </FadeIn>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
             <FadeIn delay={0.1}>
               <Card
                 icon={Briefcase}
@@ -312,7 +316,7 @@ export default function App() {
               <Card
                 icon={LayoutTemplate}
                 title="Venda ou captação para imóveis"
-                text="Transforme um imóvel em uma apresentação digital mais valorizada, com fotos, diferenciais, localização e contato direto."
+                text="Transforme um imóvel em uma apresentação digital mais valorizada, com fotos, diferenciais e contato direto."
               />
             </FadeIn>
             <FadeIn delay={0.3}>
@@ -325,7 +329,7 @@ export default function App() {
             <FadeIn delay={0.4}>
               <Card
                 icon={Zap}
-                title="Promoções e campanhas rápidas"
+                title="Promoções e campanhas"
                 text="Crie uma página específica para uma oferta sazonal, lançamento, condição especial ou campanha comercial."
               />
             </FadeIn>
@@ -339,8 +343,8 @@ export default function App() {
             <FadeIn delay={0.6}>
               <Card
                 icon={Layers}
-                title="E-commerce e produtos pontuais"
-                text="Crie páginas para produtos específicos, kits, coleções, campanhas sazonais ou ações promocionais."
+                title="E-commerce e campanhas pontuais"
+                text="Crie páginas para produtos específicos, kits, coleções, promoções sazonais ou ações bem segmentadas."
               />
             </FadeIn>
           </div>
@@ -348,15 +352,15 @@ export default function App() {
 
         {/* 5. Problema que a LP resolve */}
         <Section>
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-5xl mx-auto text-center">
             <FadeIn>
-              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-12 leading-tight">
+              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-12 leading-tight tracking-tight max-w-4xl mx-auto">
                 Seu anúncio pode chamar atenção. Mas se a página não convence, o
                 clique vira desperdício.
               </h2>
             </FadeIn>
             <FadeIn delay={0.2} className="mb-16">
-              <div className="aspect-[21/9] rounded-[36px] overflow-hidden shadow-xl shadow-earth-900/10">
+              <div className="aspect-[21/9] rounded-[36px] overflow-hidden shadow-xl shadow-earth-900/10 border border-sand-400/20">
                 <img
                   src={images.problem}
                   alt="Contraste entre uma jornada confusa e uma clara"
@@ -364,49 +368,55 @@ export default function App() {
                 />
               </div>
             </FadeIn>
+            
             <FadeIn delay={0.3}>
-              <div className="text-left md:text-center max-w-3xl mx-auto space-y-6 text-lg text-earth-800">
+              <div className="text-left md:text-center max-w-3xl mx-auto space-y-6 text-lg text-earth-800 mb-16">
                 <p>
                   Muita campanha perde resultado porque a pessoa clica no anúncio
                   e cai em uma página confusa, genérica, lenta ou sem um caminho
                   claro de conversão.
                 </p>
-                <p>O visitante precisa entender rapidamente:</p>
-                <div className="flex flex-wrap justify-start md:justify-center gap-3 py-2">
-                  {[
-                    'o que você oferece',
-                    'para quem é',
-                    'qual problema resolve',
-                    'quais são os diferenciais',
-                    'por que confiar',
-                    'qual é o próximo passo',
-                  ].map((item, i) => (
-                    <span
-                      key={i}
-                      className="bg-sand-300/30 text-earth-900 px-4 py-2 rounded-lg font-medium"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
                 <p>
-                  Quando isso não está claro, ele sai da página. E o dinheiro do
-                  tráfego vai embora junto, como se verba de anúncio nascesse em
-                  árvore, essa ficção coletiva tão popular.
+                  Quando as informações não estão claras, o visitante sai da página. E o dinheiro do
+                  tráfego vai embora junto.
                 </p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6 text-left items-stretch">
+                 <div className="h-full bg-sand-50 border border-sand-400/30 p-8 rounded-3xl flex flex-col">
+                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm border border-sand-400/20 shrink-0">
+                      <Search className="w-6 h-6 text-copper" />
+                   </div>
+                   <h3 className="text-xl font-bold text-earth-900 mb-3">Atenção retida</h3>
+                   <p className="text-earth-800 text-sm leading-relaxed text-balance">Uma página organizada responde rápido: o que é, para quem é e por que confiar.</p>
+                 </div>
+                 <div className="h-full bg-sand-50 border border-sand-400/30 p-8 rounded-3xl flex flex-col">
+                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm border border-sand-400/20 shrink-0">
+                      <Zap className="w-6 h-6 text-copper" />
+                   </div>
+                   <h3 className="text-xl font-bold text-earth-900 mb-3">Redução de fricção</h3>
+                   <p className="text-earth-800 text-sm leading-relaxed text-balance">Sem menus ou abas desnecessárias, o usuário foca exclusivamente na sua oferta principal.</p>
+                 </div>
+                 <div className="h-full bg-sand-50 border border-sand-400/30 p-8 rounded-3xl flex flex-col">
+                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm border border-sand-400/20 shrink-0">
+                      <MousePointerClick className="w-6 h-6 text-copper" />
+                   </div>
+                   <h3 className="text-xl font-bold text-earth-900 mb-3">Ação direta</h3>
+                   <p className="text-earth-800 text-sm leading-relaxed text-balance">Um botão CTA visível e direto aumenta absurdamente a chance de geração de contato ou lead.</p>
+                 </div>
               </div>
             </FadeIn>
           </div>
         </Section>
 
         {/* 6. O que eu entrego */}
-        <Section className="bg-earth-900 text-sand-50">
+        <Section className="bg-[#1C1A18] text-sand-50">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-sand-50">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-sand-50 leading-tight">
                 Uma landing page pensada do briefing até o botão final.
               </h2>
-              <p className="text-sand-300 text-lg mb-10 leading-relaxed">
+              <p className="text-sand-300 text-lg mb-10 leading-relaxed max-w-lg">
                 A criação da LP inclui estratégia, texto, estrutura e orientação
                 visual. A página é construída para ser simples de navegar,
                 bonita no celular e focada em conversão.
@@ -414,28 +424,23 @@ export default function App() {
               <div className="space-y-4">
                 {[
                   'Organização do briefing da oferta',
-                  'Definição do público-alvo da página',
-                  'Estrutura estratégica da LP',
                   'Headline, subtítulos e copy completa',
                   'Seções de benefícios, diferenciais e prova',
-                  'Chamadas para ação ao longo da página',
                   'Direção visual compatível com sua marca',
-                  'Orientação de uso de materiais reais',
                   'Botões para WhatsApp ou formulário',
-                  'Página publicada (hospedagem grátis p/ projetos simples)',
-                  'Ajustes básicos após a primeira versão',
+                  'Página publicada (hospedagem simples grátis)',
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <div className="w-6 h-6 rounded-full bg-copper/20 flex items-center justify-center shrink-0 mt-0.5">
-                      <div className="w-2 h-2 rounded-full bg-copper" />
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-6 h-6 rounded-full bg-copper/20 flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-copper" />
                     </div>
-                    <span className="text-sand-100 font-medium">{item}</span>
+                    <span className="text-sand-100 font-medium md:text-lg">{item}</span>
                   </div>
                 ))}
               </div>
             </FadeIn>
-            <FadeIn delay={0.2} className="lg:order-last order-first">
-              <div className="aspect-[3/4] rounded-[36px] overflow-hidden border border-sand-400/10">
+            <FadeIn delay={0.2} className="lg:order-last order-first content-center relative">
+              <div className="aspect-[4/5] rounded-[36px] overflow-hidden border border-sand-400/10 shadow-2xl">
                 <img
                   src={images.deliverables}
                   alt="Processo estruturado de entrega"
@@ -456,93 +461,90 @@ export default function App() {
             </FadeIn>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr_auto_1fr] gap-8 items-center">
-            <div className="space-y-8">
-              <FadeIn delay={0.1}>
-                <Card
-                  icon={Search}
-                  title="Copy pensada para conversão"
-                  text="O texto não é só decorativo. Ele organiza a oferta, antecipa dúvidas e conduz a pessoa para a ação."
-                />
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <Card
-                  icon={Smartphone}
-                  title="Visual moderno e direto"
-                  text="Layout limpo, responsivo e com boa leitura no celular, sem excesso de blocos disputando atenção."
-                />
-              </FadeIn>
-              <FadeIn delay={0.3}>
-                <Card
-                  icon={Crosshair}
-                  title="Feita para campanhas"
-                  text="A página já nasce pensando em anúncios, cliques, tráfego frio, escaneabilidade e conversão."
-                />
-              </FadeIn>
+          <FadeIn className="mb-16 max-w-5xl mx-auto">
+            <div className="w-full aspect-[21/9] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg">
+              <img src={images.differentials} alt="Imagem de apoio" className="w-full h-full object-cover" />
             </div>
-            
-            <FadeIn delay={0.4} className="hidden lg:block w-[320px]">
-              <div className="aspect-[9/16] rounded-[36px] overflow-hidden bg-sand-300">
-                <img src={images.differentials} alt="Imagem de apoio" className="w-full h-full object-cover" />
-              </div>
-            </FadeIn>
+          </FadeIn>
 
-            <div className="space-y-8">
-              <FadeIn delay={0.5}>
-                <Card
-                  icon={TrendingUp}
-                  title="Baixo custo de criação"
-                  text="Uma solução mais acessível para quem precisa de uma presença digital pontual, sem contratar um projeto grande."
-                />
-              </FadeIn>
-              <FadeIn delay={0.6}>
-                <Card
-                  icon={ShieldCheck}
-                  title="Hospedagem gratuita (p/ simples)"
-                  text="A LP pode ser publicada em uma estrutura moderna com custo zero de hospedagem para projetos dentro dos limites."
-                />
-              </FadeIn>
-              <FadeIn delay={0.7}>
-                <Card
-                  icon={MessageCircle}
-                  title="Foco em WhatsApp e contato rápido"
-                  text="Ideal para negócios que querem levar o visitante direto para conversa, orçamento ou atendimento comercial."
-                />
-              </FadeIn>
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+            <FadeIn delay={0.1}>
+              <Card
+                icon={Search}
+                title="Copy focada"
+                text="O texto não é só decorativo. Ele organiza a oferta, antecipa dúvidas e conduz a pessoa para a ação."
+              />
+            </FadeIn>
+            <FadeIn delay={0.2}>
+              <Card
+                icon={Smartphone}
+                title="Visual moderno"
+                text="Layout limpo, responsivo e com boa leitura no celular, sem excesso de blocos disputando atenção."
+              />
+            </FadeIn>
+            <FadeIn delay={0.3}>
+              <Card
+                icon={Crosshair}
+                title="Feita para campanhas"
+                text="A página já nasce pensando em anúncios, cliques, tráfego frio, escaneabilidade e foco na conversão."
+              />
+            </FadeIn>
+            <FadeIn delay={0.4}>
+              <Card
+                icon={TrendingUp}
+                title="Custo-benefício"
+                text="Uma solução acessível para quem precisa de uma presença digital pontual, sem contratar um projeto grande e caro."
+              />
+            </FadeIn>
+            <FadeIn delay={0.5}>
+              <Card
+                icon={ShieldCheck}
+                title="Hospedagem gratuita"
+                text="A LP pode ser publicada em uma estrutura moderna com custo zero de hospedagem para pequenos projetos."
+              />
+            </FadeIn>
+            <FadeIn delay={0.6}>
+              <Card
+                icon={MessageCircle}
+                title="Foco em WhatsApp"
+                text="Ideal para negócios que querem levar o visitante direto para conversa, orçamento rápido ou atendimento ágil."
+              />
+            </FadeIn>
           </div>
         </Section>
 
         {/* 8. Como funciona */}
-        <Section className="bg-sand-50/80">
+        <Section className="bg-sand-50 border-t border-sand-400/20">
           <FadeIn className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
               Um processo simples para tirar sua oferta do improviso.
             </h2>
           </FadeIn>
 
-          <FadeIn className="mb-16">
-            <div className="w-full h-48 md:h-72 rounded-[32px] overflow-hidden">
+          <FadeIn className="mb-16 max-w-5xl mx-auto">
+            <div className="w-full h-48 md:h-[400px] rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20">
               <img
                 src={images.process}
                 alt="Etapas do processo"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-bottom"
               />
             </div>
           </FadeIn>
 
-          <div className="grid md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
             {[
               { num: '1', title: 'Briefing', text: 'Você envia as informações, fotos e canais.' },
               { num: '2', title: 'Estratégia', text: 'Organizo a estrutura, benefícios e CTAs.' },
-              { num: '3', title: 'Copy & Visual', text: 'Texto comercial e direção visual.' },
+              { num: '3', title: 'Copy & Visual', text: 'Texto comercial e direção visual adequadas.' },
               { num: '4', title: 'Construção', text: 'Montagem focada em velocidade e mobile.' },
               { num: '5', title: 'Publicação', text: 'Pronta para anúncios, Insta e WhatsApp.' },
             ].map((step, i) => (
-              <FadeIn key={i} delay={i * 0.1} className="bg-sand-100 p-6 rounded-3xl border border-sand-400/30">
-                <div className="text-4xl font-black text-sand-300 mb-4">{step.num}</div>
-                <h3 className="font-bold text-earth-900 mb-2">{step.title}</h3>
-                <p className="text-sm text-earth-800">{step.text}</p>
+              <FadeIn key={i} delay={i * 0.1} className="bg-white p-6 rounded-3xl border border-sand-400/30 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform">
+                <div className="w-12 h-12 rounded-full bg-sand-100 text-copper font-bold text-xl flex items-center justify-center mb-6 shadow-inner ring-1 ring-sand-400/20">
+                  {step.num}
+                </div>
+                <h3 className="font-bold text-earth-900 mb-3">{step.title}</h3>
+                <p className="text-sm text-earth-800 leading-relaxed text-balance">{step.text}</p>
               </FadeIn>
             ))}
           </div>
@@ -556,38 +558,35 @@ export default function App() {
             </h2>
           </FadeIn>
           
-          <FadeIn className="mb-16 scale-100">
-             <div className="w-full h-32 md:h-64 rounded-3xl overflow-hidden grayscale contrast-125 opacity-80 mix-blend-multiply">
-               {/* Usar a imagem como faixa, mas a instrução pedia imagem na vitrine */}
-               <img src={images.examples} alt="Exemplos" className="w-full h-full object-cover hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+          <FadeIn className="mb-16 max-w-5xl mx-auto">
+             <div className="w-full h-48 md:h-[400px] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg relative">
+               <img src={images.examples} alt="Exemplos" className="w-full h-full object-cover" />
+               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
              </div>
           </FadeIn>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8 max-w-5xl mx-auto">
-            <FadeIn delay={0.1}>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para venda de imóvel</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para captação de curso</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para profissional liberal</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para clínica estética</li>
-              </ul>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para WhatsApp</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para evento presencial</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para aula gratuita</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para mentoria</li>
-              </ul>
-            </FadeIn>
-            <FadeIn delay={0.3}>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para serviço local</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para lançamento simples</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para consultoria</li>
-                <li className="flex items-center gap-3 text-earth-900 font-medium"><PanelTop className="w-5 h-5 text-copper"/> LP para e-commerce (sazonal)</li>
-              </ul>
-            </FadeIn>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {[
+              'Venda de imóvel',
+              'Captação de curso',
+              'Profissional liberal',
+              'Clínica estética',
+              'Página de WhatsApp',
+              'Evento presencial',
+              'Aula gratuita',
+              'Consultoria',
+              'Serviço local',
+              'Lançamento simples',
+              'E-commerce sazonal',
+              'Campanhas B2B',
+            ].map((item, i) => (
+               <FadeIn delay={i * 0.05} key={i}>
+                 <div className="bg-sand-50 border border-sand-400/30 px-3 py-4 rounded-2xl flex flex-col sm:flex-row items-center gap-3 font-semibold text-earth-900 justify-center text-center shadow-sm h-full hover:border-sand-400/60 transition-colors">
+                    <PanelTop className="w-5 h-5 text-copper shrink-0 hidden sm:block opacity-80"/>
+                    <span className="text-sm tracking-tight text-balance">{item}</span>
+                 </div>
+               </FadeIn>
+            ))}
           </div>
           <FadeIn delay={0.4} className="mt-12 text-center text-earth-800 text-sm max-w-2xl mx-auto italic">
             Todas são páginas simples, diretas e focadas em uma ação principal. Não são sites completos com várias páginas.
@@ -595,17 +594,17 @@ export default function App() {
         </Section>
 
         {/* 10. Comparativo */}
-        <Section className="bg-sand-300/20">
+        <Section className="bg-sand-100 border-t border-sand-400/20">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-                Você talvez não precise de um site completo. Talvez precise de uma página que venda uma ideia com clareza.
+              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
+                Você talvez não precise de um site completo. Talvez precise de <span className="text-copper">clareza</span>.
               </h2>
             </FadeIn>
           </div>
 
-          <FadeIn className="mb-16">
-            <div className="w-full h-48 md:h-80 rounded-[32px] overflow-hidden shadow-lg shadow-earth-900/5">
+          <FadeIn className="mb-16 max-w-4xl mx-auto">
+            <div className="w-full h-48 md:h-[400px] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20">
               <img
                 src={images.comparison}
                 alt="Comparativo visual entre Site completo e Landing Page"
@@ -614,101 +613,108 @@ export default function App() {
             </div>
           </FadeIn>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
-            <FadeIn delay={0.1} className="bg-sand-50 p-8 rounded-3xl border border-sand-400/40">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 items-stretch">
+            <FadeIn delay={0.1} className="bg-sand-50 p-8 md:p-10 rounded-3xl border border-sand-400/40 h-full flex flex-col hover:border-sand-400/60 transition-colors">
               <h3 className="text-2xl font-bold text-earth-900 mb-6 pb-4 border-b border-sand-400/30">Site tradicional</h3>
-              <ul className="space-y-4">
-                {['Mais páginas', 'Mais tempo de produção', 'Mais custo', 'Mais manutenção', 'Mais distrações', 'Melhor para presença institucional ampla'].map((item, i) => (
-                   <li key={i} className="flex items-center gap-3 text-earth-800 font-medium before:content-[''] before:w-1.5 before:h-1.5 before:bg-earth-800/30 before:rounded-full">{item}</li>
+              <ul className="space-y-4 md:space-y-6 flex-1">
+                {['Mais páginas e complexidade', 'Mais tempo de produção', 'Custo muito mais elevado', 'Mais manutenção mensal', 'Mais distrações para o usuário', 'Melhor para presença institucional ampla'].map((item, i) => (
+                   <li key={i} className="flex items-center gap-4 text-earth-800 font-medium before:content-[''] before:w-1.5 before:h-1.5 before:bg-earth-800/30 before:rounded-full before:shrink-0">{item}</li>
                 ))}
               </ul>
             </FadeIn>
-            <FadeIn delay={0.2} className="bg-white p-8 rounded-3xl shadow-xl shadow-earth-900/5 ring-1 ring-terracotta/20 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-terracotta/5 rounded-full blur-2xl transform translate-x-1/2 -translate-y-1/2" />
-              <h3 className="text-2xl font-bold text-terracotta mb-6 pb-4 border-b border-sand-400/30">Landing page</h3>
-              <ul className="space-y-4 relative">
-                {['Uma oferta específica', 'Produção mais rápida', 'Custo menor', 'Foco em conversão', 'Ideal para anúncios', 'Melhor para campanhas pontuais'].map((item, i) => (
-                   <li key={i} className="flex items-center gap-3 text-earth-900 font-medium before:content-[''] before:w-1.5 before:h-1.5 before:bg-terracotta/60 before:rounded-full">{item}</li>
+            <FadeIn delay={0.2} className="bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-earth-900/5 ring-1 ring-terracotta/20 relative overflow-hidden h-full flex flex-col">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-terracotta/5 rounded-full blur-3xl pointer-events-none" />
+              <h3 className="text-2xl font-bold text-terracotta mb-6 pb-4 border-b border-sand-400/30 relative">Landing page</h3>
+              <ul className="space-y-4 md:space-y-6 relative flex-1">
+                {['Uma oferta específica e clara', 'Produção enxuta e rápida', 'Custo altamente eficiente', 'Foco 100% em conversão', 'Ideal para receber anúncios', 'Melhor para campanhas pontuais'].map((item, i) => (
+                   <li key={i} className="flex items-center gap-4 text-earth-900 font-medium before:content-[''] before:w-1.5 before:h-1.5 before:bg-terracotta/60 before:rounded-full before:shrink-0">{item}</li>
                 ))}
               </ul>
             </FadeIn>
           </div>
           <FadeIn delay={0.3} className="text-center max-w-3xl mx-auto text-lg text-earth-800 leading-relaxed font-medium">
-            Se o objetivo é divulgar uma oferta específica e gerar ação, uma LP bem feita pode ser mais eficiente do que um site cheio de abas que ninguém vai visitar.
+            Se o objetivo é divulgar uma oferta específica e gerar ação, uma LP bem feita pode ser muito mais eficiente do que um site cheio de abas que ninguém vai ler.
           </FadeIn>
         </Section>
 
-        {/* 11. Autoridade / CTA Final */}
-        <Section className="bg-earth-900 text-sand-50 pb-0">
-          <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-end pb-20">
+        {/* 11. Autoridade */}
+        <Section className="bg-[#1C1A18] text-sand-50 pb-0">
+          <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-center pb-20">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-sand-50">
+              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-sand-50 leading-tight">
                 Feita por quem entende de tráfego, copy e conversão.
               </h2>
-              <div className="space-y-6 text-sand-300 text-lg leading-relaxed mb-12">
+              <div className="space-y-6 text-sand-300 text-lg leading-relaxed mb-10 max-w-lg">
                 <p>
-                  Meu trabalho une criação de página, visão de marketing e experiência com campanhas de tráfego pago. Isso ajuda a construir LPs que não são apenas bonitas, mas pensadas para receber visitantes de anúncios, redes sociais e WhatsApp com uma mensagem clara e um caminho de conversão bem definido.
+                  Meu trabalho une criação de página, visão de marketing e experiência com campanhas de tráfego pago. 
                 </p>
                 <p>
-                  A página é criada com raciocínio comercial: o que destacar, o que cortar, qual ordem usar, onde posicionar os botões e como transformar características soltas em argumentos que fazem sentido para o público.
+                  Isso ajuda a construir LPs pensadas para receber visitantes de anúncios, redes sociais e WhatsApp com uma mensagem clara e um caminho simples até a conversão definitiva.
                 </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {['Tráfego Pago', 'Copywriting', 'Design de Conversão'].map((tag, i) => (
+                  <span key={i} className="px-5 py-2.5 rounded-full border border-sand-400/20 text-sand-100 text-sm font-semibold tracking-wide bg-white/5 backdrop-blur-sm shadow-sm">
+                    {tag}
+                  </span>
+                ))}
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="relative h-full flex items-end">
-              <div className="w-full aspect-square rounded-t-[36px] overflow-hidden -mb-20 object-cover">
+              <div className="w-full aspect-square md:aspect-[4/5] rounded-[36px] overflow-hidden object-cover border border-sand-400/10 shadow-2xl bg-[#282522]">
                  <img src={images.authority} alt="Autoridade" className="w-full h-full object-cover object-top" />
               </div>
             </FadeIn>
           </div>
         </Section>
 
-        {/* 12. Oferta Comercial & CTA Final */}
-        <Section className="bg-terracotta text-sand-50 text-center py-24 md:py-32">
-          <FadeIn className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-sand-50 leading-tight">
+        {/* 12. Oferta Comercial & CTA */}
+        <Section className="bg-terracotta text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 to-transparent pointer-events-none" />
+          <FadeIn className="max-w-4xl mx-auto relative">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 text-sand-50 leading-tight tracking-tight">
               Uma LP profissional sem o custo pesado de um site completo.
             </h2>
             <p className="text-xl text-sand-100/90 mb-6 leading-relaxed max-w-3xl mx-auto">
-              Ideal para quem precisa validar uma oferta, rodar uma campanha, divulgar um serviço ou criar uma presença digital específica sem entrar em um projeto caro e demorado.
+              Ideal para quem precisa validar uma oferta, rodar uma campanha, divulgar um serviço ou criar uma presença digital específica sem entrar em um projeto demorado.
             </p>
-            <p className="text-lg text-sand-100/90 mb-12 leading-relaxed max-w-3xl mx-auto font-medium">
-              Você recebe uma página objetiva, moderna e focada em conversão, com custo acessível de criação e <span className="underline decoration-sand-300 underline-offset-4">hospedagem gratuita para projetos simples</span>.
+            <p className="text-xl md:text-2xl text-sand-50 mb-12 leading-relaxed max-w-3xl mx-auto font-medium">
+              Você recebe uma página objetiva e focada, com <span className="underline decoration-sand-300 underline-offset-4">baixo custo de criação e hospedagem gratuita</span> para projetos simples.
             </p>
             
-            <div className="bg-white/10 border border-white/20 p-6 rounded-2xl text-sm text-sand-100/80 mb-12 max-w-2xl mx-auto leading-relaxed">
-              <strong>Observação importante:</strong> A hospedagem gratuita se aplica a páginas simples, dentro dos limites técnicos da estrutura utilizada. Projetos maiores, com banco de dados, áreas logadas, integrações complexas, e-commerce completo ou alto volume de tráfego podem exigir outra estrutura.
-            </div>
-
-            <Button href={waLink} className="bg-sand-50 text-terracotta hover:bg-white hover:shadow-xl shadow-black/10 scale-105">
+            <Button href={waLink} className="bg-sand-50 text-terracotta hover:bg-white hover:shadow-2xl hover:-translate-y-1 shadow-black/10 scale-100 font-bold text-lg px-10 py-5 transition-all mb-12">
               Quero criar minha LP
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="ml-2 w-6 h-6" />
             </Button>
+            
+            <div className="bg-black/15 border border-black/10 p-6 rounded-2xl text-sm md:text-base text-sand-100 mb-4 max-w-3xl mx-auto leading-relaxed shadow-inner">
+              <strong>Observação importante:</strong> A hospedagem gratuita se aplica a páginas simples, dentro dos limites técnicos da estrutura utilizada. Projetos maiores ou complexos podem exigir outra estrutura.
+            </div>
           </FadeIn>
         </Section>
 
         {/* 13. Rodapé Simplificado / Último CTA */}
-        <Section className="bg-sand-100 py-24">
-          <FadeIn className="max-w-2xl mx-auto text-center">
-            <Lightbulb className="w-12 h-12 text-copper mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-earth-900 mb-6">
-              Quer transformar sua oferta em uma página clara, bonita e pronta para gerar contatos?
+        <Section className="bg-sand-50 pb-16 pt-24 border-b border-sand-400/20">
+          <FadeIn className="max-w-3xl mx-auto text-center">
+            <Lightbulb className="w-12 h-12 text-copper mx-auto mb-8 drop-shadow-sm" />
+            <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-8 tracking-tight">
+              Quer transformar sua oferta em uma página pronta para gerar contatos?
             </h2>
-            <p className="text-lg text-earth-800 mb-10 leading-relaxed font-medium">
-              Me envie sua ideia, serviço, produto, imóvel, campanha ou promoção. Eu te ajudo a organizar a oferta e transformar isso em uma landing page profissional, com foco em conversão e custo acessível.
+            <p className="text-xl text-earth-800 mb-10 leading-relaxed font-medium">
+              Me envie sua ideia e eu te ajudo a transformar sua oferta em uma landing page profissional, clara e bonita, com custo acessível.
             </p>
-            <Button href={waLink} variant="primary">
-              <MessageCircle className="mr-2 w-5 h-5" />
+            <Button href={waLink} variant="primary" className="shadow-lg hover:shadow-xl px-10 py-5 text-lg font-bold group">
+              <MessageCircle className="mr-2 w-6 h-6 group-hover:scale-110 transition-transform" />
               Falar sobre minha landing page
             </Button>
           </FadeIn>
         </Section>
         
         {/* Footer Real */}
-        <footer className="py-8 border-t border-sand-400/20 text-center text-earth-800 text-sm">
+        <footer className="py-8 bg-sand-100 text-center text-earth-800 text-sm font-medium">
           <p>© {new Date().getFullYear()} • Criação de Landing Pages Estratégicas</p>
         </footer>
       </main>
     </div>
   );
 }
-
