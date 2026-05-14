@@ -68,7 +68,7 @@ const Section = ({
   className?: string;
   id?: string;
 }) => (
-  <section id={id} className={`py-20 md:py-32 px-6 ${className}`}>
+  <section id={id} className={`py-20 md:py-32 px-6 scroll-mt-24 ${className}`}>
     <div className="max-w-6xl mx-auto">{children}</div>
   </section>
 );
@@ -125,24 +125,24 @@ const InteractiveImage = ({
   src,
   alt,
   className = '',
-  aspectClass = 'bg-sand-100/50',
-  imageClassName = 'object-cover object-center',
+  containerClass = 'bg-white p-2 md:p-3',
+  imageClass = 'h-auto object-contain',
 }: {
   src: string;
   alt: string;
   className?: string;
-  aspectClass?: string;
-  imageClassName?: string;
+  containerClass?: string;
+  imageClass?: string;
 }) => (
-  <div className={`overflow-hidden rounded-[36px] relative border border-sand-400/20 shadow-xl shadow-earth-900/5 flex items-center justify-center ${aspectClass} ${className}`}>
+  <div className={`rounded-[32px] md:rounded-[36px] relative border border-sand-400/20 shadow-xl shadow-earth-900/5 flex items-center justify-center ${containerClass} ${className}`}>
     <motion.img
       src={src}
       alt={alt}
-      className={`w-full h-full transform-gpu origin-center cursor-default ${imageClassName}`}
-      initial={{ scale: 1.04 }}
+      className={`w-full rounded-[24px] md:rounded-[28px] transform-gpu origin-center cursor-default ${imageClass}`}
+      initial={{ scale: 1.02 }}
       whileInView={{ scale: 1 }}
       whileHover={{ scale: 1.015 }}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       viewport={{ once: true, margin: '-50px 0px -10% 0px' }}
     />
   </div>
@@ -218,8 +218,7 @@ export default function App() {
               <InteractiveImage
                 src={images.hero}
                 alt="Apresentação do serviço de Landing Pages"
-                aspectClass="aspect-[4/3] lg:aspect-[5/4] bg-sand-100/80"
-                imageClassName="object-contain p-4 md:p-8"
+                containerClass="bg-sand-100/80 p-2 md:p-3"
               />
             </FadeIn>
           </div>
@@ -304,8 +303,7 @@ export default function App() {
               <InteractiveImage
                 src={images.audience}
                 alt="Diferentes públicos que podem usar landing pages"
-                aspectClass="aspect-[4/3] md:aspect-[4/5] bg-sand-100/80"
-                imageClassName="object-contain p-4 md:p-8"
+                containerClass="bg-sand-100/80 p-2 md:p-3"
               />
             </FadeIn>
           </div>
@@ -319,12 +317,10 @@ export default function App() {
             </h2>
           </FadeIn>
 
-          <FadeIn className="mb-20 max-w-5xl mx-auto">
+          <FadeIn className="mb-16 max-w-5xl mx-auto">
             <InteractiveImage
               src={images.applications}
               alt="Exemplos de aplicações práticas"
-              aspectClass="aspect-video md:aspect-[21/9] bg-white"
-              imageClassName="object-contain p-4 md:p-8"
             />
           </FadeIn>
 
@@ -387,8 +383,6 @@ export default function App() {
               <InteractiveImage
                 src={images.problem}
                 alt="Contraste entre uma jornada confusa e uma clara"
-                aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
-                imageClassName="object-contain p-4 md:p-8"
               />
             </FadeIn>
             
@@ -466,8 +460,7 @@ export default function App() {
               <InteractiveImage
                 src={images.deliverables}
                 alt="Processo estruturado de entrega"
-                aspectClass="aspect-square lg:aspect-[4/5] bg-[#282522]"
-                imageClassName="object-contain p-6 md:p-10"
+                containerClass="bg-[#282522] p-2 md:p-3"
               />
             </FadeIn>
           </div>
@@ -487,8 +480,6 @@ export default function App() {
             <InteractiveImage
               src={images.differentials}
               alt="Imagem de apoio"
-              aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
-              imageClassName="object-contain p-4 md:p-8"
             />
           </FadeIn>
 
@@ -546,12 +537,10 @@ export default function App() {
             </h2>
           </FadeIn>
 
-          <FadeIn className="mb-16 max-w-5xl mx-auto">
+          <FadeIn className="mb-10 max-w-5xl mx-auto">
             <InteractiveImage
               src={images.process}
               alt="Etapas do processo"
-              aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
-              imageClassName="object-contain p-4 md:p-8"
             />
           </FadeIn>
 
@@ -582,14 +571,11 @@ export default function App() {
             </h2>
           </FadeIn>
           
-          <FadeIn className="mb-16 max-w-5xl mx-auto relative group">
+          <FadeIn className="mb-12 max-w-5xl mx-auto relative group">
              <InteractiveImage
                src={images.examples}
                alt="Exemplos"
-               aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
-               imageClassName="object-contain p-4 md:p-8"
              />
-             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none rounded-[36px] transition-opacity duration-1000 group-hover:opacity-40" />
           </FadeIn>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
@@ -630,12 +616,10 @@ export default function App() {
             </FadeIn>
           </div>
 
-          <FadeIn className="mb-16 max-w-4xl mx-auto">
+          <FadeIn className="mb-12 max-w-4xl mx-auto">
             <InteractiveImage
               src={images.comparison}
               alt="Comparativo visual entre Site completo e Landing Page"
-              aspectClass="aspect-[4/3] md:aspect-[21/9] bg-white"
-              imageClassName="object-contain p-4 md:p-8"
             />
           </FadeIn>
 
@@ -690,8 +674,7 @@ export default function App() {
               <InteractiveImage
                 src={images.authority}
                 alt="Autoridade"
-                aspectClass="w-full aspect-[4/3] md:aspect-[4/5] bg-[#282522]"
-                imageClassName="object-cover object-top"
+                containerClass="w-full bg-[#282522] p-2 md:p-3"
               />
             </FadeIn>
           </div>
