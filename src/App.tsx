@@ -188,7 +188,7 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="relative w-full order-first md:order-last">
-              <div className="aspect-[4/3] md:aspect-square lg:aspect-[4/5] rounded-[36px] overflow-hidden bg-sand-300 relative border border-sand-400/20 shadow-2xl shadow-earth-900/10">
+              <div className="aspect-[4/3] lg:aspect-square rounded-[36px] overflow-hidden bg-sand-300 relative border border-sand-400/20 shadow-2xl shadow-earth-900/10">
                 <img
                   src={images.hero}
                   alt="Apresentação do serviço de Landing Pages"
@@ -275,7 +275,7 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="lg:order-last order-first content-center">
-              <div className="aspect-[4/3] lg:aspect-[4/5] rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20">
+              <div className="aspect-[4/3] lg:aspect-square rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20 flex">
                 <img
                   src={images.audience}
                   alt="Diferentes públicos que podem usar landing pages"
@@ -295,11 +295,11 @@ export default function App() {
           </FadeIn>
 
           <FadeIn className="mb-20 max-w-5xl mx-auto">
-            <div className="w-full h-64 md:h-[400px] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20">
+            <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20 bg-sand-100 flex">
               <img
                 src={images.applications}
                 alt="Exemplos de aplicações práticas"
-                className="w-full h-full object-cover object-bottom"
+                className="w-full h-full object-cover"
               />
             </div>
           </FadeIn>
@@ -360,7 +360,7 @@ export default function App() {
               </h2>
             </FadeIn>
             <FadeIn delay={0.2} className="mb-16">
-              <div className="aspect-[21/9] rounded-[36px] overflow-hidden shadow-xl shadow-earth-900/10 border border-sand-400/20">
+              <div className="aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden shadow-xl shadow-earth-900/10 border border-sand-400/20 bg-sand-100 flex">
                 <img
                   src={images.problem}
                   alt="Contraste entre uma jornada confusa e uma clara"
@@ -440,7 +440,7 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="lg:order-last order-first content-center relative">
-              <div className="aspect-[4/5] rounded-[36px] overflow-hidden border border-sand-400/10 shadow-2xl">
+              <div className="aspect-square rounded-[36px] overflow-hidden border border-sand-400/10 shadow-2xl bg-sand-900 flex">
                 <img
                   src={images.deliverables}
                   alt="Processo estruturado de entrega"
@@ -462,7 +462,7 @@ export default function App() {
           </div>
 
           <FadeIn className="mb-16 max-w-5xl mx-auto">
-            <div className="w-full aspect-[21/9] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg">
+            <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg bg-sand-100 flex">
               <img src={images.differentials} alt="Imagem de apoio" className="w-full h-full object-cover" />
             </div>
           </FadeIn>
@@ -522,11 +522,11 @@ export default function App() {
           </FadeIn>
 
           <FadeIn className="mb-16 max-w-5xl mx-auto">
-            <div className="w-full h-48 md:h-[400px] rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20">
+            <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden shadow-lg border border-sand-400/20 bg-sand-100 flex">
               <img
                 src={images.process}
                 alt="Etapas do processo"
-                className="w-full h-full object-cover object-bottom"
+                className="w-full h-full object-cover"
               />
             </div>
           </FadeIn>
@@ -559,7 +559,7 @@ export default function App() {
           </FadeIn>
           
           <FadeIn className="mb-16 max-w-5xl mx-auto">
-             <div className="w-full h-48 md:h-[400px] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg relative">
+             <div className="w-full aspect-video md:aspect-[16/9] lg:aspect-[21/9] rounded-[36px] overflow-hidden border border-sand-400/20 shadow-lg relative bg-sand-100 flex">
                <img src={images.examples} alt="Exemplos" className="w-full h-full object-cover" />
                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
              </div>
@@ -604,7 +604,7 @@ export default function App() {
           </div>
 
           <FadeIn className="mb-16 max-w-4xl mx-auto">
-            <div className="w-full h-48 md:h-[400px] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20">
+            <div className="w-full aspect-video md:aspect-[16/9] rounded-[36px] overflow-hidden shadow-lg shadow-earth-900/5 border border-sand-400/20 bg-sand-100 flex">
               <img
                 src={images.comparison}
                 alt="Comparativo visual entre Site completo e Landing Page"
@@ -661,7 +661,7 @@ export default function App() {
               </div>
             </FadeIn>
             <FadeIn delay={0.2} className="relative h-full flex items-end">
-              <div className="w-full aspect-square md:aspect-[4/5] rounded-[36px] overflow-hidden object-cover border border-sand-400/10 shadow-2xl bg-[#282522]">
+              <div className="w-full aspect-square rounded-[36px] overflow-hidden object-cover border border-sand-400/10 shadow-2xl bg-[#282522] flex">
                  <img src={images.authority} alt="Autoridade" className="w-full h-full object-cover object-top" />
               </div>
             </FadeIn>
