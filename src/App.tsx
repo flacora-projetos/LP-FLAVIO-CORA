@@ -152,12 +152,12 @@ export default function App() {
   return (
     <div className="min-h-screen bg-sand-100 font-sans selection:bg-terracotta/20">
       {/* Navbar Minimalist */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-sand-100/90 backdrop-blur-md border-b border-sand-400/20 transition-all">
+      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-sand-100/90 backdrop-blur-md border-b border-sand-400/20 transition-all">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="font-semibold text-earth-900 text-xl tracking-tight">
             
           </div>
-          <div className="hidden md:flex items-center gap-8">
+          <div className="flex items-center gap-8">
             <a
               href="#para-quem-e"
               className="text-earth-800 hover:text-terracotta transition-colors text-sm font-medium"
@@ -183,9 +183,9 @@ export default function App() {
         </div>
       </nav>
 
-      <main className="pt-20">
+      <main className="md:pt-20">
         {/* 1. Hero */}
-        <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center pt-24 pb-24 px-6 overflow-hidden border-b border-sand-400/20">
+        <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center pt-16 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400/20">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <img
