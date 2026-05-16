@@ -24,6 +24,40 @@ import {
 const waLink =
   'https://wa.me/5562999465725?text=Ol%C3%A1%2C%20quero%20criar%20uma%20landing%20page%20para%20minha%20oferta.';
 
+export const trackContactEvent = () => {
+  const eventID = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
+  
+  // Extract fbp and fbc cookies if present
+  const getCookie = (name: string) => {
+    if (typeof document === 'undefined') return undefined;
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+    return undefined;
+  };
+  
+  const fbp = getCookie('_fbp');
+  const fbc = getCookie('_fbc');
+
+  // Trigger frontend event with eventID for deduplication
+  if (typeof window !== 'undefined' && 'fbq' in window) {
+    (window as any).fbq('track', 'Contact', {}, { eventID });
+  }
+
+  // Trigger backend CAPI event
+  fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      eventName: 'Contact',
+      eventID,
+      sourceUrl: typeof window !== 'undefined' ? window.location.href : '',
+      fbp,
+      fbc,
+    }),
+  }).catch((err) => console.error('Error sending CAPI event:', err));
+};
+
 const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}`;
 
 const images = {
@@ -91,10 +125,10 @@ const Button = ({
   const secondaryStyle =
     'bg-transparent border border-sand-400 text-earth-900 hover:bg-sand-400/20 active:bg-sand-400/40';
 
-  const handleClick = () => {
-    // Dispara evento de Lead (ou Contact) quando clica no botão com link para WA ou outro CTA
-    if (typeof window !== 'undefined' && 'fbq' in window) {
-      (window as any).fbq('track', 'Contact');
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Only track "Contact" if it's a WhatsApp link or primary CTA
+    if (href.includes('wa.me') || variant === 'primary') {
+      trackContactEvent();
     }
   };
 
@@ -756,9 +790,7 @@ export default function App() {
         className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg shadow-[#25D366]/30 hover:bg-[#20bd5a] hover:scale-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
         aria-label="Falar no WhatsApp"
         onClick={() => {
-          if (typeof window !== 'undefined' && 'fbq' in window) {
-            (window as any).fbq('track', 'Contact');
-          }
+          trackContactEvent();
         }}
       >
         <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="fill-current stroke-none">
