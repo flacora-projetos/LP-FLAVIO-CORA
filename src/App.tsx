@@ -44,6 +44,15 @@ export const trackContactEvent = () => {
     (window as any).fbq('track', 'Contact', {}, { eventID });
   }
 
+  // Trigger GA4 event
+  if (typeof window !== 'undefined' && 'gtag' in window) {
+    (window as any).gtag('event', 'generate_lead', {
+      method: 'WhatsApp',
+      event_category: 'Contact',
+      event_label: 'WhatsApp Button'
+    });
+  }
+
   // Trigger backend CAPI event
   fetch('/api/track', {
     method: 'POST',
