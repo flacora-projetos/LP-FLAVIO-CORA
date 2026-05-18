@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import {
   ArrowRight,
@@ -19,6 +20,7 @@ import {
   Crosshair,
   Presentation,
   TrendingUp,
+  ChevronDown,
 } from 'lucide-react';
 
 const waLink =
@@ -198,6 +200,118 @@ const InteractiveImage = ({
     />
   </div>
 );
+
+function FAQItem({ question, answer }: { question: string; answer: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-sand-400/30 last:border-0">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between py-5 text-left text-lg font-semibold text-earth-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-copper/50 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-100 rounded-sm"
+        aria-expanded={isOpen}
+      >
+        <span className="pr-6">{question}</span>
+        <ChevronDown
+          className={`w-5 h-5 text-copper shrink-0 transition-transform duration-300 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+        />
+      </button>
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="pb-5 text-earth-800 leading-relaxed text-base space-y-3">
+            {answer}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const faqs = [
+  {
+    question: 'A página tem mensalidade?',
+    answer: 'Não. Para landing pages simples, a hospedagem inicial pode ser feita em uma estrutura sem mensalidade, ideal para páginas institucionais, campanhas, serviços, eventos, imóveis e ofertas pontuais. Caso o projeto cresça muito, tenha alto volume de acessos ou precise de recursos mais avançados, pode ser necessário migrar para uma solução paga. Se isso acontecer, você será avisado antes. Nada de surpresa escondida no rodapé, porque a vida já tem boleto suficiente.',
+  },
+  {
+    question: 'O que está incluso na hospedagem?',
+    answer: 'Está incluso deixar a landing page publicada no ar, com carregamento rápido e acesso por link. A página pode funcionar com um endereço temporário ou com um domínio próprio, caso o cliente queira comprar um.',
+  },
+  {
+    question: 'Preciso comprar um domínio?',
+    answer: 'Não é obrigatório. A landing page pode ser publicada com um link próprio da plataforma de hospedagem. Mas, se você quiser um endereço mais profissional, como suaempresa.com.br, é possível comprar um domínio e conectar à página.',
+  },
+  {
+    question: 'A compra do domínio está inclusa?',
+    answer: 'Não. O domínio é um custo separado, pago pelo cliente diretamente ao serviço de registro escolhido. Eu posso orientar na escolha, compra e configuração, mas o domínio fica no nome do cliente. Isso é importante porque o endereço da sua marca deve ser seu, não preso na mão de fornecedor. Pequena vitória contra o caos digital.',
+  },
+  {
+    question: 'O domínio precisa ser renovado?',
+    answer: 'Sim. Normalmente, domínios são pagos por período, geralmente anual. Se não renovar, o endereço pode sair do ar ou ficar disponível para outra pessoa registrar.',
+  },
+  {
+    question: 'O que eu preciso enviar para criar a landing page?',
+    answer: (
+      <>
+        <p>Para criar uma página boa, preciso de algumas informações básicas:</p>
+        <ul className="list-disc pl-5 mt-2 space-y-1">
+          <li>nome da empresa, profissional, produto ou serviço;</li>
+          <li>objetivo da página e público que você quer atingir;</li>
+          <li>principais benefícios e diferenciais da sua oferta;</li>
+          <li>fotos, vídeos ou materiais visuais disponíveis;</li>
+          <li>número de WhatsApp ou outro canal de contato;</li>
+          <li>links importantes e identidade visual, se houver.</li>
+        </ul>
+        <p className="mt-2">Se você ainda não tiver tudo pronto, posso ajudar a organizar o briefing antes da criação da página.</p>
+      </>
+    ),
+  },
+  {
+    question: 'Preciso ter fotos profissionais?',
+    answer: 'Ajuda bastante, mas não é obrigatório. Fotos reais aumentam a confiança e deixam a página mais personalizada. Quando não há fotos boas, é possível usar imagens de apoio, elementos visuais, ícones e uma direção visual mais limpa. Mas, sempre que possível, fotos reais fazem diferença.',
+  },
+  {
+    question: 'A página funciona no celular?',
+    answer: 'Sim. A landing page é pensada para funcionar bem no celular, porque boa parte das pessoas acessa anúncios, redes sociais e links pelo smartphone. A ideia é que a pessoa entenda a oferta rápido e consiga chamar no WhatsApp sem precisar ficar caçando botão pela página como se fosse caça ao tesouro corporativo.',
+  },
+  {
+    question: 'A página pode ter botão de WhatsApp?',
+    answer: 'Sim. O botão de WhatsApp é uma das principais formas de contato da landing page. Ele pode aparecer no início, no meio, no final e também de forma fixa na tela, dependendo da estratégia da página.',
+  },
+  {
+    question: 'Posso usar a landing page em anúncios?',
+    answer: 'Sim. A página é criada justamente para apoiar campanhas de divulgação, como anúncios no Instagram, Facebook, Google, tráfego para WhatsApp, lançamentos, promoções, eventos e ofertas específicas.',
+  },
+  {
+    question: 'É a mesma coisa que um site completo?',
+    answer: 'Não. Uma landing page é uma página mais direta, criada para apresentar uma oferta específica e levar a pessoa para uma ação, como chamar no WhatsApp, pedir orçamento, agendar uma conversa ou se cadastrar. Um site completo costuma ter várias páginas, menus, blog e área institucional mais extensa. Para muitas campanhas e ofertas pontuais, uma landing page resolve melhor do que um site grande, caro e cheio de páginas que ninguém visita, esse monumento moderno ao excesso.',
+  },
+  {
+    question: 'Dá para alterar a página depois?',
+    answer: 'Sim. Textos, fotos, botões e seções podem ser ajustados depois, conforme a necessidade. Alterações simples podem ser combinadas conforme o escopo do projeto. Mudanças maiores, como refazer a estrutura inteira ou criar novas seções, podem exigir um novo orçamento.',
+  },
+  {
+    question: 'A página aparece no Google?',
+    answer: 'A página pode ser configurada com boas práticas básicas para ser encontrada, mas aparecer bem no Google depende de vários fatores, como concorrência, tempo, conteúdo, autoridade do domínio e estratégia de SEO. Para campanhas de curto prazo, o mais comum é usar a landing page junto com anúncios e redes sociais.',
+  },
+  {
+    question: 'A landing page já vende sozinha?',
+    answer: 'Ela ajuda muito, mas não faz mágica. A página organiza sua oferta, apresenta seus diferenciais e facilita o contato. O resultado também depende da qualidade da oferta, das fotos, do atendimento, do preço, do público e da campanha que leva pessoas até ela. Infelizmente, ainda não inventaram botão que conserta oferta ruim. Estão tentando, provavelmente com IA.',
+  },
+  {
+    question: 'Quanto tempo leva para criar?',
+    answer: 'Depende da complexidade da página e da organização dos materiais. Quanto mais claro estiver o briefing e quanto melhores forem os materiais enviados, mais rápido o processo anda.',
+  },
+  {
+    question: 'Para quais tipos de oferta a landing page serve?',
+    answer: 'Serve para divulgar serviços, imóveis, cursos, eventos, promoções, lançamentos, consultorias, atendimentos profissionais, campanhas locais, catálogos simples e outras ofertas que precisam de uma apresentação mais clara antes do contato.',
+  },
+];
 
 export default function App() {
   return (
@@ -743,7 +857,28 @@ export default function App() {
           </div>
         </section>
 
-        {/* 12. Oferta Comercial & CTA */}
+        {/* 12. FAQ */}
+        <Section className="bg-sand-50">
+          <div className="max-w-4xl mx-auto">
+            <FadeIn className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
+                Perguntas frequentes
+              </h2>
+              <p className="text-xl text-earth-800 leading-relaxed font-medium">
+                Tire suas dúvidas sobre criação, custos e funcionamento.
+              </p>
+            </FadeIn>
+            <FadeIn className="bg-white rounded-[32px] p-6 md:p-10 border border-sand-400/30 shadow-xl shadow-earth-900/5">
+              <div className="flex flex-col">
+                {faqs.map((faq, index) => (
+                  <FAQItem key={index} question={faq.question} answer={faq.answer} />
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </Section>
+
+        {/* 13. Oferta Comercial & CTA */}
         <Section className="bg-terracotta text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 to-transparent pointer-events-none" />
           <FadeIn className="max-w-4xl mx-auto relative">
