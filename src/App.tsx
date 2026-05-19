@@ -235,6 +235,10 @@ function FAQItem({ question, answer }: { question: string; answer: React.ReactNo
 
 const faqs = [
   {
+    question: 'Quanto custa uma landing page?',
+    answer: 'Os projetos começam a partir de R$ 500,00 para páginas simples e objetivas. O valor final pode variar conforme o tamanho da página, materiais disponíveis, nível de personalização e necessidades específicas do projeto.',
+  },
+  {
     question: 'A página tem mensalidade?',
     answer: 'Não. Para landing pages simples, a hospedagem inicial pode ser feita em uma estrutura sem mensalidade, ideal para páginas institucionais, campanhas, serviços, eventos, imóveis e ofertas pontuais. Caso o projeto cresça muito, tenha alto volume de acessos ou precise de recursos mais avançados, pode ser necessário migrar para uma solução paga. Se isso acontecer, você será avisado antes. Nada de surpresa escondida no rodapé, porque a vida já tem boleto suficiente.',
   },
@@ -371,11 +375,16 @@ export default function App() {
                   Landing pages simples, bonitas e prontas para divulgar sua
                   oferta.
                 </h1>
+                <div className="inline-flex items-center bg-white/60 backdrop-blur-sm border border-sand-400/40 rounded-full px-4 py-1.5 mb-6 shadow-sm">
+                  <span className="text-sm md:text-base font-semibold text-earth-900">
+                    🚀 Landing pages a partir de R$ 500,00
+                  </span>
+                </div>
                 <p className="text-base md:text-lg text-earth-900 leading-relaxed mb-6 font-medium max-w-2xl">
                   Uma landing page é uma página única, feita para apresentar uma oferta específica e levar o visitante a uma ação: chamar no WhatsApp, pedir orçamento, se cadastrar ou agendar uma conversa.
                 </p>
                 <p className="text-lg md:text-xl text-earth-800 leading-relaxed mb-10 max-w-2xl">
-                  Crio LPs estratégicas para campanhas, promoções, serviços, imóveis, cursos, eventos e ações pontuais, com foco em clareza, conversão e contato direto pelo WhatsApp.
+                  Criação de páginas estratégicas para divulgar serviços, promoções, imóveis, cursos, eventos e ofertas pontuais.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button href={waLink} className="flex-1 sm:flex-none">
@@ -857,6 +866,42 @@ export default function App() {
           </div>
         </section>
 
+        {/* 11.5 O que está incluso */}
+        <Section className="bg-white border-t border-sand-400/20">
+          <div className="max-w-4xl mx-auto">
+            <FadeIn className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
+                O que está incluso na criação
+              </h2>
+              <p className="text-xl text-earth-800 leading-relaxed font-medium">
+                Sua landing page é entregue pronta para você começar a divulgar sua oferta.
+              </p>
+            </FadeIn>
+            
+            <FadeIn>
+              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4 mb-10">
+                {[
+                  'Estrutura clara da página',
+                  'Organização estratégica da oferta',
+                  'Texto comercial básico (a partir do briefing)',
+                  'Botão de contato para WhatsApp',
+                  'Versão 100% adaptada para celular',
+                  'Publicação inicial para acesso rápido',
+                  'Orientação sobre conexão de domínio próprio',
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-row items-center gap-4 bg-sand-50/50 p-4 rounded-2xl border border-sand-400/30">
+                    <CheckCircle2 className="w-6 h-6 text-copper shrink-0" />
+                    <span className="text-earth-900 font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="text-center text-earth-800 text-sm md:text-base leading-relaxed bg-sand-50 border border-sand-400/40 p-5 rounded-xl">
+                <strong>Importante:</strong> os projetos começam no valor base, mas podem variar dependendo do tamanho da página, quantidade de seções, materiais disponíveis, nível de personalização do design e ajustes extras solicitados pelo projeto.
+              </p>
+            </FadeIn>
+          </div>
+        </Section>
+
         {/* 12. FAQ */}
         <Section className="bg-sand-50">
           <div className="max-w-4xl mx-auto">
@@ -892,7 +937,7 @@ export default function App() {
               Você recebe uma página objetiva e focada, com <span className="underline decoration-sand-300 underline-offset-4">baixo custo de criação e hospedagem gratuita</span> para projetos simples.
             </p>
             
-            <Button href={waLink} className="bg-sand-50 text-terracotta hover:bg-white hover:shadow-2xl hover:-translate-y-1 shadow-black/10 scale-100 font-bold text-lg px-10 py-5 transition-all mb-12">
+            <Button href={waLink} className="!bg-sand-50 !text-terracotta hover:!bg-white hover:shadow-2xl hover:-translate-y-1 shadow-black/10 scale-100 font-bold text-lg px-10 py-5 transition-all mb-12">
               Quero criar minha LP
               <ArrowRight className="ml-2 w-6 h-6" />
             </Button>
