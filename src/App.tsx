@@ -375,10 +375,10 @@ export default function App() {
                 Seu lead chega no WhatsApp sabendo o que quer
               </h2>
               <p className="text-[17px] md:text-lg text-earth-800 mb-5 leading-relaxed font-medium">
-                Antes de chamar no WhatsApp, a pessoa responde perguntas rápidas em uma página simples. Assim, sua empresa recebe contatos mais organizados, entende melhor a necessidade do cliente e ganha tempo no atendimento.
+                A página organiza as respostas do visitante e prepara uma mensagem com contexto para iniciar a conversa no WhatsApp.
               </p>
               <p className="text-[17px] md:text-lg text-earth-800 mb-8 leading-relaxed font-medium">
-                O WhatsApp continua sendo o canal final da conversa. A diferença é que o lead chega com contexto, e não apenas com um "Oi, tenho interesse".
+                O WhatsApp continua sendo o canal final da conversa. A diferença é que a pessoa já chega pronta para o atendimento, enviando os dados de forma estruturada.
               </p>
               
               <div className="flex flex-col gap-3">
@@ -432,7 +432,7 @@ export default function App() {
                  <div className="absolute inset-0 bg-[#25D366] blur-[100px] rounded-full opacity-15 mix-blend-multiply pointer-events-none transform scale-90 translate-y-8"></div>
                  
                  {/* WhatsApp Mockup */}
-                 <div className="relative bg-[#EFEAE2] rounded-[2rem] overflow-hidden border-[6px] border-white shadow-2xl flex flex-col h-[550px] md:h-[650px] ring-1 ring-sand-400/20 max-w-full">
+                 <div className="relative bg-[#EFEAE2] rounded-[2rem] overflow-hidden border-[6px] border-white shadow-2xl flex flex-col h-[520px] md:h-[600px] ring-1 ring-sand-400/20 max-w-full">
                    
                    {/* Header */}
                    <div className="bg-[#075E54] px-4 md:px-5 py-3 md:py-4 flex items-center gap-3 shrink-0 shadow-md relative z-10">
@@ -440,7 +440,7 @@ export default function App() {
                        <User className="w-5 h-5 md:w-6 md:h-6 text-white/80" />
                      </div>
                      <div className="flex-1 min-w-0">
-                       <div className="font-semibold text-white truncate text-[15px] md:text-[17px]">Novo Lead (Site)</div>
+                       <div className="font-semibold text-white truncate text-[15px] md:text-[17px]">Contato recebido</div>
                        <div className="text-xs text-white/80 truncate">online</div>
                      </div>
                      <Phone className="w-4 h-4 md:w-5 md:h-5 text-white/90 shrink-0" />
@@ -448,47 +448,35 @@ export default function App() {
                    
                    {/* Chat Area */}
                    <div className="flex-1 p-4 md:p-5 lg:p-6 overflow-y-auto flex flex-col gap-4 relative justify-end pb-8">
+                     {/* Background Pattern (Optional subtle element) */}
+                     <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-multiply"></div>
+                     
                      {/* Data badge */}
-                     <div className="flex justify-center mb-1">
+                     <div className="flex justify-center mb-1 relative z-10">
                        <div className="bg-[#E1F3FB] text-[#4A6877] text-[10px] md:text-[11px] font-medium px-2.5 py-1 rounded-lg shadow-sm">
                          HOJE
                        </div>
                      </div>
                      
                      {/* Message bubble */}
-                     <div className="bg-white rounded-2xl rounded-tl-sm p-3.5 md:p-4 shadow-sm w-[92%] lg:w-[90%] relative border border-black/5 self-start text-earth-900 text-[14px] md:text-[15px] leading-relaxed max-w-full">
+                     <div className="bg-white rounded-2xl rounded-tl-sm p-3.5 md:p-4 shadow-sm w-[92%] lg:w-[85%] relative border border-black/5 self-start text-earth-900 text-[14px] md:text-[15px] leading-relaxed max-w-full z-10">
                        <div className="absolute top-0 -left-2 w-0 h-0 border-[8px] border-transparent border-t-white border-r-white"></div>
                        
-                       <div className="font-bold mb-3 flex items-center gap-1.5 md:gap-2 text-[14px] md:text-base">
-                         <span className="text-lg md:text-xl">👋</span> Novo lead qualificado
+                       <p className="mb-3">
+                         Olá! Vim pelo anúncio e respondi a qualificação:
+                       </p>
+                       
+                       <div className="flex flex-col gap-1 mb-3">
+                         <div>*Serviço:* Limpeza residencial</div>
+                         <div>*Urgência:* Esta semana</div>
+                         <div>*Orçamento:* R$ 300 a R$ 500</div>
+                         <div>*Melhor horário:* Manhã</div>
+                         <div>*Origem:* Anúncio Meta</div>
                        </div>
                        
-                       <div className="space-y-1.5 md:space-y-2 mb-4 bg-sand-50/50 p-3 rounded-xl border border-sand-400/20 text-[12.5px] md:text-sm">
-                         <div className="flex flex-col gap-0.5">
-                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Serviço</span>
-                           <span className="font-semibold leading-tight break-words">Limpeza residencial</span>
-                         </div>
-                         <div className="flex flex-col gap-0.5">
-                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Urgência</span>
-                           <span className="font-semibold leading-tight break-words">Esta semana</span>
-                         </div>
-                         <div className="flex flex-col gap-0.5">
-                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Orçamento</span>
-                           <span className="font-semibold leading-tight break-words">R$ 300 a R$ 500</span>
-                         </div>
-                         <div className="flex flex-col gap-0.5">
-                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Melhor horário</span>
-                           <span className="font-semibold leading-tight break-words">Manhã</span>
-                         </div>
-                         <div className="flex flex-col gap-0.5 mt-2 pt-2 border-t border-sand-400/20">
-                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Origem</span>
-                           <span className="font-medium text-copper flex items-center gap-1.5 break-words"><Megaphone className="w-3 h-3 shrink-0"/> Anúncio Meta</span>
-                         </div>
-                       </div>
-                       
-                       <div className="font-medium flex items-start sm:items-center gap-1.5 text-[#128C7E] text-[13px] md:text-[14px]">
-                         <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 sm:mt-0" /> <span className="break-words">Lead pronto para atendimento.</span>
-                       </div>
+                       <p>
+                         Quero saber mais sobre as opções.
+                       </p>
                        
                        <div className="text-[10px] text-earth-800/60 text-right mt-1 font-medium">
                          09:41
@@ -497,13 +485,17 @@ export default function App() {
                    </div>
                    
                    {/* Input Area */}
-                   <div className="bg-[#F0F0F0] px-3 md:px-4 py-2.5 md:py-3 flex items-center gap-2.5 md:gap-3 shrink-0 mt-auto">
+                   <div className="bg-[#F0F0F0] px-3 md:px-4 py-2.5 md:py-3 flex items-center gap-2.5 md:gap-3 shrink-0 mt-auto relative z-10">
                      <Smile className="w-5 h-5 md:w-6 md:h-6 text-earth-800/60 shrink-0" />
                      <div className="flex-1 bg-white rounded-full px-3 md:px-4 py-1.5 md:py-2 text-earth-800/60 text-[13px] md:text-sm shadow-sm border border-black/5 min-w-0">
                        Mensagem
                      </div>
                      <Mic className="w-5 h-5 md:w-6 md:h-6 text-earth-800/60 shrink-0" />
                    </div>
+                 </div>
+                 
+                 <div className="mt-6 text-center text-sm font-medium text-earth-800 bg-sand-50 py-2 px-4 rounded-xl inline-block mx-auto border border-sand-400/20 shadow-sm w-full">
+                   O lead chega com contexto para facilitar a conversa.
                  </div>
               </div>
             </FadeIn>
