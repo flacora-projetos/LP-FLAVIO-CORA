@@ -240,7 +240,8 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
     const dynamicWaLink = `https://wa.me/5562999465725?text=${encodedText}`;
     
     // Redirect
-    window.location.href = dynamicWaLink;
+    window.open(dynamicWaLink, '_blank');
+    setIsModalOpen(false);
   };
 
   return (
