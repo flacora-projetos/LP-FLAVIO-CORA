@@ -12,10 +12,22 @@ async function startServer() {
 
   // META CAPI Endpoint
   app.post('/api/track', async (req, res) => {
-    const { eventName, eventID, sourceUrl, fbp, fbc } = req.body;
+    const { eventName, eventID, sourceUrl, fbp, fbc, customData } = req.body;
     
     if (!eventName || !eventID) {
       return res.status(400).json({ error: 'Missing required parameters: eventName or eventID' });
+    }
+
+    // Lead capture logging (minimal persistence structure)
+    if (eventName === 'QualificationComplete' || eventName === 'Lead') {
+       console.log('--- NEW LEAD (Qualification Complete) ---');
+       console.log(JSON.stringify({ 
+         timestamp: new Date().toISOString(),
+         eventName,
+         eventID,
+         customData,
+         sourceUrl
+       }, null, 2));
     }
 
     const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
@@ -43,6 +55,7 @@ async function startServer() {
               client_ip_address: clientIpAddress,
               client_user_agent: clientUserAgent,
             },
+            ...(customData && { custom_data: customData }),
           }
         ]
       };

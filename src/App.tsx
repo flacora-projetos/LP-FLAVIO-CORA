@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { QualificationModal } from './components/QualificationModal';
 import {
   ArrowRight,
   CheckCircle2,
@@ -126,11 +127,13 @@ const Button = ({
   children,
   variant = 'primary',
   className = '',
+  onClick,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: 'primary' | 'secondary';
   className?: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) => {
   const baseStyle =
     'inline-flex items-center justify-center font-bold rounded-[14px] transition-all duration-300 px-8 py-4 text-[16px]';
@@ -140,6 +143,11 @@ const Button = ({
     'bg-transparent border border-sand-400 text-earth-900 hover:bg-sand-400/20 active:bg-sand-400/40';
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick(e);
+      return;
+    }
     // Only track "Contact" if it's a WhatsApp link or primary CTA
     if (href.includes('wa.me') || variant === 'primary') {
       trackContactEvent();
@@ -148,8 +156,8 @@ const Button = ({
 
   return (
     <a
-      href={href}
-      target={href.startsWith('http') ? '_blank' : '_self'}
+      href={onClick ? '#' : href}
+      target={onClick ? undefined : (href.startsWith('http') ? '_blank' : '_self')}
       rel="noopener noreferrer"
       className={`${baseStyle} ${variant === 'primary' ? primaryStyle : secondaryStyle} ${className}`}
       onClick={handleClick}
@@ -207,8 +215,42 @@ const InteractiveImage = ({
 
 
 export default function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalCtaLabel, setModalCtaLabel] = useState("");
+
+  const openModal = (ctaLabel: string) => {
+    setModalCtaLabel(ctaLabel);
+    setIsModalOpen(true);
+  };
+
+  const handleModalComplete = (answers: Record<string, string>) => {
+    const text = `Olá! Vim pela página e respondi o filtro de qualificação.
+
+Nome: ${answers.name || 'Não informado'}
+Negócio: ${answers.businessName || 'Não informado'}
+Tipo de oferta: ${answers.offerType || ''}
+Anúncios hoje: ${answers.currentAds || ''}
+Principal problema nos contatos: ${answers.mainProblem || ''}
+O que quero filtrar: ${answers.filterGoal || ''}
+Prazo desejado: ${answers.timeframe || ''}
+
+Quero entender como uma página de qualificação poderia funcionar no meu caso.`;
+
+    const encodedText = encodeURIComponent(text);
+    const dynamicWaLink = `https://wa.me/5562999465725?text=${encodedText}`;
+    
+    // Redirect
+    window.location.href = dynamicWaLink;
+  };
+
   return (
     <div className="min-h-screen bg-sand-100 font-sans selection:bg-terracotta/20">
+      <QualificationModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onComplete={handleModalComplete}
+        ctaLabel={modalCtaLabel}
+      />
       {/* Navbar Minimalist */}
       <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-sand-100/90 backdrop-blur-md border-b border-sand-400/20 transition-all">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -228,7 +270,7 @@ export default function App() {
             >
               Como funciona
             </a>
-            <Button href={waLink} className="px-5 py-2.5 text-sm">
+            <Button href={waLink} className="px-5 py-2.5 text-sm" onClick={() => openModal('Falar comigo')}>
               Falar comigo
             </Button>
           </div>
@@ -287,7 +329,7 @@ export default function App() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full">
-                  <Button href={waLink} className="w-full sm:w-auto flex-1 sm:flex-none text-[15px] sm:text-base font-bold">
+                  <Button href={waLink} className="w-full sm:w-auto flex-1 sm:flex-none text-[15px] sm:text-base font-bold" onClick={() => openModal('Criar minha página de qualificação')}>
                     Criar minha página de qualificação
                     <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
                   </Button>
@@ -644,7 +686,7 @@ export default function App() {
                 ))}
               </div>
               
-              <Button href={waLink} className="w-full sm:w-auto self-start bg-terracotta text-white hover:bg-caramel border-none text-[15px] sm:text-base font-bold px-6 md:px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 rounded-xl">
+              <Button href={waLink} className="w-full sm:w-auto self-start bg-terracotta text-white hover:bg-caramel border-none text-[15px] sm:text-base font-bold px-6 md:px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 rounded-xl" onClick={() => openModal('Ver se serve para meu negócio')}>
                 Ver se serve para meu negócio
               </Button>
             </FadeIn>
@@ -732,7 +774,7 @@ export default function App() {
               <p className="text-earth-900 font-bold mb-5 text-[15px] md:text-base">
                 Pronto para receber contatos mais organizados?
               </p>
-              <Button href={waLink} className="w-full sm:w-auto bg-terracotta text-white hover:bg-caramel border-none text-[15px] sm:text-base font-bold px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 transition-all rounded-[14px]">
+              <Button href={waLink} className="w-full sm:w-auto bg-terracotta text-white hover:bg-caramel border-none text-[15px] sm:text-base font-bold px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 transition-all rounded-[14px]" onClick={() => openModal('Quero esse kit para minha campanha')}>
                 Quero esse kit para minha campanha
               </Button>
             </FadeIn>
@@ -751,7 +793,7 @@ export default function App() {
               Crie uma página de qualificação para seus anúncios e mude a forma como os contatos chegam para o seu atendimento.
             </p>
             
-            <Button href={waLink} className="!bg-terracotta !text-white hover:!bg-caramel shadow-xl hover:-translate-y-1 hover:shadow-terracotta/30 font-bold text-[16px] md:text-lg px-8 md:px-10 py-4 md:py-5 transition-all rounded-[14px] w-full sm:w-auto">
+            <Button href={waLink} className="!bg-terracotta !text-white hover:!bg-caramel shadow-xl hover:-translate-y-1 hover:shadow-terracotta/30 font-bold text-[16px] md:text-lg px-8 md:px-10 py-4 md:py-5 transition-all rounded-[14px] w-full sm:w-auto" onClick={() => openModal('Criar minha página agora')}>
               Criar minha página agora
               <ArrowRight className="ml-2 w-5 h-5 md:w-6 md:h-6" />
             </Button>
@@ -766,13 +808,12 @@ export default function App() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href={waLink}
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#"
         className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg shadow-[#25D366]/30 hover:bg-[#20bd5a] hover:scale-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
         aria-label="Falar no WhatsApp"
-        onClick={() => {
-          trackContactEvent();
+        onClick={(e) => {
+          e.preventDefault();
+          openModal('Botão Flutuante');
         }}
       >
         <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="fill-current stroke-none">
