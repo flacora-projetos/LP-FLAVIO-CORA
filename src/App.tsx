@@ -32,49 +32,6 @@ import {
 const waLink =
   'https://wa.me/5562999465725?text=Ol%C3%A1%2C%20quero%20criar%20uma%20landing%20page%20para%20minha%20oferta.';
 
-export const trackContactEvent = () => {
-  const eventID = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
-  
-  // Extract fbp and fbc cookies if present
-  const getCookie = (name: string) => {
-    if (typeof document === 'undefined') return undefined;
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-    return undefined;
-  };
-  
-  const fbp = getCookie('_fbp');
-  const fbc = getCookie('_fbc');
-
-  // Trigger frontend event with eventID for deduplication
-  if (typeof window !== 'undefined' && 'fbq' in window) {
-    (window as any).fbq('track', 'Contact', {}, { eventID });
-  }
-
-  // Trigger GA4 event
-  if (typeof window !== 'undefined' && 'gtag' in window) {
-    (window as any).gtag('event', 'generate_lead', {
-      method: 'WhatsApp',
-      event_category: 'Contact',
-      event_label: 'WhatsApp Button'
-    });
-  }
-
-  // Trigger backend CAPI event
-  fetch('/api/track', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      eventName: 'Contact',
-      eventID,
-      sourceUrl: typeof window !== 'undefined' ? window.location.href : '',
-      fbp,
-      fbc,
-    }),
-  }).catch((err) => console.error('Error sending CAPI event:', err));
-};
-
 const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}?v=${Date.now()}`;
 
 const images = {
@@ -148,10 +105,6 @@ const Button = ({
       onClick(e);
       return;
     }
-    // Only track "Contact" if it's a WhatsApp link or primary CTA
-    if (href.includes('wa.me') || variant === 'primary') {
-      trackContactEvent();
-    }
   };
 
   return (
@@ -224,10 +177,11 @@ export default function App() {
   };
 
   const handleModalComplete = (answers: Record<string, string>) => {
+    const phoneLine = answers.phone ? `WhatsApp informado: ${answers.phone}\n` : '';
     const text = `Olá! Vim pela página e respondi o filtro de qualificação.
 
 Nome: ${answers.name || 'Não informado'}
-Negócio: ${answers.businessName || 'Não informado'}
+${phoneLine}Negócio: ${answers.businessName || 'Não informado'}
 Tipo de oferta: ${answers.offerType || ''}
 Anúncios hoje: ${answers.currentAds || ''}
 Principal problema nos contatos: ${answers.mainProblem || ''}

@@ -117,8 +117,14 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
     }
   }
 
+  const { name: piiName, phone: piiPhone, ...safeParams } = params;
+
   if (typeof window !== 'undefined' && 'fbq' in window) {
-    (window as any).fbq('trackCustom', eventName, params, { eventID });
+    // Determine whether to use track or trackCustom based on standard events
+    const standardEvents = ['Contact', 'Lead'];
+    const trackMethod = standardEvents.includes(eventName) ? 'track' : 'trackCustom';
+    
+    (window as any).fbq(trackMethod, eventName, safeParams, { eventID });
   }
 
   fetch('/api/track', {
@@ -225,8 +231,25 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       destination: 'whatsapp',
       cta_label: 'filtro_finalizado',
       lead_type: 'qualified_whatsapp_lead',
+      content_name: 'LP de qualificação WhatsApp Ads',
+      offer_type: answers.offerType,
+      current_ads: answers.currentAds,
+      main_problem: answers.mainProblem,
+      filter_goal: answers.filterGoal,
+      timeframe: answers.timeframe,
+      name: answers.name,
+      phone: answers.phone,
     });
     
+    // Trigger GA4 event
+    if (typeof window !== 'undefined' && 'gtag' in window) {
+      (window as any).gtag('event', 'generate_lead', {
+        method: 'WhatsApp',
+        event_category: 'Contact',
+        event_label: 'WhatsApp Filter Complete'
+      });
+    }
+
     // Call parent handler to do the actual redirect logic which will format the URL
     onComplete(answers);
   };
