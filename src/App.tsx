@@ -21,6 +21,7 @@ import {
   Presentation,
   TrendingUp,
   ChevronDown,
+  Megaphone,
 } from 'lucide-react';
 
 const waLink =
@@ -69,19 +70,17 @@ export const trackContactEvent = () => {
   }).catch((err) => console.error('Error sending CAPI event:', err));
 };
 
-const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}`;
+const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}?v=${Date.now()}`;
 
 const images = {
-  hero: getImageSrc('193E2ctonYx7-JD4CfRbDjiGLBmb240l-'),
-  audience: getImageSrc('1M5os2ST34KchJ4lwysw4fNG2X3s1pj1T'),
-  applications: getImageSrc('1gaeBkt1SE-grm-NQQDlzNL55fueoVlZx'),
-  problem: getImageSrc('1B-IXVFJTzvRDcVGeXVfhiWPUrTmjSoP9'),
-  deliverables: getImageSrc('10CAdoh_go8JhzMFSB-NIe7EIxdn7RBs2'),
-  differentials: getImageSrc('1LJglJcN-Jvhq8FVnpoFvC-wB1pIFC15f'),
-  process: getImageSrc('1504H3TiIR0LtFdVbvwrZmnesD64p0eBg'),
-  examples: getImageSrc('1Da-mIYm0yHO3oDdV7GC1vS6srFseIzAD'),
-  comparison: getImageSrc('1P1Y74YH9n-d_svXCDb0Nx9iuyQK7Zbpk'),
-  authority: getImageSrc('19kUhTWcm0vu3K5xrOwpqi82Zhxb3ULVK'),
+  comoFunciona: getImageSrc('1wnPEFSubXFwyBCjpz8J3Ask6uBFxs77T'),
+  evolucaoLead: getImageSrc('1MrsUT4wWwu3fzePYJzRlh3uVM7_7mQ5x'),
+  mosaico: getImageSrc('1pdF12mPub6l8lQ6w8IRg5f-8D76mW-du'),
+  paginaQualificacao: getImageSrc('1JLHrPXSkRh5W8mAgHCxPHRKgp86xkr_8'),
+  prof1: getImageSrc('1KMiw6v10t4yhN2Kv0WIFw9Zb68NivKIj'),
+  prof2: getImageSrc('1lBDULsl8cOLMMfzQoakhm4vd2hQG11hc'),
+  prof3: getImageSrc('1zudYJnyM78gWQlzSKghrZRcYEH_md7Ou'),
+  prof4: getImageSrc('1wa0g7YNL97QT-UgsXGT7tzD4M1QC3bM_'),
 };
 
 const FadeIn = ({
@@ -201,121 +200,7 @@ const InteractiveImage = ({
   </div>
 );
 
-function FAQItem({ question, answer }: { question: string; answer: React.ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <div className="border-b border-sand-400/30 last:border-0">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between py-5 text-left text-lg font-semibold text-earth-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-copper/50 focus-visible:ring-offset-2 focus-visible:ring-offset-sand-100 rounded-sm"
-        aria-expanded={isOpen}
-      >
-        <span className="pr-6">{question}</span>
-        <ChevronDown
-          className={`w-5 h-5 text-copper shrink-0 transition-transform duration-300 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-        />
-      </button>
-      <div
-        className={`grid transition-all duration-300 ease-in-out ${
-          isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-        }`}
-      >
-        <div className="overflow-hidden">
-          <div className="pb-5 text-earth-800 leading-relaxed text-base space-y-3">
-            {answer}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const faqs = [
-  {
-    question: 'Quanto custa uma landing page?',
-    answer: 'Os projetos começam a partir de R$ 500,00 para páginas simples e objetivas. O valor final pode variar conforme o tamanho da página, materiais disponíveis, nível de personalização e necessidades específicas do projeto.',
-  },
-  {
-    question: 'A página tem mensalidade?',
-    answer: 'Não. Para landing pages simples, a hospedagem inicial pode ser feita em uma estrutura sem mensalidade, ideal para páginas institucionais, campanhas, serviços, eventos, imóveis e ofertas pontuais. Caso o projeto cresça muito, tenha alto volume de acessos ou precise de recursos mais avançados, pode ser necessário migrar para uma solução paga. Se isso acontecer, você será avisado antes. Nada de surpresa escondida no rodapé, porque a vida já tem boleto suficiente.',
-  },
-  {
-    question: 'O que está incluso na hospedagem?',
-    answer: 'Está incluso deixar a landing page publicada no ar, com carregamento rápido e acesso por link. A página pode funcionar com um endereço temporário ou com um domínio próprio, caso o cliente queira comprar um.',
-  },
-  {
-    question: 'Preciso comprar um domínio?',
-    answer: 'Não é obrigatório. A landing page pode ser publicada com um link próprio da plataforma de hospedagem. Mas, se você quiser um endereço mais profissional, como suaempresa.com.br, é possível comprar um domínio e conectar à página.',
-  },
-  {
-    question: 'A compra do domínio está inclusa?',
-    answer: 'Não. O domínio é um custo separado, pago pelo cliente diretamente ao serviço de registro escolhido. Eu posso orientar na escolha, compra e configuração, mas o domínio fica no nome do cliente. Isso é importante porque o endereço da sua marca deve ser seu, não preso na mão de fornecedor. Pequena vitória contra o caos digital.',
-  },
-  {
-    question: 'O domínio precisa ser renovado?',
-    answer: 'Sim. Normalmente, domínios são pagos por período, geralmente anual. Se não renovar, o endereço pode sair do ar ou ficar disponível para outra pessoa registrar.',
-  },
-  {
-    question: 'O que eu preciso enviar para criar a landing page?',
-    answer: (
-      <>
-        <p>Para criar uma página boa, preciso de algumas informações básicas:</p>
-        <ul className="list-disc pl-5 mt-2 space-y-1">
-          <li>nome da empresa, profissional, produto ou serviço;</li>
-          <li>objetivo da página e público que você quer atingir;</li>
-          <li>principais benefícios e diferenciais da sua oferta;</li>
-          <li>fotos, vídeos ou materiais visuais disponíveis;</li>
-          <li>número de WhatsApp ou outro canal de contato;</li>
-          <li>links importantes e identidade visual, se houver.</li>
-        </ul>
-        <p className="mt-2">Se você ainda não tiver tudo pronto, posso ajudar a organizar o briefing antes da criação da página.</p>
-      </>
-    ),
-  },
-  {
-    question: 'Preciso ter fotos profissionais?',
-    answer: 'Ajuda bastante, mas não é obrigatório. Fotos reais aumentam a confiança e deixam a página mais personalizada. Quando não há fotos boas, é possível usar imagens de apoio, elementos visuais, ícones e uma direção visual mais limpa. Mas, sempre que possível, fotos reais fazem diferença.',
-  },
-  {
-    question: 'A página funciona no celular?',
-    answer: 'Sim. A landing page é pensada para funcionar bem no celular, porque boa parte das pessoas acessa anúncios, redes sociais e links pelo smartphone. A ideia é que a pessoa entenda a oferta rápido e consiga chamar no WhatsApp sem precisar ficar caçando botão pela página como se fosse caça ao tesouro corporativo.',
-  },
-  {
-    question: 'A página pode ter botão de WhatsApp?',
-    answer: 'Sim. O botão de WhatsApp é uma das principais formas de contato da landing page. Ele pode aparecer no início, no meio, no final e também de forma fixa na tela, dependendo da estratégia da página.',
-  },
-  {
-    question: 'Posso usar a landing page em anúncios?',
-    answer: 'Sim. A página é criada justamente para apoiar campanhas de divulgação, como anúncios no Instagram, Facebook, Google, tráfego para WhatsApp, lançamentos, promoções, eventos e ofertas específicas.',
-  },
-  {
-    question: 'É a mesma coisa que um site completo?',
-    answer: 'Não. Uma landing page é uma página mais direta, criada para apresentar uma oferta específica e levar a pessoa para uma ação, como chamar no WhatsApp, pedir orçamento, agendar uma conversa ou se cadastrar. Um site completo costuma ter várias páginas, menus, blog e área institucional mais extensa. Para muitas campanhas e ofertas pontuais, uma landing page resolve melhor do que um site grande, caro e cheio de páginas que ninguém visita, esse monumento moderno ao excesso.',
-  },
-  {
-    question: 'Dá para alterar a página depois?',
-    answer: 'Sim. Textos, fotos, botões e seções podem ser ajustados depois, conforme a necessidade. Alterações simples podem ser combinadas conforme o escopo do projeto. Mudanças maiores, como refazer a estrutura inteira ou criar novas seções, podem exigir um novo orçamento.',
-  },
-  {
-    question: 'A página aparece no Google?',
-    answer: 'A página pode ser configurada com boas práticas básicas para ser encontrada, mas aparecer bem no Google depende de vários fatores, como concorrência, tempo, conteúdo, autoridade do domínio e estratégia de SEO. Para campanhas de curto prazo, o mais comum é usar a landing page junto com anúncios e redes sociais.',
-  },
-  {
-    question: 'A landing page já vende sozinha?',
-    answer: 'Ela ajuda muito, mas não faz mágica. A página organiza sua oferta, apresenta seus diferenciais e facilita o contato. O resultado também depende da qualidade da oferta, das fotos, do atendimento, do preço, do público e da campanha que leva pessoas até ela. Infelizmente, ainda não inventaram botão que conserta oferta ruim. Estão tentando, provavelmente com IA.',
-  },
-  {
-    question: 'Quanto tempo leva para criar?',
-    answer: 'Depende da complexidade da página e da organização dos materiais. Quanto mais claro estiver o briefing e quanto melhores forem os materiais enviados, mais rápido o processo anda.',
-  },
-  {
-    question: 'Para quais tipos de oferta a landing page serve?',
-    answer: 'Serve para divulgar serviços, imóveis, cursos, eventos, promoções, lançamentos, consultorias, atendimentos profissionais, campanhas locais, catálogos simples e outras ofertas que precisam de uma apresentação mais clara antes do contato.',
-  },
-];
 
 export default function App() {
   return (
@@ -334,12 +219,6 @@ export default function App() {
               Para quem é
             </a>
             <a
-              href="#aplicacoes"
-              className="text-earth-800 hover:text-terracotta transition-colors text-sm font-medium"
-            >
-              Aplicações
-            </a>
-            <a
               href="#como-funciona"
               className="text-earth-800 hover:text-terracotta transition-colors text-sm font-medium"
             >
@@ -354,89 +233,113 @@ export default function App() {
 
       <main className="md:pt-20">
         {/* 1. Hero */}
-        <section className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center pt-16 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400/20">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src={images.hero}
-              alt="Apresentação do serviço de Landing Pages"
-              className="w-full h-full object-cover object-[70%_center] md:object-[80%_center]"
-            />
-            {/* Overlays para garantir a leitura do texto */}
-            <div className="absolute inset-0 bg-sand-100/85 md:hidden backdrop-blur-[2px]"></div>
-            <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-sand-100/95 via-sand-100/85 to-sand-100/20 backdrop-blur-[2px]"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-sand-100 via-transparent to-transparent"></div>
+        <section className="relative min-h-[90vh] lg:min-h-[100vh] flex items-center pt-16 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400/20 bg-[#F7F4EF]">
+          
+          {/* Background integrado para Desktop */}
+          <div className="hidden lg:block absolute inset-0 z-0 overflow-hidden">
+             {/* Leve brilho quente (radial-gradient) atrás do celular */}
+             <div className="absolute top-0 right-0 w-[50%] h-full bg-[radial-gradient(circle_at_center,rgba(233,216,199,0.7)_0%,transparent_70%)]"></div>
+             
+             {/* Imagem do Mockup */}
+             <img 
+                 src={images.paginaQualificacao} 
+                 alt="Mockup Celular" 
+                 className="absolute top-0 right-0 w-[55%] h-full object-cover object-[center_right] opacity-100"
+             />
+             
+             {/* Overlay com gradiente solicitado para fusão e leitura do texto */}
+             <div 
+                className="absolute inset-0 pointer-events-none" 
+                style={{
+                   background: 'linear-gradient(to right, #F7F4EF 0%, rgba(247,244,239,0.92) 38%, rgba(247,244,239,0.45) 65%, rgba(247,244,239,0) 100%)'
+                }}
+             ></div>
           </div>
 
-          <div className="max-w-6xl mx-auto relative z-10 w-full">
-            <div className="max-w-2xl lg:max-w-3xl">
+          <div className="max-w-7xl mx-auto relative z-10 w-full grid lg:grid-cols-[55%_45%] gap-8 lg:gap-12 items-center">
+            {/* Texto à esquerda */}
+            <div className="pt-8">
               <FadeIn>
-                <h1 className="text-4xl md:text-5xl lg:text-[64px] font-bold tracking-tight text-earth-900 leading-[1.05] mb-6">
-                  Landing pages simples, bonitas e prontas para divulgar sua
-                  oferta.
-                </h1>
-                <div className="inline-flex items-center bg-white/60 backdrop-blur-sm border border-sand-400/40 rounded-full px-4 py-1.5 mb-6 shadow-sm">
-                  <span className="text-sm md:text-base font-semibold text-earth-900">
-                    🚀 Landing pages a partir de R$ 500,00
+                <div className="inline-flex items-center bg-white/70 backdrop-blur-md border border-sand-400/40 rounded-full px-4 py-1.5 mb-6 shadow-sm">
+                  <span className="text-sm md:text-base font-semibold text-earth-900 flex items-center gap-2">
+                    <Target className="w-4 h-4 text-copper" /> Qualifique seus contatos
                   </span>
                 </div>
-                <p className="text-base md:text-lg text-earth-900 leading-relaxed mb-6 font-medium max-w-2xl">
-                  Uma landing page é uma página única, feita para apresentar uma oferta específica e levar o visitante a uma ação: chamar no WhatsApp, pedir orçamento, se cadastrar ou agendar uma conversa.
+                <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tight text-earth-900 leading-[1.05] mb-6 drop-shadow-sm">
+                  Seus anúncios levam para o WhatsApp, mas os leads chegam
+                  sem contexto?
+                </h1>
+                <p className="text-lg md:text-xl text-earth-800 leading-relaxed mb-10 max-w-[540px] font-medium">
+                  Crio páginas de qualificação para campanhas de WhatsApp Ads,
+                  com perguntas simples antes do atendimento. Assim, sua empresa
+                  recebe contatos mais organizados e com mais chance de virar
+                  oportunidade.
                 </p>
-                <p className="text-lg md:text-xl text-earth-800 leading-relaxed mb-10 max-w-2xl">
-                  Criação de páginas estratégicas para divulgar serviços, promoções, imóveis, cursos, eventos e ofertas pontuais.
-                </p>
+                
+                <div className="flex items-center gap-4 text-earth-800 font-medium mb-10 text-sm md:text-base overflow-x-auto pb-2">
+                  <span className="flex items-center gap-2 whitespace-nowrap bg-white/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-sand-400/20 shadow-sm"><Megaphone className="w-4 h-4 text-copper"/> Anúncio</span>
+                  <ArrowRight className="w-4 h-4 text-sand-400 shrink-0" />
+                  <span className="flex items-center gap-2 whitespace-nowrap bg-white/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-sand-400/20 shadow-sm"><LayoutTemplate className="w-4 h-4 text-copper"/> Página de qualificação</span>
+                  <ArrowRight className="w-4 h-4 text-sand-400 shrink-0" />
+                  <span className="flex items-center gap-2 whitespace-nowrap bg-[#25D366]/15 backdrop-blur-md text-[#128C7E] px-3 py-1.5 rounded-lg border border-[#25D366]/20 shadow-sm"><MessageCircle className="w-4 h-4"/> WhatsApp</span>
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button href={waLink} className="flex-1 sm:flex-none">
-                    Quero criar minha LP
+                    Quero melhorar meus leads
                     <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
                   </Button>
-                  <Button href="#aplicacoes" variant="secondary" className="flex-1 sm:flex-none bg-sand-50/50 backdrop-blur-md border-sand-400/50 hover:bg-sand-50/80">
-                    Ver onde usar
+                  <Button href="#como-funciona" variant="secondary" className="flex-1 sm:flex-none bg-[#F7F4EF]/80 backdrop-blur-md border-sand-400/50 hover:bg-[#F7F4EF]">
+                    Ver como funciona
                   </Button>
+                </div>
+              </FadeIn>
+            </div>
+            
+            {/* Mobile Imagem Direita (abaixo do texto) */}
+            <div className="lg:hidden mt-8 w-full flex justify-center">
+              <FadeIn delay={0.2} className="relative z-10">
+                <div className="relative">
+                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(233,216,199,0.7)_0%,transparent_70%)] blur-2xl rounded-full"></div>
+                   <img
+                     src={images.paginaQualificacao}
+                     alt="Página de Qualificação"
+                     className="w-full max-w-[320px] h-auto drop-shadow-xl relative z-10 object-contain"
+                   />
                 </div>
               </FadeIn>
             </div>
           </div>
         </section>
 
-        {/* 2. Seção de Esclarecimento Rápido */}
-        <Section className="bg-sand-50/50 border-y border-sand-400/10">
+        {/* 2. Problema */}
+        <Section className="bg-sand-50 border-y border-sand-400/10">
           <FadeIn>
             <div className="max-w-3xl mx-auto text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
-                Não é um site completo.<br />É uma página feita para gerar ação.
+                Nem toda conversa no WhatsApp é um bom lead
               </h2>
-              <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto mb-6">
-                Se você precisa divulgar algo de forma objetiva, talvez não precise de um site completo. Precise apenas de uma página clara, bem construída e pensada para gerar contato.
-              </p>
               <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto">
-                Meu trabalho é criar landing pages simples e objetivas para
-                campanhas, divulgações pontuais e ofertas específicas.
-                <br />
-                <br />A ideia não é produzir um portal, um site institucional
-                cheio de abas ou uma plataforma complexa. É criar uma
-                página clara, rápida e bem estruturada para apresentar uma oferta
-                e conduzir o visitante para o próximo passo.
+                Muitas campanhas geram mensagens, mas parte dos contatos chega 
+                sem informação, sem perfil ou só perguntando preço. Isso toma 
+                tempo do atendimento e dificulta a leitura do que está funcionando.
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6 max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-5xl mx-auto">
               {[
-                { text: 'Campanhas de tráfego pago', icon: Target },
-                { text: 'Promoções e ofertas', icon: Zap },
-                { text: 'Captação de leads', icon: Users },
-                { text: 'Divulgação de serviços', icon: Briefcase },
-                { text: 'Lançamentos simples', icon: Rocket },
-                { text: 'Contato via WhatsApp', icon: MessageCircle },
+                { text: 'Muitos curiosos chegando no WhatsApp', icon: Users },
+                { text: 'Pouca informação antes do atendimento', icon: Search },
+                { text: 'Dificuldade para saber quais leads são bons', icon: Target },
+                { text: 'Campanhas focadas em volume, não qualidade', icon: TrendingUp },
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="bg-white border border-sand-400/30 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover:border-sand-400/60 transition-colors"
+                  className="bg-white border border-sand-400/30 rounded-2xl p-6 flex flex-col items-center gap-4 shadow-sm text-center"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-sand-50 flex items-center justify-center shrink-0">
-                    <item.icon className="w-5 h-5 text-copper" />
+                  <div className="w-12 h-12 rounded-xl bg-sand-50 flex items-center justify-center shrink-0">
+                    <item.icon className="w-6 h-6 text-copper" />
                   </div>
-                  <span className="text-earth-900 font-semibold text-sm md:text-base leading-tight">
+                  <span className="text-earth-900 font-medium text-base leading-tight">
                     {item.text}
                   </span>
                 </div>
@@ -445,529 +348,253 @@ export default function App() {
           </FadeIn>
         </Section>
 
-        {/* 3. Para quem é */}
-        <Section id="para-quem-e">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        {/* 3. Solução */}
+        <Section className="bg-white">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-center max-w-6xl mx-auto">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-                Para quem precisa divulgar uma oferta de forma simples e
-                profissional.
+              <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6 drop-shadow-sm">
+                Seu lead chega no WhatsApp sabendo o que quer
               </h2>
-              <p className="text-lg text-earth-800 mb-10 leading-relaxed">
-                Uma LP funciona muito bem quando o objetivo é apresentar uma
-                oferta específica sem distrair o visitante com várias páginas,
-                menus e caminhos desnecessários.
+              <p className="text-lg text-earth-800 mb-6 leading-relaxed font-medium">
+                Antes de chamar no WhatsApp, a pessoa responde perguntas rápidas em uma página simples. Assim, sua empresa recebe contatos mais organizados, entende melhor a necessidade do cliente e ganha tempo no atendimento.
               </p>
-              <div className="grid sm:grid-cols-2 gap-x-4 gap-y-3">
-                {[
-                  'Profissionais liberais',
-                  'Prestadores de serviço',
-                  'Corretores de imóveis',
-                  'Clínicas e estética',
-                  'Professores e mentores',
-                  'Infoprodutores',
-                  'Pequenos negócios locais',
-                  'E-commerces (campanhas)',
-                  'Agências (para clientes)',
-                  'Eventos e workshops',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-sand-50/50 p-3.5 rounded-xl border border-sand-400/20">
-                    <CheckCircle2 className="w-5 h-5 text-copper shrink-0" />
-                    <span className="text-earth-900 font-medium text-sm">{item}</span>
-                  </div>
-                ))}
+              <p className="text-lg text-earth-800 mb-10 leading-relaxed font-medium">
+                O WhatsApp continua sendo o canal final da conversa. A diferença é que o lead chega com contexto, e não apenas com um "Oi, tenho interesse".
+              </p>
+              
+              <div className="flex flex-col gap-4">
+                 {/* Card 1 */}
+                 <div className="bg-sand-50 border border-sand-400/30 rounded-2xl p-5 shadow-sm">
+                   <div className="flex items-center gap-3 font-semibold text-earth-900 mb-2">
+                     <div className="w-8 h-8 rounded-lg bg-copper/10 flex items-center justify-center shrink-0">
+                       <Megaphone className="w-4 h-4 text-copper"/>
+                     </div>
+                     1. Anúncio Meta
+                   </div>
+                   <p className="text-earth-800 text-sm ml-11">A pessoa clica no anúncio e demonstra interesse.</p>
+                 </div>
+                 
+                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90" />
+                 
+                 {/* Card 2 */}
+                 <div className="bg-white border-2 border-copper/30 shadow-md rounded-2xl p-5 relative">
+                   <div className="flex items-center gap-3 font-bold text-earth-900 mb-2">
+                     <div className="w-8 h-8 rounded-lg bg-copper flex items-center justify-center shrink-0">
+                        <LayoutTemplate className="w-4 h-4 text-white"/>
+                     </div>
+                     2. Página de qualificação
+                   </div>
+                   <p className="text-earth-800 text-sm ml-11 mb-3">Ela responde perguntas simples antes do contato.</p>
+                   
+                   <div className="ml-11 inline-flex items-center gap-2 bg-terracotta/5 border border-terracotta/10 px-3 py-1.5 rounded-lg text-xs">
+                     <Zap className="w-3 h-3 text-terracotta shrink-0"/>
+                     <span className="text-earth-800"><strong className="text-terracotta">Evento para Meta Ads:</strong> Ajuda a campanha a identificar leads com mais intenção.</span>
+                   </div>
+                 </div>
+                 
+                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90" />
+                 
+                 {/* Card 3 */}
+                 <div className="bg-[#25D366]/5 border border-[#25D366]/20 shadow-sm rounded-2xl p-5">
+                   <div className="flex items-center gap-3 font-semibold text-[#128C7E] mb-2">
+                     <div className="w-8 h-8 rounded-lg bg-[#25D366]/20 flex items-center justify-center shrink-0">
+                       <MessageCircle className="w-5 h-5 text-[#128C7E]"/>
+                     </div>
+                     3. WhatsApp com contexto
+                   </div>
+                   <p className="text-earth-800 text-sm ml-11">Você recebe um lead mais completo e fácil de atender.</p>
+                 </div>
               </div>
             </FadeIn>
-            <FadeIn delay={0.2} className="lg:order-last order-first content-center">
-              <InteractiveImage
-                src={images.audience}
-                alt="Diferentes públicos que podem usar landing pages"
-                containerClass="bg-sand-100/80 p-2 md:p-3"
-              />
+            <FadeIn delay={0.2} className="relative z-10 w-full mt-10 lg:mt-0 flex justify-center">
+              <div className="relative w-full max-w-[480px]">
+                 {/* Glow sutil para destacar a imagem e remover a sensação de foto reta colada */}
+                 <div className="absolute inset-0 bg-sand-300 blur-[80px] rounded-full opacity-40 mix-blend-multiply pointer-events-none transform scale-90 translate-y-8"></div>
+                 {/* Radial branco quente para contraste */}
+                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 bg-white blur-[60px] rounded-full opacity-60 mix-blend-overlay pointer-events-none"></div>
+                 
+                 <img
+                    src={images.evolucaoLead}
+                    alt="Lead chegando no WhatsApp com contexto"
+                    className="w-full h-auto drop-shadow-2xl relative z-10 object-contain rounded-2xl"
+                 />
+              </div>
             </FadeIn>
           </div>
         </Section>
 
-        {/* 4. Aplicações práticas */}
-        <Section id="aplicacoes" className="bg-sand-50 border-t border-sand-400/20">
+        {/* 4. Como funciona */}
+        <Section id="como-funciona" className="bg-sand-50 border-t border-sand-400/20">
           <FadeIn className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-              Uma LP pode resolver situações bem pontuais do seu negócio.
+              Como funciona na prática
             </h2>
           </FadeIn>
 
-          <FadeIn className="mb-16 max-w-5xl mx-auto">
-            <InteractiveImage
-              src={images.applications}
-              alt="Exemplos de aplicações práticas"
-            />
+          <FadeIn className="mb-12 max-w-5xl mx-auto">
+             <img
+               src={images.comoFunciona}
+               alt="Como funciona"
+               className="w-full h-auto drop-shadow-xl"
+             />
           </FadeIn>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-            <FadeIn delay={0.1}>
-              <Card
-                icon={Briefcase}
-                title="Divulgação de serviços"
-                text="Apresente seu serviço de forma clara, profissional e com CTA direto para orçamento ou WhatsApp."
-              />
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <Card
-                icon={LayoutTemplate}
-                title="Venda ou captação para imóveis"
-                text="Transforme um imóvel em uma apresentação digital mais valorizada, com fotos, diferenciais e contato direto."
-              />
-            </FadeIn>
-            <FadeIn delay={0.3}>
-              <Card
-                icon={Presentation}
-                title="Cursos, mentorias e eventos"
-                text="Explique a proposta, mostre autoridade, destaque benefícios e leve o visitante para inscrição ou conversa."
-              />
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <Card
-                icon={Zap}
-                title="Promoções e campanhas"
-                text="Crie uma página específica para uma oferta sazonal, lançamento, condição especial ou campanha comercial."
-              />
-            </FadeIn>
-            <FadeIn delay={0.5}>
-              <Card
-                icon={Users}
-                title="Captação de leads"
-                text="Use a LP para gerar contatos via formulário, WhatsApp, pré-cadastro ou página de aula gratuita."
-              />
-            </FadeIn>
-            <FadeIn delay={0.6}>
-              <Card
-                icon={Layers}
-                title="E-commerce e campanhas pontuais"
-                text="Crie páginas para produtos específicos, kits, coleções, promoções sazonais ou ações bem segmentadas."
-              />
-            </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto mb-12">
+            {[
+              { num: '1', title: 'Clique', text: 'A pessoa clica no seu anúncio do Facebook/Instagram.' },
+              { num: '2', title: 'Acesso', text: 'Acessa uma página rápida e focada na oferta principal.' },
+              { num: '3', title: 'Filtro', text: 'Responde perguntas simples de qualificação.' },
+              { num: '4', title: 'Registro', text: 'As informações são salvas e eventos são emitidos.' },
+              { num: '5', title: 'WhatsApp', text: 'O lead é enviado para a conversa com o contexto pronto.' },
+            ].map((step, i) => (
+    <React.Fragment key={i}>
+      <FadeIn delay={i * 0.1} className="bg-white p-5 rounded-2xl border border-sand-400/30 shadow-sm flex flex-col items-center text-center">
+        <div className="w-10 h-10 rounded-full bg-sand-100 text-copper font-bold text-lg flex items-center justify-center mb-4 ring-1 ring-sand-400/20 shrink-0">
+          {step.num}
+        </div>
+        <h3 className="font-bold text-earth-900 mb-2">{step.title}</h3>
+        <p className="text-sm text-earth-800 leading-relaxed">{step.text}</p>
+      </FadeIn>
+    </React.Fragment>
+            ))}
           </div>
+          
+          <FadeIn delay={0.5} className="text-center">
+            <p className="text-base font-medium text-earth-800 bg-white inline-block px-6 py-3 rounded-full border border-sand-400/20 shadow-sm shadow-earth-900/5">
+              💡 Esses dados ajudam a campanha a entender melhor quais contatos têm mais valor.
+            </p>
+          </FadeIn>
         </Section>
 
-        {/* 5. Problema que a LP resolve */}
-        <Section>
-          <div className="max-w-5xl mx-auto text-center">
-            <FadeIn>
-              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-12 leading-tight tracking-tight max-w-4xl mx-auto">
-                Seu anúncio pode chamar atenção. Mas se a página não convence, o
-                clique vira desperdício.
-              </h2>
-            </FadeIn>
-            <FadeIn delay={0.2} className="mb-16">
-              <InteractiveImage
-                src={images.problem}
-                alt="Contraste entre uma jornada confusa e uma clara"
-              />
-            </FadeIn>
-            
-            <FadeIn delay={0.3}>
-              <div className="text-left md:text-center max-w-3xl mx-auto space-y-6 text-lg text-earth-800 mb-16">
-                <p>
-                  Muita campanha perde resultado porque a pessoa clica no anúncio
-                  e cai em uma página confusa, genérica, lenta ou sem um caminho
-                  claro de conversão.
-                </p>
-                <p>
-                  Quando as informações não estão claras, o visitante sai da página. E o dinheiro do
-                  tráfego vai embora junto.
-                </p>
-              </div>
-              
-              <div className="grid md:grid-cols-3 gap-6 text-left items-stretch">
-                 <div className="h-full bg-sand-50 border border-sand-400/30 p-8 rounded-3xl flex flex-col">
-                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm border border-sand-400/20 shrink-0">
-                      <Search className="w-6 h-6 text-copper" />
-                   </div>
-                   <h3 className="text-xl font-bold text-earth-900 mb-3">Atenção retida</h3>
-                   <p className="text-earth-800 text-sm leading-relaxed text-balance">Uma página organizada responde rápido: o que é, para quem é e por que confiar.</p>
-                 </div>
-                 <div className="h-full bg-sand-50 border border-sand-400/30 p-8 rounded-3xl flex flex-col">
-                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm border border-sand-400/20 shrink-0">
-                      <Zap className="w-6 h-6 text-copper" />
-                   </div>
-                   <h3 className="text-xl font-bold text-earth-900 mb-3">Redução de fricção</h3>
-                   <p className="text-earth-800 text-sm leading-relaxed text-balance">Sem menus ou abas desnecessárias, o usuário foca exclusivamente na sua oferta principal.</p>
-                 </div>
-                 <div className="h-full bg-sand-50 border border-sand-400/30 p-8 rounded-3xl flex flex-col">
-                   <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-6 shadow-sm border border-sand-400/20 shrink-0">
-                      <MousePointerClick className="w-6 h-6 text-copper" />
-                   </div>
-                   <h3 className="text-xl font-bold text-earth-900 mb-3">Ação direta</h3>
-                   <p className="text-earth-800 text-sm leading-relaxed text-balance">Um botão CTA visível e direto aumenta absurdamente a chance de geração de contato ou lead.</p>
-                 </div>
-              </div>
-            </FadeIn>
-          </div>
-        </Section>
-
-        {/* 6. O que eu entrego */}
-        <Section className="bg-[#1C1A18] text-sand-50">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <FadeIn>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-sand-50 leading-tight">
-                Uma landing page pensada do briefing até o botão final.
-              </h2>
-              <p className="text-sand-300 text-lg mb-10 leading-relaxed max-w-lg">
-                A criação da LP inclui estratégia, texto, estrutura e orientação
-                visual. A página é construída para ser simples de navegar,
-                bonita no celular e focada em conversão.
-              </p>
-              <div className="space-y-4">
+        {/* 5. Exemplos de Perguntas */}
+        <Section className="bg-white">
+          <div className="max-w-4xl mx-auto">
+             <FadeIn className="text-center mb-12">
+               <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
+                 Perguntas simples que ajudam a separar curiosos de oportunidades
+               </h2>
+               <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto">
+                 As perguntas são adaptadas para cada negócio, sem deixar o processo longo ou cansativo.
+               </p>
+             </FadeIn>
+             
+             <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 {[
-                  'Organização do briefing da oferta',
-                  'Headline, subtítulos e copy completa',
-                  'Seções de benefícios, diferenciais e prova',
-                  'Direção visual compatível com sua marca',
-                  'Botões para WhatsApp ou formulário',
-                  'Página publicada (hospedagem simples grátis)',
+                  'Qual serviço você procura?',
+                  'Em qual cidade você está?',
+                  'Para quando precisa do atendimento?',
+                  'Qual o seu nível de urgência?',
+                  'Sua empresa já investe em tráfego?',
+                  'Qual seu orçamento aproximado?',
+                ].map((pergunta, i) => (
+                  <React.Fragment key={i}>
+                    <FadeIn delay={i * 0.1}>
+                      <div className="bg-sand-50 border border-sand-400/30 p-4 rounded-xl flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-copper shrink-0"></div>
+                        <span className="font-medium text-earth-900">{pergunta}</span>
+                      </div>
+                    </FadeIn>
+                  </React.Fragment>
+                ))}
+             </div>
+          </div>
+        </Section>
+
+        {/* 6. Para quem serve */}
+        <Section id="para-quem-e" className="bg-[#1C1A18] text-sand-50">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <FadeIn>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-sand-50 leading-tight tracking-tight">
+                Ideal para quem anuncia e atende pelo WhatsApp
+              </h2>
+              <div className="space-y-4 mb-8">
+                {[
+                  'Prestadores de serviço em geral',
+                  'Corretores e imobiliárias',
+                  'Clínicas de saúde e estética',
+                  'Venda de cursos e eventos',
+                  'Campanhas de promoções específicas',
+                  'Empresas que recebem volume alto de mensagens',
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4">
-                    <div className="w-6 h-6 rounded-full bg-copper/20 flex items-center justify-center shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-copper/20 flex items-center justify-center shrink-0">
                       <CheckCircle2 className="w-3.5 h-3.5 text-copper" />
                     </div>
                     <span className="text-sand-100 font-medium md:text-lg">{item}</span>
                   </div>
                 ))}
               </div>
+              <Button href={waLink} className="bg-terracotta text-sand-50 hover:bg-copper border-none text-lg px-8 py-4">
+                Falar sobre meu negócio
+              </Button>
             </FadeIn>
-            <FadeIn delay={0.2} className="lg:order-last order-first content-center relative">
-              <InteractiveImage
-                src={images.deliverables}
-                alt="Processo estruturado de entrega"
-                containerClass="bg-[#282522] p-2 md:p-3"
-              />
-            </FadeIn>
-          </div>
-        </Section>
-
-        {/* 7. Diferenciais */}
-        <Section>
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-                Mais estratégia do que template. Mais objetivo do que enrolação.
-              </h2>
-            </FadeIn>
-          </div>
-
-          <FadeIn className="mb-16 max-w-5xl mx-auto">
-            <InteractiveImage
-              src={images.differentials}
-              alt="Imagem de apoio"
-            />
-          </FadeIn>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-            <FadeIn delay={0.1}>
-              <Card
-                icon={Search}
-                title="Copy focada"
-                text="O texto não é só decorativo. Ele organiza a oferta, antecipa dúvidas e conduz a pessoa para a ação."
-              />
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <Card
-                icon={Smartphone}
-                title="Visual moderno"
-                text="Layout limpo, responsivo e com boa leitura no celular, sem excesso de blocos disputando atenção."
-              />
-            </FadeIn>
-            <FadeIn delay={0.3}>
-              <Card
-                icon={Crosshair}
-                title="Feita para campanhas"
-                text="A página já nasce pensando em anúncios, cliques, tráfego frio, escaneabilidade e foco na conversão."
-              />
-            </FadeIn>
-            <FadeIn delay={0.4}>
-              <Card
-                icon={TrendingUp}
-                title="Custo-benefício"
-                text="Uma solução acessível para quem precisa de uma presença digital pontual, sem contratar um projeto grande e caro."
-              />
-            </FadeIn>
-            <FadeIn delay={0.5}>
-              <Card
-                icon={ShieldCheck}
-                title="Hospedagem gratuita"
-                text="A LP pode ser publicada em uma estrutura moderna com custo zero de hospedagem para pequenos projetos."
-              />
-            </FadeIn>
-            <FadeIn delay={0.6}>
-              <Card
-                icon={MessageCircle}
-                title="Foco em WhatsApp"
-                text="Ideal para negócios que querem levar o visitante direto para conversa, orçamento rápido ou atendimento ágil."
-              />
+            <FadeIn delay={0.2} className="relative hidden lg:block">
+              <div className="grid grid-cols-2 gap-6 place-items-end">
+                 <div className="flex items-end justify-center"><img src={images.prof1} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 1"/></div>
+                 <div className="flex items-end justify-center mb-12"><img src={images.prof2} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 2"/></div>
+                 <div className="flex items-end justify-center"><img src={images.prof3} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 3"/></div>
+                 <div className="flex items-end justify-center mb-12"><img src={images.prof4} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 4"/></div>
+              </div>
             </FadeIn>
           </div>
         </Section>
-
-        {/* 8. Como funciona */}
-        <Section className="bg-sand-50 border-t border-sand-400/20">
-          <FadeIn className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-              Um processo simples para tirar sua oferta do improviso.
-            </h2>
-          </FadeIn>
-
-          <FadeIn className="mb-10 max-w-5xl mx-auto">
-            <InteractiveImage
-              src={images.process}
-              alt="Etapas do processo"
-            />
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-            {[
-              { num: '1', title: 'Briefing', text: 'Você envia as informações, fotos e canais.' },
-              { num: '2', title: 'Estratégia', text: 'Organizo a estrutura, benefícios e CTAs.' },
-              { num: '3', title: 'Copy & Visual', text: 'Texto comercial e direção visual adequadas.' },
-              { num: '4', title: 'Construção', text: 'Montagem focada em velocidade e mobile.' },
-              { num: '5', title: 'Publicação', text: 'Pronta para anúncios, Insta e WhatsApp.' },
-            ].map((step, i) => (
-              <FadeIn key={i} delay={i * 0.1} className="bg-white p-6 rounded-3xl border border-sand-400/30 shadow-sm flex flex-col items-center text-center hover:-translate-y-1 transition-transform">
-                <div className="w-12 h-12 rounded-full bg-sand-100 text-copper font-bold text-xl flex items-center justify-center mb-6 shadow-inner ring-1 ring-sand-400/20">
-                  {step.num}
-                </div>
-                <h3 className="font-bold text-earth-900 mb-3">{step.title}</h3>
-                <p className="text-sm text-earth-800 leading-relaxed text-balance">{step.text}</p>
-              </FadeIn>
-            ))}
-          </div>
-        </Section>
-
-        {/* 9. Exemplos de páginas */}
-        <Section>
-          <FadeIn className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-              Alguns formatos de LP que fazem sentido para negócios reais.
-            </h2>
-          </FadeIn>
-          
-          <FadeIn className="mb-12 max-w-5xl mx-auto relative group">
-             <InteractiveImage
-               src={images.examples}
-               alt="Exemplos"
-             />
-          </FadeIn>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            {[
-              'Venda de imóvel',
-              'Captação de curso',
-              'Profissional liberal',
-              'Clínica estética',
-              'Página de WhatsApp',
-              'Evento presencial',
-              'Aula gratuita',
-              'Consultoria',
-              'Serviço local',
-              'Lançamento simples',
-              'E-commerce sazonal',
-              'Campanhas B2B',
-            ].map((item, i) => (
-               <FadeIn delay={i * 0.05} key={i}>
-                 <div className="bg-sand-50 border border-sand-400/30 px-3 py-4 rounded-2xl flex flex-col sm:flex-row items-center gap-3 font-semibold text-earth-900 justify-center text-center shadow-sm h-full hover:border-sand-400/60 transition-colors">
-                    <PanelTop className="w-5 h-5 text-copper shrink-0 hidden sm:block opacity-80"/>
-                    <span className="text-sm tracking-tight text-balance">{item}</span>
-                 </div>
-               </FadeIn>
-            ))}
-          </div>
-          <FadeIn delay={0.4} className="mt-12 text-center text-earth-800 text-sm max-w-2xl mx-auto italic">
-            Todas são páginas simples, diretas e focadas em uma ação principal. Não são sites completos com várias páginas.
-          </FadeIn>
-        </Section>
-
-        {/* 10. Comparativo */}
-        <Section className="bg-sand-100 border-t border-sand-400/20">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <FadeIn>
-              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
-                Você talvez não precise de um site completo. Talvez precise de <span className="text-copper">clareza</span>.
-              </h2>
-            </FadeIn>
-          </div>
-
-          <FadeIn className="mb-12 max-w-4xl mx-auto">
-            <InteractiveImage
-              src={images.comparison}
-              alt="Comparativo visual entre Site completo e Landing Page"
-            />
-          </FadeIn>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16 items-stretch">
-            <FadeIn delay={0.1} className="bg-sand-50 p-8 md:p-10 rounded-3xl border border-sand-400/40 h-full flex flex-col hover:border-sand-400/60 transition-colors">
-              <h3 className="text-2xl font-bold text-earth-900 mb-6 pb-4 border-b border-sand-400/30">Site tradicional</h3>
-              <ul className="space-y-4 md:space-y-6 flex-1">
-                {['Mais páginas e complexidade', 'Mais tempo de produção', 'Custo muito mais elevado', 'Mais manutenção mensal', 'Mais distrações para o usuário', 'Melhor para presença institucional ampla'].map((item, i) => (
-                   <li key={i} className="flex items-center gap-4 text-earth-800 font-medium before:content-[''] before:w-1.5 before:h-1.5 before:bg-earth-800/30 before:rounded-full before:shrink-0">{item}</li>
-                ))}
-              </ul>
-            </FadeIn>
-            <FadeIn delay={0.2} className="bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-earth-900/5 ring-1 ring-terracotta/20 relative overflow-hidden h-full flex flex-col">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-terracotta/5 rounded-full blur-3xl pointer-events-none" />
-              <h3 className="text-2xl font-bold text-terracotta mb-6 pb-4 border-b border-sand-400/30 relative">Landing page</h3>
-              <ul className="space-y-4 md:space-y-6 relative flex-1">
-                {['Uma oferta específica e clara', 'Produção enxuta e rápida', 'Custo altamente eficiente', 'Foco 100% em conversão', 'Ideal para receber anúncios', 'Melhor para campanhas pontuais'].map((item, i) => (
-                   <li key={i} className="flex items-center gap-4 text-earth-900 font-medium before:content-[''] before:w-1.5 before:h-1.5 before:bg-terracotta/60 before:rounded-full before:shrink-0">{item}</li>
-                ))}
-              </ul>
-            </FadeIn>
-          </div>
-          <FadeIn delay={0.3} className="text-center max-w-3xl mx-auto text-lg text-earth-800 leading-relaxed font-medium">
-            Se o objetivo é divulgar uma oferta específica e gerar ação, uma LP bem feita pode ser muito mais eficiente do que um site cheio de abas que ninguém vai ler.
-          </FadeIn>
-        </Section>
-
-        {/* 11. Autoridade */}
-        <section className="relative min-h-[70vh] flex items-center py-24 px-6 overflow-hidden bg-[#1C1A18]">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src={images.authority}
-              alt="Autoridade"
-              className="w-full h-full object-cover object-[70%_center] md:object-[80%_center]"
-            />
-            {/* Overlays para garantir a leitura do texto */}
-            <div className="absolute inset-0 bg-[#1C1A18]/85 md:hidden backdrop-blur-[2px]"></div>
-            <div className="absolute inset-0 hidden md:block bg-gradient-to-r from-[#1C1A18]/95 via-[#1C1A18]/85 to-[#1C1A18]/20 backdrop-blur-[2px]"></div>
-          </div>
-
-          <div className="max-w-6xl mx-auto relative z-10 w-full">
-            <div className="max-w-2xl lg:max-w-3xl">
-              <FadeIn>
-                <h2 className="text-3xl md:text-5xl font-bold mb-8 text-sand-50 leading-tight">
-                  Feita por quem entende de tráfego, copy e conversão.
-                </h2>
-                <div className="space-y-6 text-sand-300 text-lg md:text-xl leading-relaxed mb-10 max-w-lg">
-                  <p>
-                    Meu trabalho une criação de página, visão de marketing e experiência com campanhas de tráfego pago. 
-                  </p>
-                  <p>
-                    Isso ajuda a construir LPs pensadas para receber visitantes de anúncios, redes sociais e WhatsApp com uma mensagem clara e um caminho simples até a conversão definitiva.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {['Tráfego Pago', 'Copywriting', 'Design de Conversão'].map((tag, i) => (
-                    <span key={i} className="px-5 py-2.5 rounded-full border border-sand-400/20 text-sand-100 text-sm font-semibold tracking-wide bg-white/5 backdrop-blur-sm shadow-sm ring-1 ring-white/10">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-
-        {/* 11.5 O que está incluso */}
-        <Section className="bg-white border-t border-sand-400/20">
-          <div className="max-w-4xl mx-auto">
+        
+        {/* 7. O que está incluso */}
+        <Section className="bg-sand-100">
+           <div className="max-w-4xl mx-auto">
             <FadeIn className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
-                O que está incluso na criação
+                O que você recebe
               </h2>
-              <p className="text-xl text-earth-800 leading-relaxed font-medium">
-                Sua landing page é entregue pronta para você começar a divulgar sua oferta.
-              </p>
+            </FadeIn>
+
+            <FadeIn className="max-w-5xl mx-auto mb-12 hidden md:block">
+               <img src={images.mosaico} alt="Mova seu projeto" className="w-full h-auto drop-shadow-2xl" />
             </FadeIn>
             
             <FadeIn>
               <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4 mb-10">
                 {[
-                  'Estrutura clara da página',
-                  'Organização estratégica da oferta',
-                  'Texto comercial básico (a partir do briefing)',
-                  'Botão de contato para WhatsApp',
-                  'Versão 100% adaptada para celular',
-                  'Publicação inicial para acesso rápido',
-                  'Orientação sobre conexão de domínio próprio',
+                  'Página de qualificação personalizada',
+                  'Texto da oferta ajustado para conversão',
+                  'Perguntas estratégicas para o seu negócio',
+                  'Registro dos leads (planilha ou painel simples)',
+                  'Configuração de eventos básicos para Meta',
+                  'Botão final direcionando ao WhatsApp',
+                  'Estrutura ideal para campanhas de Leads',
                 ].map((item, i) => (
-                  <div key={i} className="flex flex-row items-center gap-4 bg-sand-50/50 p-4 rounded-2xl border border-sand-400/30">
-                    <CheckCircle2 className="w-6 h-6 text-copper shrink-0" />
-                    <span className="text-earth-900 font-medium">{item}</span>
+                  <div key={i} className="flex flex-row gap-4 bg-white p-5 rounded-2xl border border-sand-400/30 shadow-sm items-start">
+                    <CheckCircle2 className="w-5 h-5 text-copper shrink-0 mt-0.5" />
+                    <span className="text-earth-900 font-medium leading-snug">{item}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-center text-earth-800 text-sm md:text-base leading-relaxed bg-sand-50 border border-sand-400/40 p-5 rounded-xl">
-                <strong>Importante:</strong> os projetos começam no valor base, mas podem variar dependendo do tamanho da página, quantidade de seções, materiais disponíveis, nível de personalização do design e ajustes extras solicitados pelo projeto.
-              </p>
             </FadeIn>
           </div>
         </Section>
 
-        {/* 12. FAQ */}
-        <Section className="bg-sand-50">
-          <div className="max-w-4xl mx-auto">
-            <FadeIn className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
-                Perguntas frequentes
-              </h2>
-              <p className="text-xl text-earth-800 leading-relaxed font-medium">
-                Tire suas dúvidas sobre criação, custos e funcionamento.
-              </p>
-            </FadeIn>
-            <FadeIn className="bg-white rounded-[32px] p-6 md:p-10 border border-sand-400/30 shadow-xl shadow-earth-900/5">
-              <div className="flex flex-col">
-                {faqs.map((faq, index) => (
-                  <FAQItem key={index} question={faq.question} answer={faq.answer} />
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </Section>
-
-        {/* 13. Oferta Comercial & CTA */}
+        {/* 8. CTA Final */}
         <Section className="bg-terracotta text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 to-transparent pointer-events-none" />
-          <FadeIn className="max-w-4xl mx-auto relative">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 text-sand-50 leading-tight tracking-tight">
-              Uma LP profissional sem o custo pesado de um site completo.
+          <FadeIn className="max-w-3xl mx-auto relative">
+            <Lightbulb className="w-12 h-12 text-sand-50/80 mx-auto mb-8 drop-shadow-sm" />
+            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-sand-50 leading-tight tracking-tight">
+              Quer receber leads mais preparados antes da conversa no WhatsApp?
             </h2>
-            <p className="text-xl text-sand-100/90 mb-6 leading-relaxed max-w-3xl mx-auto">
-              Ideal para quem precisa validar uma oferta, rodar uma campanha, divulgar um serviço ou criar uma presença digital específica sem entrar em um projeto demorado.
-            </p>
-            <p className="text-xl md:text-2xl text-sand-50 mb-12 leading-relaxed max-w-3xl mx-auto font-medium">
-              Você recebe uma página objetiva e focada, com <span className="underline decoration-sand-300 underline-offset-4">baixo custo de criação e hospedagem gratuita</span> para projetos simples.
+            <p className="text-xl text-sand-100/90 mb-12 leading-relaxed font-medium">
+              Crie uma página de qualificação para seus anúncios e facilite o caminho entre o clique, o interesse e o atendimento.
             </p>
             
-            <Button href={waLink} className="!bg-sand-50 !text-terracotta hover:!bg-white hover:shadow-2xl hover:-translate-y-1 shadow-black/10 scale-100 font-bold text-lg px-10 py-5 transition-all mb-12">
-              Quero criar minha LP
+            <Button href={waLink} className="!bg-sand-50 !text-terracotta hover:!bg-white shadow-xl hover:-translate-y-1 hover:shadow-2xl font-bold text-lg px-10 py-5 transition-all">
+              Quero minha página de qualificação
               <ArrowRight className="ml-2 w-6 h-6" />
-            </Button>
-            
-            <div className="bg-black/15 border border-black/10 p-6 rounded-2xl text-sm md:text-base text-sand-100 mb-4 max-w-3xl mx-auto leading-relaxed shadow-inner">
-              <strong>Observação importante:</strong> A hospedagem gratuita se aplica a páginas simples, dentro dos limites técnicos da estrutura utilizada. Projetos maiores ou complexos podem exigir outra estrutura.
-            </div>
-          </FadeIn>
-        </Section>
-
-        {/* 13. Rodapé Simplificado / Último CTA */}
-        <Section className="bg-sand-50 pb-16 pt-24 border-b border-sand-400/20">
-          <FadeIn className="max-w-3xl mx-auto text-center">
-            <Lightbulb className="w-12 h-12 text-copper mx-auto mb-8 drop-shadow-sm" />
-            <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-8 tracking-tight">
-              Quer transformar sua oferta em uma página pronta para gerar contatos?
-            </h2>
-            <p className="text-xl text-earth-800 mb-10 leading-relaxed font-medium">
-              Me envie sua ideia e eu te ajudo a transformar sua oferta em uma landing page profissional, clara e bonita, com custo acessível.
-            </p>
-            <Button href={waLink} variant="primary" className="shadow-lg hover:shadow-xl px-10 py-5 text-lg font-bold group">
-              <MessageCircle className="mr-2 w-6 h-6 group-hover:scale-110 transition-transform" />
-              Falar sobre minha landing page
             </Button>
           </FadeIn>
         </Section>
         
         {/* Footer Real */}
         <footer className="py-8 bg-sand-100 text-center text-earth-800 text-sm font-medium">
-          <p>© {new Date().getFullYear()} • Criação de Landing Pages Estratégicas</p>
+          <p>© {new Date().getFullYear()} • Soluções de Qualificação para WhatsApp Ads</p>
         </footer>
       </main>
 
