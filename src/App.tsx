@@ -133,9 +133,9 @@ const Button = ({
   className?: string;
 }) => {
   const baseStyle =
-    'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 px-8 py-4 text-[16px]';
+    'inline-flex items-center justify-center font-bold rounded-[14px] transition-all duration-300 px-8 py-4 text-[16px]';
   const primaryStyle =
-    'bg-terracotta text-sand-50 shadow-md shadow-terracotta/20 hover:bg-caramel hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0';
+    'bg-terracotta text-white shadow-md shadow-terracotta/20 hover:bg-caramel hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0';
   const secondaryStyle =
     'bg-transparent border border-sand-400 text-earth-900 hover:bg-sand-400/20 active:bg-sand-400/40';
 
@@ -168,12 +168,12 @@ const Card = ({
   title: string;
   text?: string;
 }) => (
-  <div className="h-full bg-sand-50 p-8 rounded-3xl border border-sand-400/30 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col">
-    <div className="bg-sand-100 w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shrink-0">
+  <div className="h-full bg-white p-8 rounded-2xl border border-sand-400 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col">
+    <div className="bg-sand-100 w-12 h-12 rounded-xl flex items-center justify-center mb-6 shrink-0">
       <Icon className="w-6 h-6 text-copper" />
     </div>
-    <h3 className="text-xl font-semibold text-earth-900 mb-3">{title}</h3>
-    {text && <p className="text-earth-800 leading-relaxed max-w-[95%]">{text}</p>}
+    <h3 className="text-xl font-bold text-earth-900 mb-2">{title}</h3>
+    {text && <p className="text-earth-800 leading-relaxed font-medium max-w-[95%]">{text}</p>}
   </div>
 );
 
@@ -237,12 +237,12 @@ export default function App() {
 
       <main className="md:pt-20">
         {/* 1. Hero */}
-        <section className="relative min-h-[auto] lg:min-h-[100vh] flex items-center pt-24 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400/20 bg-[#F7F4EF]">
+        <section className="relative min-h-[auto] lg:min-h-[90vh] flex items-center pt-24 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400 bg-sand-100">
           
           {/* Background integrado para Desktop */}
           <div className="hidden lg:block absolute inset-0 z-0 overflow-hidden">
              {/* Leve brilho quente (radial-gradient) atrás do celular */}
-             <div className="absolute top-0 right-0 w-[50%] h-full bg-[radial-gradient(circle_at_center,rgba(233,216,199,0.7)_0%,transparent_70%)]"></div>
+             <div className="absolute top-0 right-0 w-[50%] h-full bg-[radial-gradient(circle_at_center,rgba(230,222,213,0.7)_0%,transparent_70%)]"></div>
              
              {/* Imagem do Mockup */}
              <img 
@@ -255,7 +255,7 @@ export default function App() {
              <div 
                 className="absolute inset-0 pointer-events-none" 
                 style={{
-                   background: 'linear-gradient(to right, #F7F4EF 0%, rgba(247,244,239,0.92) 38%, rgba(247,244,239,0.45) 65%, rgba(247,244,239,0) 100%)'
+                   background: 'linear-gradient(to right, #F7F4EF 0%, rgba(247,244,239,0.95) 45%, rgba(247,244,239,0.45) 75%, rgba(247,244,239,0) 100%)'
                 }}
              ></div>
           </div>
@@ -264,36 +264,34 @@ export default function App() {
             {/* Texto à esquerda */}
             <div className="pt-2 md:pt-8 w-full max-w-full">
               <FadeIn>
-                <div className="inline-flex items-center bg-white/70 backdrop-blur-md border border-sand-400/40 rounded-full px-4 py-1.5 mb-6 shadow-sm">
-                  <span className="text-[13px] sm:text-sm md:text-base font-semibold text-earth-900 flex items-center gap-2">
+                <div className="inline-flex items-center bg-white border border-sand-400 shadow-sm rounded-full px-4 py-1.5 mb-6">
+                  <span className="text-[13px] sm:text-sm font-bold text-earth-900 flex items-center gap-2 tracking-wide uppercase">
                     <Target className="w-4 h-4 text-copper" /> Qualifique seus contatos
                   </span>
                 </div>
-                <h1 className="text-[38px] sm:text-[42px] md:text-5xl lg:text-[4rem] font-bold tracking-tight text-earth-900 leading-[1.1] md:leading-[1.05] mb-5 w-full break-words drop-shadow-sm">
+                <h1 className="text-[36px] sm:text-[42px] md:text-5xl lg:text-[4rem] font-extrabold tracking-tight text-earth-900 leading-[1.05] mb-5 w-full break-words">
                   Seus anúncios levam para o WhatsApp, mas os leads chegam
                   sem contexto?
                 </h1>
-                <p className="text-[17px] sm:text-[19px] md:text-xl text-earth-800 leading-relaxed max-w-[540px] font-medium mb-8">
+                <p className="text-[17px] sm:text-[19px] md:text-[21px] text-earth-800 leading-relaxed max-w-[540px] font-medium mb-8">
                   Crio páginas de qualificação para campanhas de WhatsApp Ads,
-                  com perguntas simples antes do atendimento. Assim, sua empresa
-                  recebe contatos mais organizados e com mais chance de virar
-                  oportunidade.
+                  com perguntas simples antes do atendimento. Receba contatos mais organizados e prontos para comprar.
                 </p>
                 
-                <div className="flex flex-wrap lg:flex-nowrap items-center gap-2 md:gap-4 text-earth-800 font-medium mb-10 text-[13px] sm:text-[14px] md:text-base pb-2">
-                  <span className="flex items-center gap-1.5 md:gap-2 bg-white/60 backdrop-blur-md px-2.5 py-1.5 md:px-3 rounded-lg border border-sand-400/20 shadow-sm"><Megaphone className="w-3.5 h-3.5 md:w-4 md:h-4 text-copper"/> Anúncio</span>
-                  <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-sand-400 shrink-0 hidden sm:block" />
-                  <span className="flex items-center gap-1.5 md:gap-2 bg-white/60 backdrop-blur-md px-2.5 py-1.5 md:px-3 rounded-lg border border-sand-400/20 shadow-sm"><LayoutTemplate className="w-3.5 h-3.5 md:w-4 md:h-4 text-copper"/> Filtro</span>
-                  <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-sand-400 shrink-0 hidden sm:block" />
-                  <span className="flex items-center gap-1.5 md:gap-2 bg-[#25D366]/15 backdrop-blur-md text-[#128C7E] px-2.5 py-1.5 md:px-3 rounded-lg border border-[#25D366]/20 shadow-sm mt-2 sm:mt-0"><MessageCircle className="w-3.5 h-3.5 md:w-4 md:h-4"/> WhatsApp com contexto</span>
+                <div className="flex flex-wrap lg:flex-nowrap items-center gap-2 md:gap-4 text-earth-900 font-bold mb-10 text-[13px] sm:text-[14px] md:text-base pb-2">
+                  <span className="flex items-center gap-1.5 md:gap-2 bg-white px-3 py-2 md:px-3 md:py-2 rounded-xl border border-sand-400 shadow-sm"><Megaphone className="w-4 h-4 text-copper"/> Anúncio</span>
+                  <ArrowRight className="w-4 h-4 text-earth-800 shrink-0 hidden sm:block" />
+                  <span className="flex items-center gap-1.5 md:gap-2 bg-white px-3 py-2 md:px-3 rounded-xl border border-sand-400 shadow-sm"><LayoutTemplate className="w-4 h-4 text-copper"/> Filtro</span>
+                  <ArrowRight className="w-4 h-4 text-earth-800 shrink-0 hidden sm:block" />
+                  <span className="flex items-center gap-1.5 md:gap-2 bg-[#25D366]/10 text-[#128C7E] px-3 py-2 md:px-3 rounded-xl border border-[#25D366]/30 shadow-sm mt-2 sm:mt-0"><MessageCircle className="w-4 h-4"/> WhatsApp</span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full">
-                  <Button href={waLink} className="w-full sm:w-auto flex-1 sm:flex-none text-[15px] sm:text-base">
-                    Quero melhorar meus leads
+                  <Button href={waLink} className="w-full sm:w-auto flex-1 sm:flex-none text-[15px] sm:text-base font-bold">
+                    Criar minha página de qualificação
                     <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
                   </Button>
-                  <Button href="#como-funciona" variant="secondary" className="w-full sm:w-auto flex-1 sm:flex-none bg-[#F7F4EF]/80 backdrop-blur-md border-sand-400/50 hover:bg-[#F7F4EF] text-[15px] sm:text-base">
+                  <Button href="#como-funciona" variant="secondary" className="w-full sm:w-auto flex-1 sm:flex-none bg-white border-sand-400 font-bold hover:bg-sand-50 text-[15px] sm:text-base">
                     Ver como funciona
                   </Button>
                 </div>
@@ -332,19 +330,18 @@ export default function App() {
         </section>
 
         {/* 2. Problema */}
-        <Section className="bg-sand-50 border-y border-sand-400/10">
+        <Section className="bg-sand-50 border-y border-sand-400/50">
           <FadeIn>
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
+            <div className="max-w-3xl mx-auto text-center mb-16 px-4">
+              <h2 className="text-[32px] sm:text-4xl md:text-5xl font-extrabold text-earth-900 mb-6 tracking-tight leading-tight">
                 Nem toda conversa no WhatsApp é um bom lead
               </h2>
-              <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto">
+              <p className="text-[17px] md:text-xl text-earth-800 leading-relaxed max-w-2xl mx-auto font-medium">
                 Muitas campanhas geram mensagens, mas parte dos contatos chega 
-                sem informação, sem perfil ou só perguntando preço. Isso toma 
-                tempo do atendimento e dificulta a leitura do que está funcionando.
+                sem informação ou só perguntando preço. Isso toma tempo do atendimento.
               </p>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-5xl mx-auto px-4">
               {[
                 { text: 'Muitos curiosos chegando no WhatsApp', icon: Users },
                 { text: 'Pouca informação antes do atendimento', icon: Search },
@@ -353,12 +350,12 @@ export default function App() {
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="bg-white border border-sand-400/30 rounded-2xl p-6 flex flex-col items-center gap-4 shadow-sm text-center"
+                  className="bg-white border border-sand-400 rounded-2xl p-6 flex flex-col items-center gap-4 shadow-sm text-center transform transition-transform hover:-translate-y-1 hover:shadow-md"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-sand-50 flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-sand-100 flex items-center justify-center shrink-0 border border-sand-400/50">
                     <item.icon className="w-6 h-6 text-copper" />
                   </div>
-                  <span className="text-earth-900 font-medium text-base leading-tight">
+                  <span className="text-earth-900 font-bold text-[15px] md:text-base leading-snug">
                     {item.text}
                   </span>
                 </div>
@@ -368,59 +365,61 @@ export default function App() {
         </Section>
 
         {/* 3. Solução */}
-        <Section className="bg-white">
-          <div className="grid lg:grid-cols-[48%_52%] gap-10 lg:gap-16 items-center max-w-[1240px] mx-auto">
+        <Section className="bg-white border-b border-sand-400/30">
+          <div className="grid lg:grid-cols-[48%_52%] gap-10 lg:gap-16 items-center max-w-[1240px] mx-auto px-4">
             <FadeIn>
-              <h2 className="text-[34px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-earth-900 mb-5 break-words tracking-tight leading-tight">
+              <div className="inline-flex items-center bg-sand-100 border border-sand-400 rounded-full px-3 py-1 mb-5">
+                <span className="text-[12px] font-bold text-earth-900 tracking-wide uppercase">
+                  O fluxo ideal
+                </span>
+              </div>
+              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-extrabold text-earth-900 mb-5 break-words tracking-tight leading-[1.1]">
                 Seu lead chega no WhatsApp sabendo o que quer
               </h2>
-              <p className="text-[17px] md:text-lg text-earth-800 mb-5 leading-relaxed font-medium">
-                A página organiza as respostas do visitante e prepara uma mensagem com contexto para iniciar a conversa no WhatsApp.
-              </p>
-              <p className="text-[17px] md:text-lg text-earth-800 mb-8 leading-relaxed font-medium">
-                O WhatsApp continua sendo o canal final da conversa. A diferença é que a pessoa já chega pronta para o atendimento, enviando os dados de forma estruturada.
+              <p className="text-[17px] md:text-lg text-earth-800 mb-8 leading-relaxed font-medium max-w-[500px]">
+                A página organiza as respostas do visitante e prepara uma mensagem com contexto para iniciar a conversa estruturada.
               </p>
               
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-4">
                  {/* Card 1 */}
-                 <div className="bg-sand-50 border border-sand-400/30 rounded-xl p-4 shadow-sm flex items-start gap-4">
-                   <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center shrink-0 mt-0.5">
+                 <div className="bg-sand-50 border border-sand-400 rounded-[14px] p-4 lg:p-5 shadow-sm flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-xl bg-white border border-sand-400 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
                      <Megaphone className="w-5 h-5 text-copper"/>
                    </div>
                    <div>
-                     <div className="font-semibold text-earth-900 mb-1">1. Anúncio Meta</div>
-                     <p className="text-earth-800 text-sm">A pessoa clica no anúncio e demonstra interesse.</p>
+                     <div className="font-bold text-earth-900 text-base mb-1">1. Anúncio Meta</div>
+                     <p className="text-earth-800 text-[14px] font-medium">A pessoa clica no anúncio e demonstra interesse na oferta.</p>
                    </div>
                  </div>
                  
-                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90 my-0.5" />
+                 <ArrowRight className="w-5 h-5 text-earth-800 mx-auto rotate-90 my-[-4px]" />
                  
                  {/* Card 2 */}
-                 <div className="bg-white border-2 border-copper/30 shadow-md rounded-xl p-4 relative flex items-start gap-4">
-                   <div className="w-10 h-10 rounded-lg bg-copper flex items-center justify-center shrink-0 mt-0.5">
+                 <div className="bg-white border-2 border-copper shadow-md rounded-[14px] p-4 lg:p-5 relative flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-xl bg-terracotta shadow-sm flex items-center justify-center shrink-0 mt-0.5">
                       <LayoutTemplate className="w-5 h-5 text-white"/>
                    </div>
                    <div className="flex-1">
-                     <div className="font-bold text-earth-900 mb-1">2. Página de qualificação</div>
-                     <p className="text-earth-800 text-[13px] md:text-sm mb-3">Ela responde perguntas simples antes do contato.</p>
+                     <div className="font-extrabold text-earth-900 text-base mb-1">2. Página de qualificação</div>
+                     <p className="text-earth-800 text-[14px] mb-3 font-medium">Filtra intenção antes do WhatsApp.</p>
                      
-                     <div className="inline-flex items-start gap-2 bg-terracotta/5 border border-terracotta/10 px-2.5 md:px-3 py-2 rounded-lg text-xs w-full max-w-full">
-                       <Zap className="w-3.5 h-3.5 text-terracotta shrink-0 mt-0.5"/>
-                       <span className="text-earth-800 leading-relaxed"><strong className="text-terracotta">Evento para Meta Ads:</strong> Ajuda a campanha a identificar leads com mais intenção.</span>
+                     <div className="inline-flex items-start gap-2 bg-sand-50 border border-sand-400 px-3 py-2 rounded-lg text-[13px] font-medium w-full max-w-full">
+                       <Zap className="w-4 h-4 text-copper shrink-0 mt-0.5"/>
+                       <span className="text-earth-900 leading-relaxed"><strong className="text-copper font-bold">Lado Comercial:</strong> Evento de lead enviado para otimizar a campanha.</span>
                      </div>
                    </div>
                  </div>
                  
-                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90 my-0.5" />
+                 <ArrowRight className="w-5 h-5 text-earth-800 mx-auto rotate-90 my-[-4px]" />
                  
                  {/* Card 3 */}
-                 <div className="bg-[#25D366]/5 border border-[#25D366]/20 shadow-sm rounded-xl p-4 flex items-start gap-4">
-                   <div className="w-10 h-10 rounded-lg bg-[#25D366]/20 flex items-center justify-center shrink-0 mt-0.5">
+                 <div className="bg-[#FFFDF8] border border-[#25D366]/40 shadow-sm rounded-[14px] p-4 lg:p-5 flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 flex items-center justify-center shrink-0 mt-0.5">
                      <MessageCircle className="w-5 h-5 text-[#128C7E]"/>
                    </div>
                    <div>
-                     <div className="font-semibold text-[#128C7E] mb-1">3. WhatsApp com contexto</div>
-                     <p className="text-earth-800 text-sm">Você recebe um lead mais completo e fácil de atender.</p>
+                     <div className="font-bold text-earth-900 text-base mb-1">3. Atendimento com contexto</div>
+                     <p className="text-earth-800 text-[14px] font-medium">Você recebe o contato estruturado, reduzindo tempo gasto.</p>
                    </div>
                  </div>
               </div>
@@ -503,10 +502,15 @@ export default function App() {
         </Section>
 
         {/* 4. Como funciona */}
-        <Section id="como-funciona" className="bg-gradient-to-b from-sand-50 to-[#F7F4EF] border-t border-sand-400/20">
+        <Section id="como-funciona" className="bg-sand-100 border-t border-sand-400">
           <div className="max-w-[1240px] mx-auto">
             <FadeIn className="text-center max-w-3xl mx-auto mb-10 md:mb-14 px-4">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight">
+              <div className="inline-flex items-center bg-white border border-sand-400 shadow-sm rounded-full px-3 py-1 mb-5">
+                <span className="text-[12px] font-bold text-earth-900 tracking-wide uppercase">
+                  O Passo a Passo
+                </span>
+              </div>
+              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-extrabold text-earth-900 mb-4 tracking-tight">
                 Como funciona na prática
               </h2>
               <p className="text-earth-800 text-lg md:text-xl font-medium leading-relaxed">
@@ -515,19 +519,19 @@ export default function App() {
             </FadeIn>
 
             <FadeIn className="mb-12 max-w-[960px] mx-auto w-full relative px-4">
-              <div className="bg-white p-2.5 sm:p-5 rounded-2xl sm:rounded-[2rem] shadow-xl shadow-earth-900/5 border border-sand-400/20 relative z-10 w-full overflow-hidden">
-                 <div className="absolute inset-0 bg-gradient-to-tr from-sand-50/30 to-white/60 pointer-events-none"></div>
+              <div className="bg-white p-2.5 sm:p-5 rounded-2xl shadow-md border border-sand-400 relative z-10 w-full overflow-hidden">
+                 <div className="absolute inset-0 bg-gradient-to-tr from-sand-50/50 to-white/60 pointer-events-none"></div>
                  <img
                    src={images.comoFunciona}
                    alt="Como funciona o funil"
-                   className="w-full h-auto object-contain relative z-10 rounded-xl sm:rounded-2xl"
+                   className="w-full h-auto object-contain relative z-10 rounded-xl"
                  />
               </div>
             </FadeIn>
 
             <div className="max-w-[1120px] mx-auto relative mb-12 px-4">
               {/* Desktop connector line */}
-              <div className="hidden lg:block absolute top-[35px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-sand-400/40 to-transparent z-0"></div>
+              <div className="hidden lg:block absolute top-[35px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-sand-400 to-transparent z-0"></div>
               
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-5 relative z-10">
                 {[
@@ -540,12 +544,12 @@ export default function App() {
                   <div key={i} className="relative group">
                     {/* Mobile vertical connector */}
                     {i < 4 && (
-                       <div className="lg:hidden absolute left-[35px] sm:left-[39px] top-[60px] bottom-[-24px] w-[2px] bg-sand-400/30 z-0"></div>
+                       <div className="lg:hidden absolute left-[35px] sm:left-[39px] top-[60px] bottom-[-24px] w-[2px] bg-sand-400 z-0"></div>
                     )}
                     
-                    <FadeIn delay={i * 0.1} className={`h-full bg-white p-5 lg:p-6 rounded-2xl transition-all flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center gap-4 lg:gap-4 relative z-10 border ${step.highlight ? 'border-terracotta/20 shadow-md shadow-terracotta/5' : 'border-sand-400/20 shadow-sm'}`}>
+                    <FadeIn delay={i * 0.1} className={`h-full bg-white p-5 lg:p-6 rounded-2xl transition-all flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center gap-4 lg:gap-4 relative z-10 border ${step.highlight ? 'border-terracotta shadow-md' : 'border-sand-400 shadow-sm'}`}>
                       
-                      <div className={`w-12 h-12 lg:w-16 lg:h-16 sm:w-14 sm:h-14 rounded-full flex items-center justify-center font-bold text-lg lg:text-xl shrink-0 transition-colors ${step.highlight ? 'bg-terracotta/10 text-terracotta ring-1 ring-terracotta/20' : 'bg-[#F7F4EF] text-earth-800 ring-1 ring-sand-400/30'}`}>
+                      <div className={`w-12 h-12 lg:w-16 lg:h-16 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center font-bold text-lg lg:text-xl shrink-0 transition-colors ${step.highlight ? 'bg-terracotta text-white' : 'bg-sand-100 text-earth-900 border border-sand-400'}`}>
                         {step.num}
                       </div>
                       
@@ -560,10 +564,10 @@ export default function App() {
             </div>
             
             <FadeIn delay={0.5} className="text-center px-4">
-              <div className="inline-flex items-center gap-3 text-sm md:text-[15px] font-medium text-earth-800 bg-white px-5 md:px-7 py-3 md:py-3.5 rounded-2xl md:rounded-full border border-sand-400/20 shadow-sm shadow-earth-900/5 max-w-full text-left md:text-center leading-relaxed">
+              <div className="inline-flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-earth-900 bg-white px-5 md:px-7 py-3 md:py-3.5 rounded-[14px] border border-sand-400 shadow-sm max-w-full text-left md:text-center leading-relaxed">
                 <Zap className="w-5 h-5 text-terracotta shrink-0 hidden md:block" />
                 <span className="flex-1 break-words">
-                  Esses dados ajudam a campanha a entender melhor quais contatos têm mais valor.
+                  Esses dados ajudam a campanha a entender melhor quais contatos têm mais valor para otimização.
                 </span>
               </div>
             </FadeIn>
@@ -571,13 +575,13 @@ export default function App() {
         </Section>
 
         {/* 5. Exemplos de Perguntas */}
-        <Section className="bg-white">
-          <div className="max-w-4xl mx-auto">
+        <Section className="bg-white border-t border-sand-400/50">
+          <div className="max-w-4xl mx-auto px-4">
              <FadeIn className="text-center mb-12">
-               <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
+               <h2 className="text-[32px] sm:text-4xl md:text-5xl font-extrabold text-earth-900 mb-6 tracking-tight leading-tight">
                  Perguntas simples que ajudam a separar curiosos de oportunidades
                </h2>
-               <p className="text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto">
+               <p className="text-[17px] md:text-xl text-earth-800 leading-relaxed max-w-2xl mx-auto font-medium">
                  As perguntas são adaptadas para cada negócio, sem deixar o processo longo ou cansativo.
                </p>
              </FadeIn>
@@ -593,9 +597,9 @@ export default function App() {
                 ].map((pergunta, i) => (
                   <React.Fragment key={i}>
                     <FadeIn delay={i * 0.1}>
-                      <div className="bg-sand-50 border border-sand-400/30 p-4 rounded-xl flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-copper shrink-0"></div>
-                        <span className="font-medium text-earth-900">{pergunta}</span>
+                      <div className="bg-[#FFFDF8] border border-sand-400 p-4 rounded-xl flex items-center gap-3 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="w-2.5 h-2.5 rounded-sm bg-terracotta shrink-0"></div>
+                        <span className="font-bold text-earth-900 text-[15px]">{pergunta}</span>
                       </div>
                     </FadeIn>
                   </React.Fragment>
@@ -605,21 +609,21 @@ export default function App() {
         </Section>
 
         {/* 6. Para quem serve */}
-        <Section id="para-quem-e" className="bg-[#1C1A18] text-sand-50 py-16 md:py-24 overflow-hidden relative">
-          <div className="max-w-[1240px] mx-auto grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center">
+        <Section id="para-quem-e" className="bg-[#1C1A18] text-sand-50 py-16 md:py-24 overflow-hidden relative border-y border-earth-900">
+          <div className="max-w-[1240px] mx-auto grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center px-4">
             
             {/* Esquerda: Texto */}
             <FadeIn className="flex flex-col">
-              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-xs font-semibold text-sand-100 mb-6 self-start tracking-wide uppercase">
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-full text-xs font-bold text-sand-100 mb-6 self-start tracking-wide uppercase">
                 Para quem é
               </div>
               
-              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-[44px] font-bold mb-5 text-sand-50 leading-[1.15] tracking-tight">
+              <h2 className="text-[36px] sm:text-[42px] md:text-5xl lg:text-[54px] font-extrabold mb-6 text-white leading-[1.05] tracking-tight">
                 Ideal para quem anuncia<br className="hidden sm:block" /> e atende pelo WhatsApp
               </h2>
               
-              <p className="text-sand-100/90 text-[15px] sm:text-base lg:text-[17px] font-medium leading-relaxed mb-8 max-w-[500px]">
-                Se sua campanha gera conversas, uma página de qualificação ajuda a filtrar melhor quem realmente tem interesse antes do atendimento.
+              <p className="text-sand-100/90 text-[17px] md:text-[19px] font-medium leading-relaxed mb-8 max-w-[500px]">
+                Se sua campanha gera conversas, uma página de qualificação ajuda a filtrar melhor quem realmente tem intenção antes do atendimento.
               </p>
               
               <div className="flex flex-col gap-3 mb-10 w-full max-w-[520px]">
@@ -629,18 +633,18 @@ export default function App() {
                   'Corretores e imobiliárias',
                   'Venda de cursos e eventos',
                   'Campanhas de promoções específicas',
-                  'Empresas que recebem volume alto de mensagens',
+                  'Empresas com alto volume de mensagens',
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 bg-white/5 border border-white/10 px-4 py-3.5 rounded-xl hover:bg-white/10 transition-colors">
-                    <div className="w-6 h-6 rounded-full bg-terracotta/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="w-4 h-4 text-terracotta" />
+                  <div key={i} className="flex items-center gap-4 bg-[#262320] border border-white/10 px-4 py-3.5 rounded-xl hover:bg-white/10 transition-colors shadow-sm">
+                    <div className="w-6 h-6 rounded-md bg-terracotta flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-sand-50 font-medium text-[14px] md:text-[15px] leading-tight">{item}</span>
+                    <span className="text-white font-bold text-[15px] md:text-[16px] leading-tight">{item}</span>
                   </div>
                 ))}
               </div>
               
-              <Button href={waLink} className="w-full sm:w-auto self-start bg-terracotta text-sand-50 hover:bg-copper border-none text-[15px] sm:text-base font-semibold px-6 md:px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20">
+              <Button href={waLink} className="w-full sm:w-auto self-start bg-terracotta text-white hover:bg-caramel border-none text-[15px] sm:text-base font-bold px-6 md:px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 rounded-xl">
                 Ver se serve para meu negócio
               </Button>
             </FadeIn>
@@ -679,21 +683,26 @@ export default function App() {
         </Section>
         
         {/* 7. O que está incluso */}
-        <Section className="bg-sand-100 py-16 md:py-24">
+        <Section className="bg-sand-100 py-16 md:py-24 border-b border-sand-400">
            <div className="max-w-[1240px] mx-auto px-4">
             <FadeIn className="text-center mb-10 md:mb-14">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight">
+              <div className="inline-flex items-center bg-white border border-sand-400 shadow-sm rounded-full px-3 py-1 mb-5">
+                <span className="text-[12px] font-bold text-earth-900 tracking-wide uppercase">
+                  Página Completa
+                </span>
+              </div>
+              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-extrabold text-earth-900 mb-4 tracking-tight">
                 O que você recebe
               </h2>
               <p className="text-earth-800 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
-                Uma estrutura pronta para transformar anúncios em contatos mais organizados no WhatsApp.
+                Uma estrutura pronta para transformar anúncios em contatos organizados no WhatsApp.
               </p>
             </FadeIn>
 
             <FadeIn className="max-w-[960px] mx-auto mb-12 w-full">
-               <div className="bg-white p-2.5 sm:p-5 rounded-2xl sm:rounded-[2rem] shadow-xl shadow-earth-900/5 border border-sand-400/20 relative z-10 w-full overflow-hidden">
+               <div className="bg-white p-2.5 sm:p-5 rounded-[1.25rem] sm:rounded-[2rem] shadow-md border border-sand-400 relative z-10 w-full overflow-hidden">
                  <div className="absolute inset-0 bg-gradient-to-tr from-sand-50/50 to-white/70 pointer-events-none"></div>
-                 <img src={images.mosaico} alt="O que você recebe" className="w-full h-auto object-contain relative z-10 rounded-xl sm:rounded-2xl" />
+                 <img src={images.mosaico} alt="O que você recebe" className="w-full h-auto object-contain relative z-10 rounded-xl" />
                </div>
             </FadeIn>
             
@@ -701,17 +710,17 @@ export default function App() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12">
                 {[
                   { text: 'Página de qualificação personalizada', highlight: true },
-                  { text: 'Texto da oferta ajustado para conversão', highlight: false },
-                  { text: 'Perguntas estratégicas para o seu negócio', highlight: true },
-                  { text: 'Registro dos leads em planilha ou painel simples', highlight: true },
-                  { text: 'Configuração de eventos básicos para Meta', highlight: false },
-                  { text: 'Botão final direcionando ao WhatsApp', highlight: true },
-                  { text: 'Estrutura ideal para campanhas de Leads', highlight: false },
-                  { text: 'Orientação simples para usar a página nas campanhas', highlight: false },
+                  { text: 'Texto de oferta ajustado p/ conversão', highlight: false },
+                  { text: 'Perguntas estratégicas do seu negócio', highlight: true },
+                  { text: 'Registro de leads em painel', highlight: true },
+                  { text: 'Configuração de eventos p/ Meta Ads', highlight: false },
+                  { text: 'Botão integrado ao seu WhatsApp', highlight: true },
+                  { text: 'Estrutura técnica otimizada', highlight: false },
+                  { text: 'Orientação para uso nas campanhas', highlight: false },
                 ].map((item, i) => (
-                  <div key={i} className={`flex flex-col bg-white p-5 lg:p-6 rounded-2xl border transition-all ${item.highlight ? 'border-terracotta/20 shadow-md shadow-terracotta/5' : 'border-sand-400/30 shadow-sm'} items-start h-full`}>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 mb-4 ${item.highlight ? 'bg-terracotta/10' : 'bg-sand-100'}`}>
-                      <CheckCircle2 className={`w-5 h-5 ${item.highlight ? 'text-terracotta' : 'text-copper'}`} />
+                  <div key={i} className={`flex flex-col bg-white p-5 lg:p-6 rounded-[14px] border transition-all ${item.highlight ? 'border-terracotta shadow-md' : 'border-sand-400 shadow-sm'} items-start h-full hover:-translate-y-1 hover:shadow-md`}>
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mb-4 ${item.highlight ? 'bg-terracotta' : 'bg-sand-100 border border-sand-400'}`}>
+                      <CheckCircle2 className={`w-5 h-5 ${item.highlight ? 'text-white' : 'text-earth-900'}`} />
                     </div>
                     <span className={`text-[15px] md:text-base leading-snug ${item.highlight ? 'font-bold text-earth-900' : 'font-medium text-earth-800'}`}>{item.text}</span>
                   </div>
@@ -720,10 +729,10 @@ export default function App() {
             </FadeIn>
 
             <FadeIn delay={0.2} className="text-center flex flex-col items-center">
-              <p className="text-earth-800 font-medium mb-5 text-[15px] md:text-base">
-                Pronto para transformar seus anúncios em contatos mais organizados?
+              <p className="text-earth-900 font-bold mb-5 text-[15px] md:text-base">
+                Pronto para receber contatos mais organizados?
               </p>
-              <Button href={waLink} className="w-full sm:w-auto bg-terracotta text-sand-50 hover:bg-copper border-none text-[15px] sm:text-base font-semibold px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 transition-all">
+              <Button href={waLink} className="w-full sm:w-auto bg-terracotta text-white hover:bg-caramel border-none text-[15px] sm:text-base font-bold px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 transition-all rounded-[14px]">
                 Quero esse kit para minha campanha
               </Button>
             </FadeIn>
@@ -731,20 +740,20 @@ export default function App() {
         </Section>
 
         {/* 8. CTA Final */}
-        <Section className="bg-terracotta text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 to-transparent pointer-events-none" />
-          <FadeIn className="max-w-3xl mx-auto relative">
-            <Lightbulb className="w-12 h-12 text-sand-50/80 mx-auto mb-8 drop-shadow-sm" />
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-sand-50 leading-tight tracking-tight">
-              Quer receber leads mais preparados antes da conversa no WhatsApp?
+        <Section className="bg-[#1C1A18] text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-terracotta/20 via-transparent to-transparent pointer-events-none" />
+          <FadeIn className="max-w-3xl mx-auto relative px-4">
+            <Lightbulb className="w-12 h-12 text-terracotta mx-auto mb-8 drop-shadow-sm" />
+            <h2 className="text-[36px] sm:text-4xl md:text-5xl lg:text-[56px] font-extrabold mb-8 text-white leading-[1.05] tracking-tight">
+              Quer receber leads mais preparados no seu WhatsApp?
             </h2>
-            <p className="text-xl text-sand-100/90 mb-12 leading-relaxed font-medium">
-              Crie uma página de qualificação para seus anúncios e facilite o caminho entre o clique, o interesse e o atendimento.
+            <p className="text-[18px] md:text-xl text-sand-100/90 mb-12 leading-relaxed font-medium">
+              Crie uma página de qualificação para seus anúncios e mude a forma como os contatos chegam para o seu atendimento.
             </p>
             
-            <Button href={waLink} className="!bg-sand-50 !text-terracotta hover:!bg-white shadow-xl hover:-translate-y-1 hover:shadow-2xl font-bold text-lg px-10 py-5 transition-all">
-              Quero minha página de qualificação
-              <ArrowRight className="ml-2 w-6 h-6" />
+            <Button href={waLink} className="!bg-terracotta !text-white hover:!bg-caramel shadow-xl hover:-translate-y-1 hover:shadow-terracotta/30 font-bold text-[16px] md:text-lg px-8 md:px-10 py-4 md:py-5 transition-all rounded-[14px] w-full sm:w-auto">
+              Criar minha página agora
+              <ArrowRight className="ml-2 w-5 h-5 md:w-6 md:h-6" />
             </Button>
           </FadeIn>
         </Section>
