@@ -503,46 +503,71 @@ export default function App() {
         </Section>
 
         {/* 4. Como funciona */}
-        <Section id="como-funciona" className="bg-sand-50 border-t border-sand-400/20">
-          <FadeIn className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6">
-              Como funciona na prática
-            </h2>
-          </FadeIn>
+        <Section id="como-funciona" className="bg-gradient-to-b from-sand-50 to-[#F7F4EF] border-t border-sand-400/20">
+          <div className="max-w-[1240px] mx-auto">
+            <FadeIn className="text-center max-w-3xl mx-auto mb-10 md:mb-14 px-4">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight">
+                Como funciona na prática
+              </h2>
+              <p className="text-earth-800 text-lg md:text-xl font-medium leading-relaxed">
+                Entre o clique no anúncio e a conversa no WhatsApp, a página organiza as informações do lead.
+              </p>
+            </FadeIn>
 
-          <FadeIn className="mb-12 max-w-5xl mx-auto">
-             <img
-               src={images.comoFunciona}
-               alt="Como funciona"
-               className="w-full h-auto drop-shadow-xl"
-             />
-          </FadeIn>
+            <FadeIn className="mb-12 max-w-[960px] mx-auto w-full relative px-4">
+              <div className="bg-white p-2.5 sm:p-5 rounded-2xl sm:rounded-[2rem] shadow-xl shadow-earth-900/5 border border-sand-400/20 relative z-10 w-full overflow-hidden">
+                 <div className="absolute inset-0 bg-gradient-to-tr from-sand-50/30 to-white/60 pointer-events-none"></div>
+                 <img
+                   src={images.comoFunciona}
+                   alt="Como funciona o funil"
+                   className="w-full h-auto object-contain relative z-10 rounded-xl sm:rounded-2xl"
+                 />
+              </div>
+            </FadeIn>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto mb-12">
-            {[
-              { num: '1', title: 'Clique', text: 'A pessoa clica no seu anúncio do Facebook/Instagram.' },
-              { num: '2', title: 'Acesso', text: 'Acessa uma página rápida e focada na oferta principal.' },
-              { num: '3', title: 'Filtro', text: 'Responde perguntas simples de qualificação.' },
-              { num: '4', title: 'Registro', text: 'As informações são salvas e eventos são emitidos.' },
-              { num: '5', title: 'WhatsApp', text: 'O lead é enviado para a conversa com o contexto pronto.' },
-            ].map((step, i) => (
-    <React.Fragment key={i}>
-      <FadeIn delay={i * 0.1} className="bg-white p-5 rounded-2xl border border-sand-400/30 shadow-sm flex flex-col items-center text-center">
-        <div className="w-10 h-10 rounded-full bg-sand-100 text-copper font-bold text-lg flex items-center justify-center mb-4 ring-1 ring-sand-400/20 shrink-0">
-          {step.num}
-        </div>
-        <h3 className="font-bold text-earth-900 mb-2">{step.title}</h3>
-        <p className="text-sm text-earth-800 leading-relaxed">{step.text}</p>
-      </FadeIn>
-    </React.Fragment>
-            ))}
+            <div className="max-w-[1120px] mx-auto relative mb-12 px-4">
+              {/* Desktop connector line */}
+              <div className="hidden lg:block absolute top-[35px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-sand-400/40 to-transparent z-0"></div>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 md:gap-5 relative z-10">
+                {[
+                  { num: '1', title: 'Clique', text: 'A pessoa clica no seu anúncio do Facebook/Instagram.' },
+                  { num: '2', title: 'Acesso', text: 'Acessa uma página rápida e focada na oferta.' },
+                  { num: '3', title: 'Filtro', text: 'Responde perguntas simples de qualificação.', highlight: true },
+                  { num: '4', title: 'Registro', text: 'As informações são salvas e eventos são emitidos.' },
+                  { num: '5', title: 'WhatsApp', text: 'O lead é enviado para a conversa com o contexto pronto.', highlight: true },
+                ].map((step, i) => (
+                  <div key={i} className="relative group">
+                    {/* Mobile vertical connector */}
+                    {i < 4 && (
+                       <div className="lg:hidden absolute left-[35px] sm:left-[39px] top-[60px] bottom-[-24px] w-[2px] bg-sand-400/30 z-0"></div>
+                    )}
+                    
+                    <FadeIn delay={i * 0.1} className={`h-full bg-white p-5 lg:p-6 rounded-2xl transition-all flex flex-row lg:flex-col items-start lg:items-center text-left lg:text-center gap-4 lg:gap-4 relative z-10 border ${step.highlight ? 'border-terracotta/20 shadow-md shadow-terracotta/5' : 'border-sand-400/20 shadow-sm'}`}>
+                      
+                      <div className={`w-12 h-12 lg:w-16 lg:h-16 sm:w-14 sm:h-14 rounded-full flex items-center justify-center font-bold text-lg lg:text-xl shrink-0 transition-colors ${step.highlight ? 'bg-terracotta/10 text-terracotta ring-1 ring-terracotta/20' : 'bg-[#F7F4EF] text-earth-800 ring-1 ring-sand-400/30'}`}>
+                        {step.num}
+                      </div>
+                      
+                      <div className="flex-1 mt-0.5 lg:mt-0">
+                        <h3 className="font-bold text-[17px] lg:text-lg mb-1 lg:mb-2 text-earth-900 tracking-tight">{step.title}</h3>
+                        <p className="text-[14px] lg:text-[14.5px] text-earth-800 leading-relaxed font-medium lg:w-[110%] lg:-ml-[5%]">{step.text}</p>
+                      </div>
+                    </FadeIn>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <FadeIn delay={0.5} className="text-center px-4">
+              <div className="inline-flex items-center gap-3 text-sm md:text-[15px] font-medium text-earth-800 bg-white px-5 md:px-7 py-3 md:py-3.5 rounded-2xl md:rounded-full border border-sand-400/20 shadow-sm shadow-earth-900/5 max-w-full text-left md:text-center leading-relaxed">
+                <Zap className="w-5 h-5 text-terracotta shrink-0 hidden md:block" />
+                <span className="flex-1 break-words">
+                  Esses dados ajudam a campanha a entender melhor quais contatos têm mais valor.
+                </span>
+              </div>
+            </FadeIn>
           </div>
-          
-          <FadeIn delay={0.5} className="text-center">
-            <p className="text-base font-medium text-earth-800 bg-white inline-block px-6 py-3 rounded-full border border-sand-400/20 shadow-sm shadow-earth-900/5">
-              💡 Esses dados ajudam a campanha a entender melhor quais contatos têm mais valor.
-            </p>
-          </FadeIn>
         </Section>
 
         {/* 5. Exemplos de Perguntas */}
