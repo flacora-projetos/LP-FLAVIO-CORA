@@ -4,6 +4,10 @@ import {
   ArrowRight,
   CheckCircle2,
   Users,
+  User,
+  Phone,
+  Smile,
+  Mic,
   Target,
   LayoutTemplate,
   Rocket,
@@ -233,7 +237,7 @@ export default function App() {
 
       <main className="md:pt-20">
         {/* 1. Hero */}
-        <section className="relative min-h-[90vh] lg:min-h-[100vh] flex items-center pt-16 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400/20 bg-[#F7F4EF]">
+        <section className="relative min-h-[auto] lg:min-h-[100vh] flex items-center pt-24 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400/20 bg-[#F7F4EF]">
           
           {/* Background integrado para Desktop */}
           <div className="hidden lg:block absolute inset-0 z-0 overflow-hidden">
@@ -256,56 +260,71 @@ export default function App() {
              ></div>
           </div>
 
-          <div className="max-w-7xl mx-auto relative z-10 w-full grid lg:grid-cols-[55%_45%] gap-8 lg:gap-12 items-center">
+          <div className="max-w-7xl mx-auto relative z-10 w-full grid lg:grid-cols-[55%_45%] gap-8 lg:gap-12 items-center text-left">
             {/* Texto à esquerda */}
-            <div className="pt-8">
+            <div className="pt-2 md:pt-8 w-full max-w-full">
               <FadeIn>
                 <div className="inline-flex items-center bg-white/70 backdrop-blur-md border border-sand-400/40 rounded-full px-4 py-1.5 mb-6 shadow-sm">
-                  <span className="text-sm md:text-base font-semibold text-earth-900 flex items-center gap-2">
+                  <span className="text-[13px] sm:text-sm md:text-base font-semibold text-earth-900 flex items-center gap-2">
                     <Target className="w-4 h-4 text-copper" /> Qualifique seus contatos
                   </span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-[4rem] font-bold tracking-tight text-earth-900 leading-[1.05] mb-6 drop-shadow-sm">
+                <h1 className="text-[38px] sm:text-[42px] md:text-5xl lg:text-[4rem] font-bold tracking-tight text-earth-900 leading-[1.1] md:leading-[1.05] mb-5 w-full break-words drop-shadow-sm">
                   Seus anúncios levam para o WhatsApp, mas os leads chegam
                   sem contexto?
                 </h1>
-                <p className="text-lg md:text-xl text-earth-800 leading-relaxed mb-10 max-w-[540px] font-medium">
+                <p className="text-[17px] sm:text-[19px] md:text-xl text-earth-800 leading-relaxed max-w-[540px] font-medium mb-8">
                   Crio páginas de qualificação para campanhas de WhatsApp Ads,
                   com perguntas simples antes do atendimento. Assim, sua empresa
                   recebe contatos mais organizados e com mais chance de virar
                   oportunidade.
                 </p>
                 
-                <div className="flex items-center gap-4 text-earth-800 font-medium mb-10 text-sm md:text-base overflow-x-auto pb-2">
-                  <span className="flex items-center gap-2 whitespace-nowrap bg-white/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-sand-400/20 shadow-sm"><Megaphone className="w-4 h-4 text-copper"/> Anúncio</span>
-                  <ArrowRight className="w-4 h-4 text-sand-400 shrink-0" />
-                  <span className="flex items-center gap-2 whitespace-nowrap bg-white/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-sand-400/20 shadow-sm"><LayoutTemplate className="w-4 h-4 text-copper"/> Página de qualificação</span>
-                  <ArrowRight className="w-4 h-4 text-sand-400 shrink-0" />
-                  <span className="flex items-center gap-2 whitespace-nowrap bg-[#25D366]/15 backdrop-blur-md text-[#128C7E] px-3 py-1.5 rounded-lg border border-[#25D366]/20 shadow-sm"><MessageCircle className="w-4 h-4"/> WhatsApp</span>
+                <div className="flex flex-wrap lg:flex-nowrap items-center gap-2 md:gap-4 text-earth-800 font-medium mb-10 text-[13px] sm:text-[14px] md:text-base pb-2">
+                  <span className="flex items-center gap-1.5 md:gap-2 bg-white/60 backdrop-blur-md px-2.5 py-1.5 md:px-3 rounded-lg border border-sand-400/20 shadow-sm"><Megaphone className="w-3.5 h-3.5 md:w-4 md:h-4 text-copper"/> Anúncio</span>
+                  <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-sand-400 shrink-0 hidden sm:block" />
+                  <span className="flex items-center gap-1.5 md:gap-2 bg-white/60 backdrop-blur-md px-2.5 py-1.5 md:px-3 rounded-lg border border-sand-400/20 shadow-sm"><LayoutTemplate className="w-3.5 h-3.5 md:w-4 md:h-4 text-copper"/> Filtro</span>
+                  <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-sand-400 shrink-0 hidden sm:block" />
+                  <span className="flex items-center gap-1.5 md:gap-2 bg-[#25D366]/15 backdrop-blur-md text-[#128C7E] px-2.5 py-1.5 md:px-3 rounded-lg border border-[#25D366]/20 shadow-sm mt-2 sm:mt-0"><MessageCircle className="w-3.5 h-3.5 md:w-4 md:h-4"/> WhatsApp com contexto</span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button href={waLink} className="flex-1 sm:flex-none">
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full">
+                  <Button href={waLink} className="w-full sm:w-auto flex-1 sm:flex-none text-[15px] sm:text-base">
                     Quero melhorar meus leads
                     <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
                   </Button>
-                  <Button href="#como-funciona" variant="secondary" className="flex-1 sm:flex-none bg-[#F7F4EF]/80 backdrop-blur-md border-sand-400/50 hover:bg-[#F7F4EF]">
+                  <Button href="#como-funciona" variant="secondary" className="w-full sm:w-auto flex-1 sm:flex-none bg-[#F7F4EF]/80 backdrop-blur-md border-sand-400/50 hover:bg-[#F7F4EF] text-[15px] sm:text-base">
                     Ver como funciona
                   </Button>
                 </div>
               </FadeIn>
             </div>
             
-            {/* Mobile Imagem Direita (abaixo do texto) */}
-            <div className="lg:hidden mt-8 w-full flex justify-center">
-              <FadeIn delay={0.2} className="relative z-10">
-                <div className="relative">
-                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(233,216,199,0.7)_0%,transparent_70%)] blur-2xl rounded-full"></div>
-                   <img
-                     src={images.paginaQualificacao}
-                     alt="Página de Qualificação"
-                     className="w-full max-w-[320px] h-auto drop-shadow-xl relative z-10 object-contain"
-                   />
+            {/* Mobile Imagem Direita (context card) */}
+            <div className="lg:hidden mt-10 w-full flex justify-center">
+              <FadeIn delay={0.2} className="relative z-10 w-full max-w-sm">
+                <div className="bg-white rounded-2xl shadow-sm border border-sand-400/30 overflow-hidden">
+                  <div className="p-4 border-b border-sand-400/10 text-center bg-white">
+                    <h3 className="font-semibold text-earth-900 text-[15px] mb-3">Como o lead chega melhor</h3>
+                    <div className="flex flex-col gap-2 items-center text-earth-800">
+                      <div className="flex flex-wrap justify-center items-center gap-2 text-[11px] sm:text-[12px] font-medium">
+                        <span className="flex items-center gap-1 bg-sand-50 px-2 py-1 rounded-md border border-sand-400/20"><Megaphone className="w-3 h-3 text-copper"/> Anúncio</span>
+                        <ArrowRight className="w-3 h-3 text-sand-400" />
+                        <span className="flex items-center gap-1 bg-sand-50 px-2 py-1 rounded-md border border-sand-400/20"><LayoutTemplate className="w-3 h-3 text-copper"/> Filtro</span>
+                        <ArrowRight className="w-3 h-3 text-sand-400" />
+                        <span className="flex items-center gap-1 bg-[#25D366]/10 px-2 py-1 rounded-md border border-[#25D366]/20 text-[#128C7E]"><MessageCircle className="w-3 h-3"/> WhatsApp</span>
+                      </div>
+                      <p className="mt-1 text-[13px] font-medium">A pessoa responde antes de chamar.</p>
+                    </div>
+                  </div>
+                  <div className="relative p-6 pt-5 flex justify-center bg-sand-50/50">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(233,216,199,0.5)_0%,transparent_70%)] blur-2xl"></div>
+                    <img
+                      src={images.paginaQualificacao}
+                      alt="Página de Qualificação contextualizada"
+                      className="w-full max-w-[260px] h-auto drop-shadow-xl relative z-10 object-contain rounded-[1rem]"
+                    />
+                  </div>
                 </div>
               </FadeIn>
             </div>
@@ -350,74 +369,142 @@ export default function App() {
 
         {/* 3. Solução */}
         <Section className="bg-white">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-center max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-[48%_52%] gap-10 lg:gap-16 items-center max-w-[1240px] mx-auto">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-earth-900 mb-6 drop-shadow-sm">
+              <h2 className="text-[34px] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-earth-900 mb-5 break-words tracking-tight leading-tight">
                 Seu lead chega no WhatsApp sabendo o que quer
               </h2>
-              <p className="text-lg text-earth-800 mb-6 leading-relaxed font-medium">
+              <p className="text-[17px] md:text-lg text-earth-800 mb-5 leading-relaxed font-medium">
                 Antes de chamar no WhatsApp, a pessoa responde perguntas rápidas em uma página simples. Assim, sua empresa recebe contatos mais organizados, entende melhor a necessidade do cliente e ganha tempo no atendimento.
               </p>
-              <p className="text-lg text-earth-800 mb-10 leading-relaxed font-medium">
+              <p className="text-[17px] md:text-lg text-earth-800 mb-8 leading-relaxed font-medium">
                 O WhatsApp continua sendo o canal final da conversa. A diferença é que o lead chega com contexto, e não apenas com um "Oi, tenho interesse".
               </p>
               
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3">
                  {/* Card 1 */}
-                 <div className="bg-sand-50 border border-sand-400/30 rounded-2xl p-5 shadow-sm">
-                   <div className="flex items-center gap-3 font-semibold text-earth-900 mb-2">
-                     <div className="w-8 h-8 rounded-lg bg-copper/10 flex items-center justify-center shrink-0">
-                       <Megaphone className="w-4 h-4 text-copper"/>
-                     </div>
-                     1. Anúncio Meta
+                 <div className="bg-sand-50 border border-sand-400/30 rounded-xl p-4 shadow-sm flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-lg bg-copper/10 flex items-center justify-center shrink-0 mt-0.5">
+                     <Megaphone className="w-5 h-5 text-copper"/>
                    </div>
-                   <p className="text-earth-800 text-sm ml-11">A pessoa clica no anúncio e demonstra interesse.</p>
+                   <div>
+                     <div className="font-semibold text-earth-900 mb-1">1. Anúncio Meta</div>
+                     <p className="text-earth-800 text-sm">A pessoa clica no anúncio e demonstra interesse.</p>
+                   </div>
                  </div>
                  
-                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90" />
+                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90 my-0.5" />
                  
                  {/* Card 2 */}
-                 <div className="bg-white border-2 border-copper/30 shadow-md rounded-2xl p-5 relative">
-                   <div className="flex items-center gap-3 font-bold text-earth-900 mb-2">
-                     <div className="w-8 h-8 rounded-lg bg-copper flex items-center justify-center shrink-0">
-                        <LayoutTemplate className="w-4 h-4 text-white"/>
-                     </div>
-                     2. Página de qualificação
+                 <div className="bg-white border-2 border-copper/30 shadow-md rounded-xl p-4 relative flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-lg bg-copper flex items-center justify-center shrink-0 mt-0.5">
+                      <LayoutTemplate className="w-5 h-5 text-white"/>
                    </div>
-                   <p className="text-earth-800 text-sm ml-11 mb-3">Ela responde perguntas simples antes do contato.</p>
-                   
-                   <div className="ml-11 inline-flex items-center gap-2 bg-terracotta/5 border border-terracotta/10 px-3 py-1.5 rounded-lg text-xs">
-                     <Zap className="w-3 h-3 text-terracotta shrink-0"/>
-                     <span className="text-earth-800"><strong className="text-terracotta">Evento para Meta Ads:</strong> Ajuda a campanha a identificar leads com mais intenção.</span>
+                   <div className="flex-1">
+                     <div className="font-bold text-earth-900 mb-1">2. Página de qualificação</div>
+                     <p className="text-earth-800 text-[13px] md:text-sm mb-3">Ela responde perguntas simples antes do contato.</p>
+                     
+                     <div className="inline-flex items-start gap-2 bg-terracotta/5 border border-terracotta/10 px-2.5 md:px-3 py-2 rounded-lg text-xs w-full max-w-full">
+                       <Zap className="w-3.5 h-3.5 text-terracotta shrink-0 mt-0.5"/>
+                       <span className="text-earth-800 leading-relaxed"><strong className="text-terracotta">Evento para Meta Ads:</strong> Ajuda a campanha a identificar leads com mais intenção.</span>
+                     </div>
                    </div>
                  </div>
                  
-                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90" />
+                 <ArrowRight className="w-5 h-5 text-sand-400 mx-auto rotate-90 my-0.5" />
                  
                  {/* Card 3 */}
-                 <div className="bg-[#25D366]/5 border border-[#25D366]/20 shadow-sm rounded-2xl p-5">
-                   <div className="flex items-center gap-3 font-semibold text-[#128C7E] mb-2">
-                     <div className="w-8 h-8 rounded-lg bg-[#25D366]/20 flex items-center justify-center shrink-0">
-                       <MessageCircle className="w-5 h-5 text-[#128C7E]"/>
-                     </div>
-                     3. WhatsApp com contexto
+                 <div className="bg-[#25D366]/5 border border-[#25D366]/20 shadow-sm rounded-xl p-4 flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-lg bg-[#25D366]/20 flex items-center justify-center shrink-0 mt-0.5">
+                     <MessageCircle className="w-5 h-5 text-[#128C7E]"/>
                    </div>
-                   <p className="text-earth-800 text-sm ml-11">Você recebe um lead mais completo e fácil de atender.</p>
+                   <div>
+                     <div className="font-semibold text-[#128C7E] mb-1">3. WhatsApp com contexto</div>
+                     <p className="text-earth-800 text-sm">Você recebe um lead mais completo e fácil de atender.</p>
+                   </div>
                  </div>
               </div>
             </FadeIn>
-            <FadeIn delay={0.2} className="relative z-10 w-full mt-10 lg:mt-0 flex justify-center">
-              <div className="relative w-full max-w-[480px]">
-                 {/* Glow sutil para destacar a imagem e remover a sensação de foto reta colada */}
-                 <div className="absolute inset-0 bg-sand-300 blur-[80px] rounded-full opacity-40 mix-blend-multiply pointer-events-none transform scale-90 translate-y-8"></div>
-                 {/* Radial branco quente para contraste */}
-                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 bg-white blur-[60px] rounded-full opacity-60 mix-blend-overlay pointer-events-none"></div>
+            
+            <FadeIn delay={0.2} className="relative z-10 w-full mt-10 lg:mt-0 lg:pl-10 flex justify-center">
+              <div className="relative w-full max-w-[360px] md:max-w-[420px] mx-auto">
+                 {/* Glow and shadow for integration */}
+                 <div className="absolute inset-0 bg-[#25D366] blur-[100px] rounded-full opacity-15 mix-blend-multiply pointer-events-none transform scale-90 translate-y-8"></div>
                  
-                 <img
-                    src={images.evolucaoLead}
-                    alt="Lead chegando no WhatsApp com contexto"
-                    className="w-full h-auto drop-shadow-2xl relative z-10 object-contain rounded-2xl"
-                 />
+                 {/* WhatsApp Mockup */}
+                 <div className="relative bg-[#EFEAE2] rounded-[2rem] overflow-hidden border-[6px] border-white shadow-2xl flex flex-col h-[550px] md:h-[650px] ring-1 ring-sand-400/20 max-w-full">
+                   
+                   {/* Header */}
+                   <div className="bg-[#075E54] px-4 md:px-5 py-3 md:py-4 flex items-center gap-3 shrink-0 shadow-md relative z-10">
+                     <div className="w-9 h-9 md:w-10 md:h-10 bg-white/20 rounded-full flex items-center justify-center overflow-hidden shrink-0">
+                       <User className="w-5 h-5 md:w-6 md:h-6 text-white/80" />
+                     </div>
+                     <div className="flex-1 min-w-0">
+                       <div className="font-semibold text-white truncate text-[15px] md:text-[17px]">Novo Lead (Site)</div>
+                       <div className="text-xs text-white/80 truncate">online</div>
+                     </div>
+                     <Phone className="w-4 h-4 md:w-5 md:h-5 text-white/90 shrink-0" />
+                   </div>
+                   
+                   {/* Chat Area */}
+                   <div className="flex-1 p-4 md:p-5 lg:p-6 overflow-y-auto flex flex-col gap-4 relative justify-end pb-8">
+                     {/* Data badge */}
+                     <div className="flex justify-center mb-1">
+                       <div className="bg-[#E1F3FB] text-[#4A6877] text-[10px] md:text-[11px] font-medium px-2.5 py-1 rounded-lg shadow-sm">
+                         HOJE
+                       </div>
+                     </div>
+                     
+                     {/* Message bubble */}
+                     <div className="bg-white rounded-2xl rounded-tl-sm p-3.5 md:p-4 shadow-sm w-[92%] lg:w-[90%] relative border border-black/5 self-start text-earth-900 text-[14px] md:text-[15px] leading-relaxed max-w-full">
+                       <div className="absolute top-0 -left-2 w-0 h-0 border-[8px] border-transparent border-t-white border-r-white"></div>
+                       
+                       <div className="font-bold mb-3 flex items-center gap-1.5 md:gap-2 text-[14px] md:text-base">
+                         <span className="text-lg md:text-xl">👋</span> Novo lead qualificado
+                       </div>
+                       
+                       <div className="space-y-1.5 md:space-y-2 mb-4 bg-sand-50/50 p-3 rounded-xl border border-sand-400/20 text-[12.5px] md:text-sm">
+                         <div className="flex flex-col gap-0.5">
+                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Serviço</span>
+                           <span className="font-semibold leading-tight break-words">Limpeza residencial</span>
+                         </div>
+                         <div className="flex flex-col gap-0.5">
+                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Urgência</span>
+                           <span className="font-semibold leading-tight break-words">Esta semana</span>
+                         </div>
+                         <div className="flex flex-col gap-0.5">
+                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Orçamento</span>
+                           <span className="font-semibold leading-tight break-words">R$ 300 a R$ 500</span>
+                         </div>
+                         <div className="flex flex-col gap-0.5">
+                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Melhor horário</span>
+                           <span className="font-semibold leading-tight break-words">Manhã</span>
+                         </div>
+                         <div className="flex flex-col gap-0.5 mt-2 pt-2 border-t border-sand-400/20">
+                           <span className="text-earth-800 text-[10px] md:text-xs font-medium uppercase tracking-wider">Origem</span>
+                           <span className="font-medium text-copper flex items-center gap-1.5 break-words"><Megaphone className="w-3 h-3 shrink-0"/> Anúncio Meta</span>
+                         </div>
+                       </div>
+                       
+                       <div className="font-medium flex items-start sm:items-center gap-1.5 text-[#128C7E] text-[13px] md:text-[14px]">
+                         <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 sm:mt-0" /> <span className="break-words">Lead pronto para atendimento.</span>
+                       </div>
+                       
+                       <div className="text-[10px] text-earth-800/60 text-right mt-1 font-medium">
+                         09:41
+                       </div>
+                     </div>
+                   </div>
+                   
+                   {/* Input Area */}
+                   <div className="bg-[#F0F0F0] px-3 md:px-4 py-2.5 md:py-3 flex items-center gap-2.5 md:gap-3 shrink-0 mt-auto">
+                     <Smile className="w-5 h-5 md:w-6 md:h-6 text-earth-800/60 shrink-0" />
+                     <div className="flex-1 bg-white rounded-full px-3 md:px-4 py-1.5 md:py-2 text-earth-800/60 text-[13px] md:text-sm shadow-sm border border-black/5 min-w-0">
+                       Mensagem
+                     </div>
+                     <Mic className="w-5 h-5 md:w-6 md:h-6 text-earth-800/60 shrink-0" />
+                   </div>
+                 </div>
               </div>
             </FadeIn>
           </div>
