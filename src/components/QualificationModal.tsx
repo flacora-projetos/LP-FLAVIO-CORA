@@ -73,6 +73,7 @@ const steps = [
     inputs: [
       { key: 'name', label: 'Nome', placeholder: 'Seu nome', required: true },
       { key: 'businessName', label: 'Nome do negócio', placeholder: 'Empresa (opcional)', required: false },
+      { key: 'phone', label: 'Seu WhatsApp', placeholder: '(11) 99999-9999', required: false, description: 'Ajuda a identificar melhor seu atendimento quando você chamar.' },
     ],
   },
 ];
@@ -88,8 +89,33 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
     return undefined;
   };
 
+  const setCookie = (name: string, value: string, days: number) => {
+    if (typeof document === 'undefined') return;
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+  };
+
   const fbp = getCookie('_fbp');
-  const fbc = getCookie('_fbc');
+  let fbc = getCookie('_fbc');
+
+  if (!fbc && typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fbclid = urlParams.get('fbclid');
+    if (fbclid) {
+      fbc = `fb.1.${Date.now()}.${fbclid}`;
+      setCookie('_fbc', fbc, 90);
+    }
+  }
+
+  let externalId = '';
+  if (typeof window !== 'undefined') {
+    externalId = localStorage.getItem('anon_external_id') || '';
+    if (!externalId) {
+      externalId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
+      localStorage.setItem('anon_external_id', externalId);
+    }
+  }
 
   if (typeof window !== 'undefined' && 'fbq' in window) {
     (window as any).fbq('trackCustom', eventName, params, { eventID });
@@ -105,6 +131,8 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
       sourceUrl: typeof window !== 'undefined' ? window.location.href : '',
       fbp,
       fbc,
+      externalId,
+      clientUserAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
     }),
   }).catch((err) => console.error('Error sending CAPI event:', err));
 };
@@ -117,6 +145,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
   // For the final step (text inputs)
   const [nameInput, setNameInput] = useState('');
   const [businessInput, setBusinessInput] = useState('');
+  const [phoneInput, setPhoneInput] = useState('');
 
   // Track opening
   React.useEffect(() => {
@@ -126,6 +155,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       setIsFinished(false);
       setNameInput('');
       setBusinessInput('');
+      setPhoneInput('');
       document.body.style.overflow = 'hidden';
 
       trackEvent('FilterOpen', {
@@ -162,6 +192,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       ...answers,
       name: nameInput,
       businessName: businessInput,
+      phone: phoneInput,
     };
     setAnswers(newAnswers);
     trackEvent('QualificationStep', { step_number: currentStep + 1, step_name: 'identification', cta_label: ctaLabel });
@@ -177,11 +208,15 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       main_problem: finalAnswers.mainProblem,
       filter_goal: finalAnswers.filterGoal,
       timeframe: finalAnswers.timeframe,
+      name: finalAnswers.name,
+      phone: finalAnswers.phone,
     });
     trackEvent('Lead', {
       content_name: 'LP de qualificação WhatsApp Ads',
       lead_type: 'qualified_whatsapp_lead',
       cta_label: ctaLabel,
+      name: finalAnswers.name,
+      phone: finalAnswers.phone,
     });
   };
 
@@ -296,6 +331,17 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                           className="w-full px-4 py-3.5 rounded-[12px] bg-white border border-sand-400 focus:outline-none focus:ring-2 focus:ring-terracotta focus:border-transparent font-medium text-earth-900 placeholder:text-earth-800/40"
                         />
                       </div>
+                      <div>
+                        <label className="block text-sm font-bold text-earth-900 mb-1.5">Seu WhatsApp <span className="text-earth-800 font-normal">(Opcional)</span></label>
+                        <input 
+                          type="tel" 
+                          value={phoneInput}
+                          onChange={(e) => setPhoneInput(e.target.value)}
+                          placeholder="(11) 99999-9999"
+                          className="w-full px-4 py-3.5 rounded-[12px] bg-white border border-sand-400 focus:outline-none focus:ring-2 focus:ring-terracotta focus:border-transparent font-medium text-earth-900 placeholder:text-earth-800/40 mb-1"
+                        />
+                        <p className="text-xs text-earth-800">Ajuda a identificar melhor seu atendimento quando você chamar.</p>
+                      </div>
                       
                       <button
                         onClick={handleNextInput}
@@ -304,6 +350,9 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                       >
                         Ver tudo pronto
                       </button>
+                      <p className="text-[11px] text-center text-earth-800/80 mt-1 pb-1">
+                        Suas informações serão usadas apenas para preparar o atendimento e melhorar a mensuração da campanha.
+                      </p>
                     </div>
                   )}
                   

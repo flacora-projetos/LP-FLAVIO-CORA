@@ -1,6 +1,24 @@
 import express from 'express';
 import path from 'path';
+import crypto from 'crypto';
 import { createServer as createViteServer } from 'vite';
+
+function hashData(data: string | undefined): string | undefined {
+  if (!data) return undefined;
+  const normalized = data.trim().toLowerCase();
+  if (!normalized) return undefined;
+  return crypto.createHash('sha256').update(normalized).digest('hex');
+}
+
+function normalizePhone(phone: string | undefined): string | undefined {
+  if (!phone) return undefined;
+  const cleaned = phone.replace(/\D/g, '');
+  if (!cleaned) return undefined;
+  if (cleaned.length === 10 || cleaned.length === 11) {
+    return `55${cleaned}`;
+  }
+  return cleaned;
+}
 
 async function startServer() {
   const app = express();
@@ -12,7 +30,7 @@ async function startServer() {
 
   // META CAPI Endpoint
   app.post('/api/track', async (req, res) => {
-    const { eventName, eventID, sourceUrl, fbp, fbc, customData } = req.body;
+    const { eventName, eventID, sourceUrl, fbp, fbc, customData, clientUserAgent, externalId } = req.body;
     
     if (!eventName || !eventID) {
       return res.status(400).json({ error: 'Missing required parameters: eventName or eventID' });
@@ -40,8 +58,8 @@ async function startServer() {
     }
 
     try {
-      const clientIpAddress = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-      const clientUserAgent = req.headers['user-agent'];
+      const clientIpAddress = req.ip || req.headers['x-forwarded-for'] || req.socket.remoteAddress || '0.0.0.0';
+      const userAgent = clientUserAgent || req.headers['user-agent'] || '';
       
       const payload: any = {
         data: [
@@ -53,15 +71,41 @@ async function startServer() {
             action_source: 'website',
             user_data: {
               client_ip_address: clientIpAddress,
-              client_user_agent: clientUserAgent,
+              client_user_agent: userAgent,
             },
-            ...(customData && { custom_data: customData }),
+            ...(customData && { custom_data: { ...customData } }),
           }
         ]
       };
 
       if (fbp) payload.data[0].user_data.fbp = fbp;
       if (fbc) payload.data[0].user_data.fbc = fbc;
+      if (externalId) payload.data[0].user_data.external_id = hashData(externalId);
+
+      // Handle name and phone hashing from customData
+      if (customData) {
+        if (customData.phone) {
+          const rawPhone = normalizePhone(customData.phone);
+          if (rawPhone) {
+            payload.data[0].user_data.ph = hashData(rawPhone);
+          }
+          // Remove PII from custom_data
+          delete payload.data[0].custom_data.phone;
+        }
+
+        if (customData.name) {
+          const parts = customData.name.trim().split(/\s+/);
+          if (parts.length > 0) {
+            payload.data[0].user_data.fn = hashData(parts[0]);
+            if (parts.length > 1) {
+              const lastName = parts.slice(1).join(' ');
+              payload.data[0].user_data.ln = hashData(lastName);
+            }
+          }
+          // Remove PII from custom_data
+          delete payload.data[0].custom_data.name;
+        }
+      }
 
       if (META_TEST_CODE) {
         payload.test_event_code = META_TEST_CODE;
