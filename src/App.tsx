@@ -605,74 +605,127 @@ export default function App() {
         </Section>
 
         {/* 6. Para quem serve */}
-        <Section id="para-quem-e" className="bg-[#1C1A18] text-sand-50">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <FadeIn>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 text-sand-50 leading-tight tracking-tight">
-                Ideal para quem anuncia e atende pelo WhatsApp
+        <Section id="para-quem-e" className="bg-[#1C1A18] text-sand-50 py-16 md:py-24 overflow-hidden relative">
+          <div className="max-w-[1240px] mx-auto grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center">
+            
+            {/* Esquerda: Texto */}
+            <FadeIn className="flex flex-col">
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-xs font-semibold text-sand-100 mb-6 self-start tracking-wide uppercase">
+                Para quem é
+              </div>
+              
+              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-[44px] font-bold mb-5 text-sand-50 leading-[1.15] tracking-tight">
+                Ideal para quem anuncia<br className="hidden sm:block" /> e atende pelo WhatsApp
               </h2>
-              <div className="space-y-4 mb-8">
+              
+              <p className="text-sand-100/90 text-[15px] sm:text-base lg:text-[17px] font-medium leading-relaxed mb-8 max-w-[500px]">
+                Se sua campanha gera conversas, uma página de qualificação ajuda a filtrar melhor quem realmente tem interesse antes do atendimento.
+              </p>
+              
+              <div className="flex flex-col gap-3 mb-10 w-full max-w-[520px]">
                 {[
                   'Prestadores de serviço em geral',
-                  'Corretores e imobiliárias',
                   'Clínicas de saúde e estética',
+                  'Corretores e imobiliárias',
                   'Venda de cursos e eventos',
                   'Campanhas de promoções específicas',
                   'Empresas que recebem volume alto de mensagens',
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4">
-                    <div className="w-5 h-5 rounded-full bg-copper/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-copper" />
+                  <div key={i} className="flex items-center gap-4 bg-white/5 border border-white/10 px-4 py-3.5 rounded-xl hover:bg-white/10 transition-colors">
+                    <div className="w-6 h-6 rounded-full bg-terracotta/20 flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="w-4 h-4 text-terracotta" />
                     </div>
-                    <span className="text-sand-100 font-medium md:text-lg">{item}</span>
+                    <span className="text-sand-50 font-medium text-[14px] md:text-[15px] leading-tight">{item}</span>
                   </div>
                 ))}
               </div>
-              <Button href={waLink} className="bg-terracotta text-sand-50 hover:bg-copper border-none text-lg px-8 py-4">
-                Falar sobre meu negócio
+              
+              <Button href={waLink} className="w-full sm:w-auto self-start bg-terracotta text-sand-50 hover:bg-copper border-none text-[15px] sm:text-base font-semibold px-6 md:px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20">
+                Ver se serve para meu negócio
               </Button>
             </FadeIn>
-            <FadeIn delay={0.2} className="relative hidden lg:block">
-              <div className="grid grid-cols-2 gap-6 place-items-end">
-                 <div className="flex items-end justify-center"><img src={images.prof1} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 1"/></div>
-                 <div className="flex items-end justify-center mb-12"><img src={images.prof2} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 2"/></div>
-                 <div className="flex items-end justify-center"><img src={images.prof3} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 3"/></div>
-                 <div className="flex items-end justify-center mb-12"><img src={images.prof4} className="w-full max-w-[200px] object-contain drop-shadow-lg" alt="Profissional 4"/></div>
+
+            {/* Direita: Mosaico */}
+            <FadeIn delay={0.2} className="relative w-full mt-10 lg:mt-0 lg:pl-10">
+              <div className="relative w-full max-w-[420px] lg:max-w-[500px] mx-auto">
+                {/* Glow and effects */}
+                <div className="absolute inset-0 bg-terracotta/10 blur-[100px] rounded-full pointer-events-none transform scale-90 translate-y-4"></div>
+                
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 relative z-10 items-center">
+                  {/* Coluna 1 do Grid */}
+                  <div className="flex flex-col gap-3 sm:gap-4 w-full transform -translate-y-4 md:-translate-y-8">
+                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden ml-auto w-full md:w-[95%]">
+                       <img src={images.prof1} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 1"/>
+                     </div>
+                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden w-full">
+                       <img src={images.prof3} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 3"/>
+                     </div>
+                  </div>
+                  
+                  {/* Coluna 2 do Grid */}
+                  <div className="flex flex-col gap-3 sm:gap-4 w-full transform translate-y-4 md:translate-y-8">
+                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden w-full">
+                       <img src={images.prof2} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 2"/>
+                     </div>
+                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden mr-auto w-full md:w-[95%]">
+                       <img src={images.prof4} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 4"/>
+                     </div>
+                  </div>
+                </div>
               </div>
             </FadeIn>
+            
           </div>
         </Section>
         
         {/* 7. O que está incluso */}
-        <Section className="bg-sand-100">
-           <div className="max-w-4xl mx-auto">
-            <FadeIn className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight">
+        <Section className="bg-sand-100 py-16 md:py-24">
+           <div className="max-w-[1240px] mx-auto px-4">
+            <FadeIn className="text-center mb-10 md:mb-14">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight">
                 O que você recebe
               </h2>
+              <p className="text-earth-800 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
+                Uma estrutura pronta para transformar anúncios em contatos mais organizados no WhatsApp.
+              </p>
             </FadeIn>
 
-            <FadeIn className="max-w-5xl mx-auto mb-12 hidden md:block">
-               <img src={images.mosaico} alt="Mova seu projeto" className="w-full h-auto drop-shadow-2xl" />
+            <FadeIn className="max-w-[960px] mx-auto mb-12 w-full">
+               <div className="bg-white p-2.5 sm:p-5 rounded-2xl sm:rounded-[2rem] shadow-xl shadow-earth-900/5 border border-sand-400/20 relative z-10 w-full overflow-hidden">
+                 <div className="absolute inset-0 bg-gradient-to-tr from-sand-50/50 to-white/70 pointer-events-none"></div>
+                 <img src={images.mosaico} alt="O que você recebe" className="w-full h-auto object-contain relative z-10 rounded-xl sm:rounded-2xl" />
+               </div>
             </FadeIn>
             
-            <FadeIn>
-              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-4 mb-10">
+            <FadeIn className="max-w-[1120px] mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-12">
                 {[
-                  'Página de qualificação personalizada',
-                  'Texto da oferta ajustado para conversão',
-                  'Perguntas estratégicas para o seu negócio',
-                  'Registro dos leads (planilha ou painel simples)',
-                  'Configuração de eventos básicos para Meta',
-                  'Botão final direcionando ao WhatsApp',
-                  'Estrutura ideal para campanhas de Leads',
+                  { text: 'Página de qualificação personalizada', highlight: true },
+                  { text: 'Texto da oferta ajustado para conversão', highlight: false },
+                  { text: 'Perguntas estratégicas para o seu negócio', highlight: true },
+                  { text: 'Registro dos leads em planilha ou painel simples', highlight: true },
+                  { text: 'Configuração de eventos básicos para Meta', highlight: false },
+                  { text: 'Botão final direcionando ao WhatsApp', highlight: true },
+                  { text: 'Estrutura ideal para campanhas de Leads', highlight: false },
+                  { text: 'Orientação simples para usar a página nas campanhas', highlight: false },
                 ].map((item, i) => (
-                  <div key={i} className="flex flex-row gap-4 bg-white p-5 rounded-2xl border border-sand-400/30 shadow-sm items-start">
-                    <CheckCircle2 className="w-5 h-5 text-copper shrink-0 mt-0.5" />
-                    <span className="text-earth-900 font-medium leading-snug">{item}</span>
+                  <div key={i} className={`flex flex-col bg-white p-5 lg:p-6 rounded-2xl border transition-all ${item.highlight ? 'border-terracotta/20 shadow-md shadow-terracotta/5' : 'border-sand-400/30 shadow-sm'} items-start h-full`}>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 mb-4 ${item.highlight ? 'bg-terracotta/10' : 'bg-sand-100'}`}>
+                      <CheckCircle2 className={`w-5 h-5 ${item.highlight ? 'text-terracotta' : 'text-copper'}`} />
+                    </div>
+                    <span className={`text-[15px] md:text-base leading-snug ${item.highlight ? 'font-bold text-earth-900' : 'font-medium text-earth-800'}`}>{item.text}</span>
                   </div>
                 ))}
               </div>
+            </FadeIn>
+
+            <FadeIn delay={0.2} className="text-center flex flex-col items-center">
+              <p className="text-earth-800 font-medium mb-5 text-[15px] md:text-base">
+                Pronto para transformar seus anúncios em contatos mais organizados?
+              </p>
+              <Button href={waLink} className="w-full sm:w-auto bg-terracotta text-sand-50 hover:bg-copper border-none text-[15px] sm:text-base font-semibold px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 transition-all">
+                Quero esse kit para minha campanha
+              </Button>
             </FadeIn>
           </div>
         </Section>
