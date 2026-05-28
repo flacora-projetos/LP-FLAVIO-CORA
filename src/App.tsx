@@ -387,7 +387,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                    <div className="w-10 h-10 rounded-xl bg-white border border-sand-400 flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
                      <Megaphone className="w-5 h-5 text-copper"/>
                    </div>
-                   <div>
+                   <div className="flex-1">
                      <div className="font-bold text-earth-900 text-base mb-1">1. Anúncio Meta</div>
                      <p className="text-earth-800 text-[14px] font-medium">A pessoa clica no anúncio e demonstra interesse na oferta.</p>
                    </div>
@@ -418,7 +418,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                    <div className="w-10 h-10 rounded-xl bg-terracotta/10 border border-terracotta/30 flex items-center justify-center shrink-0 mt-0.5">
                      <MessageCircle className="w-5 h-5 text-[#128C7E]"/>
                    </div>
-                   <div>
+                   <div className="flex-1">
                      <div className="font-bold text-earth-900 text-base mb-1">3. Atendimento com contexto</div>
                      <p className="text-earth-800 text-[14px] font-medium">Você recebe o contato estruturado, reduzindo tempo gasto.</p>
                    </div>
@@ -773,7 +773,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                 { icon: <MapPin className="w-4 h-4" />, text: 'Marketing local' },
                 { icon: <Link className="w-4 h-4" />, text: 'Estrutura conectada' }
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-sand-100 bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-sm font-medium backdrop-blur-sm shadow-sm">
+                <div key={i} className="flex items-center justify-center sm:justify-start w-full sm:w-auto gap-2 text-sand-100 bg-white/5 border border-white/10 px-4 py-3 sm:py-2 rounded-lg text-[15px] sm:text-sm font-medium backdrop-blur-sm shadow-sm">
                    <div className="text-sand-400">{item.icon}</div>
                    {item.text}
                 </div>
