@@ -315,7 +315,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                     Pergunta {currentStep + 1} de {steps.length}
                   </p>
                   
-                  <h3 className="text-2xl font-extrabold text-earth-900 mb-6 leading-tight">
+                  <h3 className="text-2xl font-bold text-earth-900 mb-6 leading-tight">
                     {steps[currentStep].question}
                   </h3>
 
@@ -395,10 +395,10 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex-1 flex flex-col items-center text-center justify-center py-4 sm:py-8"
               >
-                <div className="w-16 h-16 bg-[#25D366]/10 rounded-2xl flex items-center justify-center mb-6 border border-[#25D366]/30">
-                  <MessageCircle className="w-8 h-8 text-[#25D366]" />
+                <div className="w-16 h-16 bg-terracotta/10 rounded-2xl flex items-center justify-center mb-6 border border-terracotta/30">
+                  <MessageCircle className="w-8 h-8 text-terracotta" />
                 </div>
-                <h3 className="text-2xl font-extrabold text-earth-900 mb-3 leading-tight">
+                <h3 className="text-2xl font-bold text-earth-900 mb-3 leading-tight">
                   Já organizei suas respostas.
                 </h3>
                 <p className="text-[16px] text-earth-800 mb-8 font-medium max-w-sm">
@@ -419,7 +419,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
 
                 <button
                   onClick={handleWhatsAppRedirect}
-                  className="w-full bg-[#25D366] text-white hover:bg-[#20bd5a] font-bold text-[16px] px-8 py-4 shadow-lg shadow-[#25D366]/30 transition-all rounded-[14px] flex items-center justify-center gap-2"
+                  className="w-full bg-terracotta text-white hover:bg-caramel font-bold text-[16px] px-8 py-4 shadow-lg shadow-terracotta/30 transition-all rounded-[14px] flex items-center justify-center gap-2"
                 >
                   <MessageCircle className="w-5 h-5" /> Enviar mensagem no WhatsApp
                 </button>

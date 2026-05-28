@@ -27,6 +27,9 @@ import {
   TrendingUp,
   ChevronDown,
   Megaphone,
+  Star,
+  MapPin,
+  Link,
 } from 'lucide-react';
 
 const waLink =
@@ -35,14 +38,15 @@ const waLink =
 const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}?v=${Date.now()}`;
 
 const images = {
-  comoFunciona: getImageSrc('1wnPEFSubXFwyBCjpz8J3Ask6uBFxs77T'),
+  comoFunciona: getImageSrc('1CQ1uFP0UkWhg_fOzK6ZMyugW6KTYC5Oj'),
   evolucaoLead: getImageSrc('1MrsUT4wWwu3fzePYJzRlh3uVM7_7mQ5x'),
-  mosaico: getImageSrc('1pdF12mPub6l8lQ6w8IRg5f-8D76mW-du'),
+  mosaico: getImageSrc('1fa9UdRLtrcnadFDIa8PThkflN6nYWM1f'),
   paginaQualificacao: getImageSrc('1JLHrPXSkRh5W8mAgHCxPHRKgp86xkr_8'),
   prof1: getImageSrc('1KMiw6v10t4yhN2Kv0WIFw9Zb68NivKIj'),
   prof2: getImageSrc('1lBDULsl8cOLMMfzQoakhm4vd2hQG11hc'),
   prof3: getImageSrc('1zudYJnyM78gWQlzSKghrZRcYEH_md7Ou'),
   prof4: getImageSrc('1wa0g7YNL97QT-UgsXGT7tzD4M1QC3bM_'),
+  dacoraBg: getImageSrc('1UOVkGZWLMgWOfF0XXB33Bgm26a5wEz2W'),
 };
 
 const FadeIn = ({
@@ -97,7 +101,7 @@ const Button = ({
   const primaryStyle =
     'bg-terracotta text-white shadow-md shadow-terracotta/20 hover:bg-caramel hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0';
   const secondaryStyle =
-    'bg-transparent border border-sand-400 text-earth-900 hover:bg-sand-400/20 active:bg-sand-400/40';
+    'bg-transparent border-2 border-sand-400 text-terracotta hover:bg-sand-400/20 active:bg-sand-400/40';
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (onClick) {
@@ -266,7 +270,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                     <Target className="w-4 h-4 text-copper" /> Qualifique seus contatos
                   </span>
                 </div>
-                <h1 className="text-[36px] sm:text-[42px] md:text-5xl lg:text-[4rem] font-extrabold tracking-tight text-earth-900 leading-[1.05] mb-5 w-full break-words">
+                <h1 className="text-[36px] sm:text-[42px] md:text-5xl lg:text-[4rem] font-bold tracking-tight text-earth-900 leading-[1.05] mb-5 w-full break-words">
                   Seus anúncios levam para o WhatsApp, mas os leads chegam
                   sem contexto?
                 </h1>
@@ -280,7 +284,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   <ArrowRight className="w-4 h-4 text-earth-800 shrink-0 hidden sm:block" />
                   <span className="flex items-center gap-1.5 md:gap-2 bg-white px-3 py-2 md:px-3 rounded-xl border border-sand-400 shadow-sm"><LayoutTemplate className="w-4 h-4 text-copper"/> Filtro</span>
                   <ArrowRight className="w-4 h-4 text-earth-800 shrink-0 hidden sm:block" />
-                  <span className="flex items-center gap-1.5 md:gap-2 bg-[#25D366]/10 text-[#128C7E] px-3 py-2 md:px-3 rounded-xl border border-[#25D366]/30 shadow-sm mt-2 sm:mt-0"><MessageCircle className="w-4 h-4"/> WhatsApp</span>
+                  <span className="flex items-center gap-1.5 md:gap-2 bg-terracotta/10 text-terracotta px-3 py-2 md:px-3 rounded-xl border border-terracotta/30 shadow-sm mt-2 sm:mt-0"><MessageCircle className="w-4 h-4"/> WhatsApp</span>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 md:gap-4 w-full">
@@ -307,7 +311,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                         <ArrowRight className="w-3 h-3 text-sand-400" />
                         <span className="flex items-center gap-1 bg-sand-50 px-2 py-1 rounded-md border border-sand-400/20"><LayoutTemplate className="w-3 h-3 text-copper"/> Filtro</span>
                         <ArrowRight className="w-3 h-3 text-sand-400" />
-                        <span className="flex items-center gap-1 bg-[#25D366]/10 px-2 py-1 rounded-md border border-[#25D366]/20 text-[#128C7E]"><MessageCircle className="w-3 h-3"/> WhatsApp</span>
+                        <span className="flex items-center gap-1 bg-terracotta/10 px-2 py-1 rounded-md border border-terracotta/20 text-terracotta"><MessageCircle className="w-3 h-3"/> WhatsApp</span>
                       </div>
                       <p className="mt-1 text-[13px] font-medium">A pessoa responde antes de chamar.</p>
                     </div>
@@ -330,7 +334,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
         <Section className="bg-sand-50 border-y border-sand-400/50">
           <FadeIn>
             <div className="max-w-3xl mx-auto text-center mb-16 px-4">
-              <h2 className="text-[32px] sm:text-4xl md:text-5xl font-extrabold text-earth-900 mb-6 tracking-tight leading-tight">
+              <h2 className="text-[32px] sm:text-4xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight leading-tight">
                 Nem toda conversa no WhatsApp é um bom lead
               </h2>
               <p className="text-[17px] md:text-xl text-earth-800 leading-relaxed max-w-2xl mx-auto font-medium">
@@ -370,7 +374,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   O fluxo ideal
                 </span>
               </div>
-              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-extrabold text-earth-900 mb-5 break-words tracking-tight leading-[1.1]">
+              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-bold text-earth-900 mb-5 break-words tracking-tight leading-[1.1]">
                 Seu lead chega no WhatsApp sabendo o que quer
               </h2>
               <p className="text-[17px] md:text-lg text-earth-800 mb-8 leading-relaxed font-medium max-w-[500px]">
@@ -397,7 +401,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                       <LayoutTemplate className="w-5 h-5 text-white"/>
                    </div>
                    <div className="flex-1">
-                     <div className="font-extrabold text-earth-900 text-base mb-1">2. Página de qualificação</div>
+                     <div className="font-bold text-earth-900 text-base mb-1">2. Página de qualificação</div>
                      <p className="text-earth-800 text-[14px] mb-3 font-medium">Filtra intenção antes do WhatsApp.</p>
                      
                      <div className="inline-flex items-start gap-2 bg-sand-50 border border-sand-400 px-3 py-2 rounded-lg text-[13px] font-medium w-full max-w-full">
@@ -410,8 +414,8 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                  <ArrowRight className="w-5 h-5 text-earth-800 mx-auto rotate-90 my-[-4px]" />
                  
                  {/* Card 3 */}
-                 <div className="bg-[#FFFDF8] border border-[#25D366]/40 shadow-sm rounded-[14px] p-4 lg:p-5 flex items-start gap-4">
-                   <div className="w-10 h-10 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 flex items-center justify-center shrink-0 mt-0.5">
+                 <div className="bg-[#FFFFFF] border border-terracotta/40 shadow-sm rounded-[14px] p-4 lg:p-5 flex items-start gap-4">
+                   <div className="w-10 h-10 rounded-xl bg-terracotta/10 border border-terracotta/30 flex items-center justify-center shrink-0 mt-0.5">
                      <MessageCircle className="w-5 h-5 text-[#128C7E]"/>
                    </div>
                    <div>
@@ -425,7 +429,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
             <FadeIn delay={0.2} className="relative z-10 w-full mt-10 lg:mt-0 lg:pl-10 flex justify-center">
               <div className="relative w-full max-w-[360px] md:max-w-[420px] mx-auto">
                  {/* Glow and shadow for integration */}
-                 <div className="absolute inset-0 bg-[#25D366] blur-[100px] rounded-full opacity-15 mix-blend-multiply pointer-events-none transform scale-90 translate-y-8"></div>
+                 <div className="absolute inset-0 bg-terracotta blur-[100px] rounded-full opacity-15 mix-blend-multiply pointer-events-none transform scale-90 translate-y-8"></div>
                  
                  {/* WhatsApp Mockup */}
                  <div className="relative bg-[#EFEAE2] rounded-[2rem] overflow-hidden border-[6px] border-white shadow-2xl flex flex-col h-[520px] md:h-[600px] ring-1 ring-sand-400/20 max-w-full">
@@ -507,7 +511,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   O Passo a Passo
                 </span>
               </div>
-              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-extrabold text-earth-900 mb-4 tracking-tight">
+              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight">
                 Como funciona na prática
               </h2>
               <p className="text-earth-800 text-lg md:text-xl font-medium leading-relaxed">
@@ -516,12 +520,12 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
             </FadeIn>
 
             <FadeIn className="mb-12 max-w-[960px] mx-auto w-full relative px-4">
-              <div className="bg-white p-2.5 sm:p-5 rounded-2xl shadow-md border border-sand-400 relative z-10 w-full overflow-hidden">
+              <div className="bg-white p-0 sm:p-5 rounded-2xl shadow-md border border-sand-400 relative z-10 w-full overflow-hidden">
                  <div className="absolute inset-0 bg-gradient-to-tr from-sand-50/50 to-white/60 pointer-events-none"></div>
                  <img
                    src={images.comoFunciona}
                    alt="Como funciona o funil"
-                   className="w-full h-auto object-contain relative z-10 rounded-xl"
+                   className="w-full h-auto object-contain relative z-10 sm:rounded-xl"
                  />
               </div>
             </FadeIn>
@@ -575,7 +579,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
         <Section className="bg-white border-t border-sand-400/50">
           <div className="max-w-4xl mx-auto px-4">
              <FadeIn className="text-center mb-12">
-               <h2 className="text-[32px] sm:text-4xl md:text-5xl font-extrabold text-earth-900 mb-6 tracking-tight leading-tight">
+               <h2 className="text-[32px] sm:text-4xl md:text-5xl font-bold text-earth-900 mb-6 tracking-tight leading-tight">
                  Perguntas simples que ajudam a separar curiosos de oportunidades
                </h2>
                <p className="text-[17px] md:text-xl text-earth-800 leading-relaxed max-w-2xl mx-auto font-medium">
@@ -606,7 +610,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
         </Section>
 
         {/* 6. Para quem serve */}
-        <Section id="para-quem-e" className="bg-[#1C1A18] text-sand-50 py-16 md:py-24 overflow-hidden relative border-y border-earth-900">
+        <Section id="para-quem-e" className="bg-earth-900 text-sand-50 py-16 md:py-24 overflow-hidden relative border-y border-earth-900">
           <div className="max-w-[1240px] mx-auto grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-16 items-center px-4">
             
             {/* Esquerda: Texto */}
@@ -615,7 +619,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                 Para quem é
               </div>
               
-              <h2 className="text-[36px] sm:text-[42px] md:text-5xl lg:text-[54px] font-extrabold mb-6 text-white leading-[1.05] tracking-tight">
+              <h2 className="text-[36px] sm:text-[42px] md:text-5xl lg:text-[54px] font-bold mb-6 text-white leading-[1.05] tracking-tight">
                 Ideal para quem anuncia<br className="hidden sm:block" /> e atende pelo WhatsApp
               </h2>
               
@@ -632,7 +636,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   'Campanhas de promoções específicas',
                   'Empresas com alto volume de mensagens',
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 bg-[#262320] border border-white/10 px-4 py-3.5 rounded-xl hover:bg-white/10 transition-colors shadow-sm">
+                  <div key={i} className="flex items-center gap-4 bg-white/5 border border-white/10 px-4 py-3.5 rounded-xl hover:bg-white/10 transition-colors shadow-sm">
                     <div className="w-6 h-6 rounded-md bg-terracotta flex items-center justify-center shrink-0">
                       <CheckCircle2 className="w-4 h-4 text-white" />
                     </div>
@@ -655,20 +659,20 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                 <div className="grid grid-cols-2 gap-3 sm:gap-4 relative z-10 items-center">
                   {/* Coluna 1 do Grid */}
                   <div className="flex flex-col gap-3 sm:gap-4 w-full transform -translate-y-4 md:-translate-y-8">
-                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden ml-auto w-full md:w-[95%]">
+                     <div className="bg-white/5 border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden ml-auto w-full md:w-[95%]">
                        <img src={images.prof1} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 1"/>
                      </div>
-                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden w-full">
+                     <div className="bg-white/5 border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden w-full">
                        <img src={images.prof3} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 3"/>
                      </div>
                   </div>
                   
                   {/* Coluna 2 do Grid */}
                   <div className="flex flex-col gap-3 sm:gap-4 w-full transform translate-y-4 md:translate-y-8">
-                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden w-full">
+                     <div className="bg-white/5 border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden w-full">
                        <img src={images.prof2} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 2"/>
                      </div>
-                     <div className="bg-[#262320] border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden mr-auto w-full md:w-[95%]">
+                     <div className="bg-white/5 border border-white/10 p-2 sm:p-3 rounded-2xl md:rounded-[2rem] shadow-xl shadow-black/40 overflow-hidden mr-auto w-full md:w-[95%]">
                        <img src={images.prof4} className="w-full h-auto object-cover rounded-xl md:rounded-2xl bg-white/5" alt="Profissional 4"/>
                      </div>
                   </div>
@@ -688,7 +692,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   Página Completa
                 </span>
               </div>
-              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-extrabold text-earth-900 mb-4 tracking-tight">
+              <h2 className="text-[32px] sm:text-[38px] md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight">
                 O que você recebe
               </h2>
               <p className="text-earth-800 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
@@ -697,9 +701,9 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
             </FadeIn>
 
             <FadeIn className="max-w-[960px] mx-auto mb-12 w-full">
-               <div className="bg-white p-2.5 sm:p-5 rounded-[1.25rem] sm:rounded-[2rem] shadow-md border border-sand-400 relative z-10 w-full overflow-hidden">
+               <div className="bg-white p-0 sm:p-5 rounded-[1.25rem] sm:rounded-[2rem] shadow-md border border-sand-400 relative z-10 w-full overflow-hidden">
                  <div className="absolute inset-0 bg-gradient-to-tr from-sand-50/50 to-white/70 pointer-events-none"></div>
-                 <img src={images.mosaico} alt="O que você recebe" className="w-full h-auto object-contain relative z-10 rounded-xl" />
+                 <img src={images.mosaico} alt="O que você recebe" className="w-full h-auto object-contain relative z-10 sm:rounded-xl" />
                </div>
             </FadeIn>
             
@@ -736,12 +740,54 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
           </div>
         </Section>
 
-        {/* 8. CTA Final */}
-        <Section className="bg-[#1C1A18] text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
+        {/* 8. Parceria Dácora */}
+        <Section className="relative py-24 md:py-32 overflow-hidden bg-earth-900 border-y border-earth-900">
+          {/* Background image */}
+          <div className="absolute inset-0 z-0">
+             <img src={images.dacoraBg} alt="Dácora" className="w-full h-full object-cover opacity-100" />
+          </div>
+          {/* Dark Overlay for contrast */}
+          <div className="absolute inset-0 z-0 bg-earth-900/85 pointer-events-none"></div>
+          
+          <FadeIn className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            {/* Tag */}
+            <div className="inline-flex items-center gap-2 bg-black/20 border border-white/20 px-3 py-1.5 rounded-full text-[11px] font-bold text-sand-100 mb-6 uppercase tracking-wider backdrop-blur-sm">
+              <Star className="w-3.5 h-3.5 text-sand-400" />
+              Parceria estratégica
+            </div>
+            
+            {/* Title */}
+            <h2 className="text-[32px] sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-white mb-6 tracking-tight leading-[1.05] drop-shadow-lg">
+              Em parceria com a <a href="https://www.dacora.com.br/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-terracotta transition-colors underline decoration-white/30 hover:decoration-terracotta">Dácora</a>
+            </h2>
+            
+            {/* Text */}
+            <p className="text-[17px] md:text-xl text-sand-50 leading-relaxed max-w-2xl mx-auto font-medium mb-10 drop-shadow-md">
+              Quando o projeto pede uma visão mais ampla, contamos com a <a href="https://www.dacora.com.br/" target="_blank" rel="noopener noreferrer" className="text-terracotta hover:text-terracotta/80 transition-colors">Dácora</a> para conectar a página de qualificação ao contexto de campanha, atendimento e processo comercial.
+            </p>
+            
+            {/* Destaques (Optional) */}
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 mt-8">
+              {[
+                { icon: <Briefcase className="w-4 h-4" />, text: 'Visão estratégica' },
+                { icon: <MapPin className="w-4 h-4" />, text: 'Marketing local' },
+                { icon: <Link className="w-4 h-4" />, text: 'Estrutura conectada' }
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-sand-100 bg-white/5 border border-white/10 px-4 py-2 rounded-lg text-sm font-medium backdrop-blur-sm shadow-sm">
+                   <div className="text-sand-400">{item.icon}</div>
+                   {item.text}
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+        </Section>
+
+        {/* 9. CTA Final */}
+        <Section className="bg-earth-900 text-sand-50 text-center py-24 md:py-32 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-terracotta/20 via-transparent to-transparent pointer-events-none" />
           <FadeIn className="max-w-3xl mx-auto relative px-4">
             <Lightbulb className="w-12 h-12 text-terracotta mx-auto mb-8 drop-shadow-sm" />
-            <h2 className="text-[36px] sm:text-4xl md:text-5xl lg:text-[56px] font-extrabold mb-8 text-white leading-[1.05] tracking-tight">
+            <h2 className="text-[36px] sm:text-4xl md:text-5xl lg:text-[56px] font-bold mb-8 text-white leading-[1.05] tracking-tight">
               Quer receber leads mais preparados no seu WhatsApp?
             </h2>
             <p className="text-[18px] md:text-xl text-sand-100/90 mb-12 leading-relaxed font-medium">
@@ -764,7 +810,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
       {/* Floating WhatsApp Button */}
       <a
         href="#"
-        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg shadow-[#25D366]/30 hover:bg-[#20bd5a] hover:scale-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
+        className="fixed bottom-6 right-6 z-50 bg-terracotta text-white p-4 rounded-full shadow-lg shadow-terracotta/30 hover:bg-caramel hover:scale-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
         aria-label="Falar no WhatsApp"
         onClick={(e) => {
           e.preventDefault();
