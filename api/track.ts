@@ -14,13 +14,46 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { eventName, eventID, sourceUrl, fbp, fbc } = req.body;
+    const { eventName, eventID, sourceUrl, fbp, fbc, customData, externalId } = req.body;
   
-  if (!eventName || !eventID) {
-    return res.status(400).json({ error: 'Missing required parameters: eventName or eventID' });
-  }
-
-  const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
+    if (!eventName || !eventID) {
+      return res.status(400).json({ error: 'Missing required parameters: eventName or eventID' });
+    }
+  
+    // Google Sheets Integration
+    const sheetsUrl = process.env.GOOGLE_SHEETS_WEBAPP_URL;
+    const sheetsToken = process.env.GOOGLE_SHEETS_WEBAPP_TOKEN;
+    const clientUserAgent = req.headers['user-agent'];
+  
+    if (sheetsUrl) {
+      try {
+        const sheetsPayload = {
+          token: sheetsToken,
+          timestamp: new Date().toISOString(),
+          eventName,
+          eventID,
+          sourceUrl,
+          fbp,
+          fbc,
+          externalId,
+          customData,
+          clientUserAgent
+        };
+  
+        // We must await the fetch because Vercel kills the process immediately after response
+        const sheetRes = await fetch(sheetsUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(sheetsPayload)
+        });
+        const sheetText = await sheetRes.text();
+        console.log('Google Sheets result:', sheetRes.status, sheetText);
+      } catch (err) {
+         console.error('Error in Google Sheets block:', err);
+      }
+    }
+  
+    const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
   const META_PIXEL_ID = process.env.META_PIXEL_ID || '2963831520554824'; 
   const META_TEST_CODE = process.env.META_TEST_CODE;
 
