@@ -132,7 +132,7 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
     }
   }
 
-  const { name: piiName, phone: piiPhone, ...safeParams } = params;
+  const { name: piiName, phone: piiPhone, email: piiEmail, ...safeParams } = params;
 
   if (typeof window !== 'undefined' && 'fbq' in window) {
     // Determine whether to use track or trackCustom based on standard events
@@ -168,6 +168,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
   const [nameInput, setNameInput] = useState('');
   const [businessInput, setBusinessInput] = useState('');
   const [phoneInput, setPhoneInput] = useState('');
+  const [emailInput, setEmailInput] = useState('');
 
   // Track opening
   React.useEffect(() => {
@@ -178,6 +179,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       setNameInput('');
       setBusinessInput('');
       setPhoneInput('');
+      setEmailInput('');
       document.body.style.overflow = 'hidden';
 
       trackEvent('FilterOpen', {
@@ -268,6 +270,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       name: nameInput,
       businessName: businessInput,
       phone: phoneInput,
+      email: emailInput,
     };
     setAnswers(newAnswers);
     trackEvent('QualificationStep', { step_number: currentStep + 1, step_name: 'identification', cta_label: ctaLabel });
@@ -291,14 +294,18 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       filter_goal: formatForEvent(finalAnswers.filterGoal),
       timeframe: formatForEvent(finalAnswers.timeframe),
       name: finalAnswers.name,
+      businessName: finalAnswers.businessName,
       phone: finalAnswers.phone,
+      email: finalAnswers.email,
     });
     trackEvent('Lead', {
       content_name: 'LP de qualificação WhatsApp Ads',
       lead_type: 'qualified_whatsapp_lead',
       cta_label: ctaLabel,
       name: finalAnswers.name,
+      businessName: finalAnswers.businessName,
       phone: finalAnswers.phone,
+      email: finalAnswers.email,
     });
   };
 
@@ -320,8 +327,15 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       filter_goal: formatForEvent(answers.filterGoal),
       timeframe: formatForEvent(answers.timeframe),
       name: answers.name,
+      businessName: answers.businessName,
       phone: answers.phone,
+      email: answers.email,
     });
+    
+    // Clear external ID so future tests/leads are treated as new entities
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('anon_external_id');
+    }
     
     // Trigger GA4 event
     if (typeof window !== 'undefined' && 'gtag' in window) {
@@ -473,6 +487,16 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                           value={businessInput}
                           onChange={(e) => setBusinessInput(e.target.value)}
                           placeholder="Ex: Clínica Sorriso"
+                          className="w-full px-4 py-3.5 rounded-[12px] bg-white border border-sand-400 focus:outline-none focus:ring-2 focus:ring-terracotta focus:border-transparent font-medium text-earth-900 placeholder:text-earth-800/40"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-bold text-earth-900 mb-1.5">E-mail <span className="text-earth-800 font-normal">(Opcional)</span></label>
+                        <input 
+                          type="email" 
+                          value={emailInput}
+                          onChange={(e) => setEmailInput(e.target.value)}
+                          placeholder="Ex: joao@email.com"
                           className="w-full px-4 py-3.5 rounded-[12px] bg-white border border-sand-400 focus:outline-none focus:ring-2 focus:ring-terracotta focus:border-transparent font-medium text-earth-900 placeholder:text-earth-800/40"
                         />
                       </div>

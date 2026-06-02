@@ -230,7 +230,7 @@ function upsertLead(ss, payload) {
       cd.name || existingRow[2],                    // 2: Nome
       cd.businessName || existingRow[3],            // 3: Negócio
       cd.phone || existingRow[4],                   // 4: WhatsApp
-      '',                                           // 5: E-mail (não pedido hoje, mas reservado)
+      cd.email || existingRow[5],                   // 5: E-mail
       offerType || existingRow[6],                  // 6: Tipo de oferta
       currentAds || existingRow[7],                 // 7: Onde anuncia hoje
       mainProblem || existingRow[8],                // 8: Principais problemas
@@ -257,7 +257,7 @@ function upsertLead(ss, payload) {
       cd.name || '',                                // 2: Nome
       cd.businessName || '',                        // 3: Negócio
       cd.phone || '',                               // 4: WhatsApp
-      '',                                           // 5: E-mail
+      cd.email || '',                               // 5: E-mail
       offerType || '',                              // 6: Tipo de oferta
       currentAds || '',                             // 7: Onde anuncia hoje
       mainProblem || '',                            // 8: Principais problemas
@@ -304,7 +304,8 @@ function montarMensagem(cd) {
   var msg = "Olá! Vim pela página e respondi o filtro de qualificação. ✅\\n\\n";
   msg += "*Resumo do pedido*\\n\\n";
   msg += "*Nome:* " + (cd.name || 'Não informado') + "\\n";
-  msg += "*Negócio:* " + (cd.businessName || 'não informado') + "\\n";
+  msg += "*Email:* " + (cd.email || 'Não informado') + "\\n";
+  msg += "*Negócio:* " + (cd.businessName || 'Não informado') + "\\n";
   if (cd.phone) {
     msg += "*WhatsApp informado:* " + cd.phone + "\\n";
   }
