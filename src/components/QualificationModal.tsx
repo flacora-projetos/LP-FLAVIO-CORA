@@ -543,7 +543,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         disabled={!nameInput.trim()}
                         className="mt-4 w-full bg-terracotta text-white font-bold py-4 rounded-[14px] shadow-md hover:bg-caramel disabled:opacity-50 disabled:hover:bg-terracotta transition-colors flex items-center justify-center"
                       >
-                        Ver tudo pronto
+                        Responder perguntas rápidas
                       </button>
                       <p className="text-[11px] text-center text-earth-800/80 mt-1 pb-1">
                         Suas informações serão usadas apenas para preparar o atendimento e melhorar a mensuração da campanha.
