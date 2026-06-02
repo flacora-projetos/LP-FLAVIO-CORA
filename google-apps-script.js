@@ -131,23 +131,30 @@ function registrarEvento(ss, payload) {
     : etapaRaw === 'timeframe' ? 'Prazo'
     : etapaRaw;
 
-  var updates = {
-    'Data/hora': dataHora,
-    'Nome': cd.name || '',
-    'WhatsApp': cd.phone || '',
-    'Evento': payload.eventName,
-    'Etapa': etapaAmigavel,
-    'Status do funil': statusAmigavel,
-    'Campanha': utms.campaign,
-    'Grupo de anúncios': utms.adset,
-    'Anúncio': utms.ad,
-    'CTA de origem': cd.cta_label || ''
+  var norm = function(s) { return (s || '').toString().trim().toLowerCase(); };
+  var rawUpdates = {
+    'data/hora': dataHora,
+    'nome': cd.name || '',
+    'whatsapp': cd.phone || '',
+    'evento': payload.eventName,
+    'etapa': etapaAmigavel,
+    'status do funil': statusAmigavel,
+    'campanha': utms.campaign,
+    'grupo de anúncios': utms.adset,
+    'grupo de anuncios': utms.adset, // alias
+    'anúncio': utms.ad,
+    'anuncio': utms.ad, // alias
+    'cta de origem': cd.cta_label || '',
+    'negócio': cd.businessName || '',
+    'negocio': cd.businessName || '', // alias
+    'e-mail': cd.email || '',
+    'email': cd.email || '' // alias
   };
 
   var rowToSave = [];
   for (var c = 0; c < headers.length; c++) {
-    var headerName = headers[c];
-    var val = updates[headerName];
+    var headerNormName = norm(headers[c]);
+    var val = rawUpdates[headerNormName];
     rowToSave[c] = (val !== undefined && val !== null) ? val : '';
   }
   
@@ -196,16 +203,43 @@ function upsertLead(ss, payload) {
   var data = sheet.getDataRange().getValues();
   if (data.length === 0) return;
   var headers = data[0];
+  var norm = function(s) { return (s || '').toString().trim().toLowerCase(); };
+  var rawUpdates = {
+    'id interno (oculto)': leadKey,
+    'nome': cd.name,
+    'negócio': cd.businessName,
+    'negocio': cd.businessName, // alias
+    'whatsapp': cd.phone,
+    'e-mail': cd.email,
+    'email': cd.email, // alias
+    'tipo de oferta': offerType,
+    'onde anuncia hoje': currentAds,
+    'principais problemas': mainProblem,
+    'o que quer filtrar': filterGoal,
+    'prazo desejado': timeframe,
+    'origem': utms.source,
+    'mídia': utms.medium,
+    'midia': utms.medium, // alias
+    'campanha': utms.campaign,
+    'grupo de anúncios': utms.adset,
+    'grupo de anuncios': utms.adset, // alias
+    'anúncio': utms.ad,
+    'anuncio': utms.ad, // alias
+    'cta de origem': cd.cta_label,
+    'último evento': statusAmigavel,
+    'ultimo evento': statusAmigavel, // alias
+    'mensagem enviada para whatsapp': msgWhatsApp
+  };
+
+  var idColIdx = 0, statusColIdx = 17, dataColIdx = 1; // defaults
   var colMap = {};
   for (var c = 0; c < headers.length; c++) {
-    colMap[headers[c]] = c;
+    var h = norm(headers[c]);
+    colMap[h] = c;
+    if (h === 'id interno (oculto)') idColIdx = c;
+    if (h === 'status do funil') statusColIdx = c;
+    if (h === 'data do lead') dataColIdx = c;
   }
-  
-  var idColIdx = colMap['ID Interno (Oculto)'];
-  if (idColIdx === undefined) idColIdx = 0;
-  
-  var statusColIdx = colMap['Status do funil'];
-  var dataColIdx = colMap['Data do lead'];
   
   // Procurar leadKey na coluna escondida
   var rowIndices = [];
@@ -235,27 +269,6 @@ function upsertLead(ss, payload) {
     }
   }
   
-  var updates = {
-    'ID Interno (Oculto)': leadKey,
-    'Nome': cd.name,
-    'Negócio': cd.businessName,
-    'WhatsApp': cd.phone,
-    'E-mail': cd.email,
-    'Tipo de oferta': offerType,
-    'Onde anuncia hoje': currentAds,
-    'Principais problemas': mainProblem,
-    'O que quer filtrar': filterGoal,
-    'Prazo desejado': timeframe,
-    'Origem': utms.source,
-    'Mídia': utms.medium,
-    'Campanha': utms.campaign,
-    'Grupo de anúncios': utms.adset,
-    'Anúncio': utms.ad,
-    'CTA de origem': cd.cta_label,
-    'Último evento': statusAmigavel,
-    'Mensagem enviada para WhatsApp': msgWhatsApp
-  };
-
   if (targetRowObj) {
     // Atualiza linha existente
     var rowIndexInSheet = targetRowObj.index + 1;
@@ -266,15 +279,15 @@ function upsertLead(ss, payload) {
     var newWeight = FUNNEL_WEIGHT[statusAmigavel] || 0;
     var finalStatus = (newWeight > currentWeight) ? statusAmigavel : currentStatus;
     
-    updates['Status do funil'] = finalStatus;
-    updates['Data do lead'] = existingRow[dataColIdx] || dataHora;
+    rawUpdates['status do funil'] = finalStatus;
+    rawUpdates['data do lead'] = existingRow[dataColIdx] || dataHora;
     
     // Mesclar valores existentes para não apagar dados
     var rowToSave = [];
     for (var c = 0; c < headers.length; c++) {
-      var headerName = headers[c];
+      var headerNormName = norm(headers[c]);
       var oldVal = existingRow[c];
-      var newVal = updates[headerName];
+      var newVal = rawUpdates[headerNormName];
       
       if (newVal === undefined || newVal === null || newVal === '') {
         rowToSave[c] = oldVal;
@@ -287,19 +300,19 @@ function upsertLead(ss, payload) {
     
   } else {
     // Cria nova linha
-    updates['Status do funil'] = statusAmigavel;
-    updates['Data do lead'] = dataHora;
+    rawUpdates['status do funil'] = statusAmigavel;
+    rawUpdates['data do lead'] = dataHora;
     
-    if (!updates['Origem']) updates['Origem'] = 'Não informado';
-    if (!updates['Mídia']) updates['Mídia'] = 'Não informado';
-    if (!updates['Campanha']) updates['Campanha'] = 'Não informado';
-    if (!updates['Grupo de anúncios']) updates['Grupo de anúncios'] = 'Não informado';
-    if (!updates['Anúncio']) updates['Anúncio'] = 'Não informado';
+    if (!rawUpdates['origem']) rawUpdates['origem'] = 'Não informado';
+    if (!rawUpdates['mídia'] && !rawUpdates['midia']) rawUpdates['mídia'] = 'Não informado';
+    if (!rawUpdates['campanha']) rawUpdates['campanha'] = 'Não informado';
+    if (!rawUpdates['grupo de anúncios'] && !rawUpdates['grupo de anuncios']) rawUpdates['grupo de anúncios'] = 'Não informado';
+    if (!rawUpdates['anúncio'] && !rawUpdates['anuncio']) rawUpdates['anúncio'] = 'Não informado';
     
     var rowToSave = [];
     for (var c = 0; c < headers.length; c++) {
-      var headerName = headers[c];
-      var val = updates[headerName];
+      var headerNormName = norm(headers[c]);
+      var val = rawUpdates[headerNormName];
       rowToSave[c] = (val !== undefined && val !== null) ? val : '';
     }
     
