@@ -5,7 +5,7 @@ import { X, ArrowLeft, ArrowRight, MessageCircle } from 'lucide-react';
 interface QualificationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onComplete: (answers: Record<string, string>) => void;
+  onComplete: (answers: Record<string, string | string[]>) => void;
   ctaLabel: string;
 }
 
@@ -13,6 +13,7 @@ const steps = [
   {
     key: 'offerType',
     question: 'Que tipo de oferta você quer divulgar?',
+    multiple: true,
     options: [
       'Serviço local',
       'Clínica / estética / saúde',
@@ -25,10 +26,11 @@ const steps = [
   {
     key: 'currentAds',
     question: 'Você já anuncia hoje?',
+    multiple: true,
     options: [
-      'Sim, no Instagram/Facebook',
-      'Sim, no Google',
-      'Sim, em mais de uma plataforma',
+      'Instagram/Facebook',
+      'Google',
+      'Outras plataformas',
       'Ainda não anuncio',
       'Estou planejando começar',
     ],
@@ -36,6 +38,7 @@ const steps = [
   {
     key: 'mainProblem',
     question: 'Qual é o maior problema nos contatos hoje?',
+    multiple: true,
     options: [
       'Muita gente curiosa',
       'Pessoas chamam sem contexto',
@@ -47,6 +50,7 @@ const steps = [
   {
     key: 'filterGoal',
     question: 'O que você gostaria que a página ajudasse a filtrar?',
+    multiple: true,
     options: [
       'Tipo de serviço desejado',
       'Urgência do cliente',
@@ -59,6 +63,7 @@ const steps = [
   {
     key: 'timeframe',
     question: 'Quando você quer colocar isso no ar?',
+    multiple: false,
     options: [
       'O quanto antes',
       'Ainda esta semana',
@@ -145,7 +150,7 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
 
 export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: QualificationModalProps) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [isFinished, setIsFinished] = useState(false);
 
   // For the final step (text inputs)
@@ -174,7 +179,41 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
     return () => { document.body.style.overflow = ''; };
   }, [isOpen, ctaLabel]);
 
-  const handleOptionSelect = (key: string, value: string) => {
+  const handleOptionSelect = (key: string, value: string, multiple?: boolean) => {
+    if (multiple) {
+      let currentValues = (answers[key] as string[]) || [];
+
+      if (key === 'currentAds') {
+        const exclusiveOptions = ['Ainda não anuncio', 'Estou planejando começar'];
+        
+        if (exclusiveOptions.includes(value)) {
+          if (currentValues.includes(value)) {
+             currentValues = currentValues.filter(v => v !== value);
+          } else {
+             currentValues = [value];
+          }
+        } else {
+          currentValues = currentValues.filter(v => !exclusiveOptions.includes(v));
+          
+          if (currentValues.includes(value)) {
+            currentValues = currentValues.filter((v) => v !== value);
+          } else {
+            currentValues = [...currentValues, value];
+          }
+        }
+        
+        setAnswers({ ...answers, [key]: currentValues });
+        return;
+      }
+      
+      const newValues = currentValues.includes(value)
+        ? currentValues.filter((v) => v !== value)
+        : [...currentValues, value];
+      
+      setAnswers({ ...answers, [key]: newValues });
+      return; // Do not auto-advance
+    }
+
     const newAnswers = { ...answers, [key]: value };
     setAnswers(newAnswers);
 
@@ -188,6 +227,25 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       setCurrentStep(currentStep + 1);
     } else {
       finishFilter(newAnswers);
+    }
+  };
+
+  const handleNextStepMultiple = () => {
+    const key = steps[currentStep].key;
+    const currentValues = (answers[key] as string[]) || [];
+    
+    if (currentValues.length === 0) return;
+
+    if (currentStep === 0) {
+      trackEvent('QualificationStart', { cta_label: ctaLabel, first_answer: currentValues.join(', ') });
+    } else {
+      trackEvent('QualificationStep', { step_number: currentStep + 1, step_name: key, answer: currentValues.join(', '), cta_label: ctaLabel });
+    }
+
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      finishFilter(answers);
     }
   };
 
@@ -205,15 +263,22 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
     finishFilter(newAnswers);
   };
 
-  const finishFilter = (finalAnswers: Record<string, string>) => {
+  const finishFilter = (finalAnswers: Record<string, string | string[]>) => {
     setIsFinished(true);
+    
+    // Format arrays as comma-separated strings for events
+    const formatForEvent = (val: string | string[] | undefined) => {
+      if (Array.isArray(val)) return val.join(', ');
+      return val;
+    };
+
     trackEvent('QualificationComplete', {
       cta_label: ctaLabel,
-      offer_type: finalAnswers.offerType,
-      current_ads: finalAnswers.currentAds,
-      main_problem: finalAnswers.mainProblem,
-      filter_goal: finalAnswers.filterGoal,
-      timeframe: finalAnswers.timeframe,
+      offer_type: formatForEvent(finalAnswers.offerType),
+      current_ads: formatForEvent(finalAnswers.currentAds),
+      main_problem: formatForEvent(finalAnswers.mainProblem),
+      filter_goal: formatForEvent(finalAnswers.filterGoal),
+      timeframe: formatForEvent(finalAnswers.timeframe),
       name: finalAnswers.name,
       phone: finalAnswers.phone,
     });
@@ -227,16 +292,22 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
   };
 
   const handleWhatsAppRedirect = () => {
+    // Format arrays as comma-separated strings for events
+    const formatForEvent = (val: string | string[] | undefined) => {
+      if (Array.isArray(val)) return val.join(', ');
+      return val;
+    };
+
     trackEvent('Contact', {
       destination: 'whatsapp',
       cta_label: 'filtro_finalizado',
       lead_type: 'qualified_whatsapp_lead',
       content_name: 'LP de qualificação WhatsApp Ads',
-      offer_type: answers.offerType,
-      current_ads: answers.currentAds,
-      main_problem: answers.mainProblem,
-      filter_goal: answers.filterGoal,
-      timeframe: answers.timeframe,
+      offer_type: formatForEvent(answers.offerType),
+      current_ads: formatForEvent(answers.currentAds),
+      main_problem: formatForEvent(answers.mainProblem),
+      filter_goal: formatForEvent(answers.filterGoal),
+      timeframe: formatForEvent(answers.timeframe),
       name: answers.name,
       phone: answers.phone,
     });
@@ -315,22 +386,62 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                     Pergunta {currentStep + 1} de {steps.length}
                   </p>
                   
-                  <h3 className="text-2xl font-bold text-earth-900 mb-6 leading-tight">
+                  <h3 className="text-2xl font-bold text-earth-900 mb-2 leading-tight">
                     {steps[currentStep].question}
                   </h3>
+                  
+                  {steps[currentStep].multiple && (
+                    <p className="text-[14px] text-earth-800 mb-6 italic">
+                      {steps[currentStep].key === 'currentAds'
+                        ? 'Você pode marcar mais de uma plataforma.'
+                        : 'Você pode marcar mais de uma opção.'}
+                    </p>
+                  )}
+                  {!steps[currentStep].multiple && (
+                    <div className="mb-6"></div>
+                  )}
 
                   {steps[currentStep].options ? (
                     <div className="flex flex-col gap-3 mt-auto sm:mt-0">
-                      {steps[currentStep].options.map((option, idx) => (
+                      {steps[currentStep].options.map((option, idx) => {
+                        const isSelected = steps[currentStep].multiple 
+                          ? ((answers[steps[currentStep].key] as string[]) || []).includes(option)
+                          : answers[steps[currentStep].key] === option;
+                        
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => handleOptionSelect(steps[currentStep].key, option, steps[currentStep].multiple)}
+                            className={`w-full text-left px-5 py-4 rounded-[14px] border shadow-sm transition-all text-[16px] flex items-center justify-between group ${
+                              isSelected 
+                                ? 'bg-sand-50 border-terracotta text-earth-900 font-bold' 
+                                : 'bg-white border-sand-400 hover:border-terracotta/50 hover:bg-sand-50 text-earth-900 font-bold'
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              {steps[currentStep].multiple && (
+                                <div className={`w-5 h-5 rounded flex items-center justify-center shrink-0 border ${isSelected ? 'bg-terracotta border-terracotta' : 'bg-white border-sand-400 group-hover:border-terracotta/50'}`}>
+                                  {isSelected && <svg viewBox="0 0 14 14" fill="none" className="w-3.5 h-3.5 text-white stroke-2"><path d="M3 7.5L6 10.5L11 3.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                                </div>
+                              )}
+                              {option}
+                            </div>
+                            {!steps[currentStep].multiple && (
+                              <ArrowRight className="w-5 h-5 text-sand-400 group-hover:text-terracotta transition-colors" />
+                            )}
+                          </button>
+                        );
+                      })}
+                      
+                      {steps[currentStep].multiple && (
                         <button
-                          key={idx}
-                          onClick={() => handleOptionSelect(steps[currentStep].key, option)}
-                          className="w-full text-left px-5 py-4 rounded-[14px] bg-white border border-sand-400 shadow-sm hover:border-terracotta/50 hover:bg-sand-50 transition-all font-bold text-earth-900 text-[16px] flex items-center justify-between group"
+                          onClick={handleNextStepMultiple}
+                          disabled={((answers[steps[currentStep].key] as string[]) || []).length === 0}
+                          className="mt-2 w-full bg-terracotta text-white font-bold py-4 rounded-[14px] shadow-md hover:bg-caramel disabled:opacity-50 disabled:hover:bg-terracotta transition-colors flex items-center justify-center"
                         >
-                          {option}
-                          <ArrowRight className="w-5 h-5 text-sand-400 group-hover:text-terracotta transition-colors" />
+                          Continuar
                         </button>
-                      ))}
+                      )}
                     </div>
                   ) : (
                     <div className="flex flex-col gap-5 mt-auto sm:mt-0">
@@ -407,13 +518,13 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                 
                 <div className="bg-sand-50 rounded-xl p-4 text-left border border-sand-400 w-full mb-8 text-[14px] text-earth-800 font-medium">
                   <div className="flex justify-between mb-2 pb-2 border-b border-sand-400/50">
-                    <span>Oferta:</span> <span className="font-bold text-earth-900">{answers.offerType}</span>
+                    <span>Oferta:</span> <span className="font-bold text-earth-900 text-right max-w-[60%]">{Array.isArray(answers.offerType) ? answers.offerType.join(', ') : answers.offerType}</span>
                   </div>
                   <div className="flex justify-between mb-2 pb-2 border-b border-sand-400/50">
-                    <span>Problema:</span> <span className="font-bold text-earth-900 text-right max-w-[60%]">{answers.mainProblem}</span>
+                    <span>Problema:</span> <span className="font-bold text-earth-900 text-right max-w-[60%]">{Array.isArray(answers.mainProblem) ? answers.mainProblem.join(', ') : answers.mainProblem}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Filtro:</span> <span className="font-bold text-earth-900">{answers.filterGoal}</span>
+                    <span>Filtro:</span> <span className="font-bold text-earth-900 text-right max-w-[60%]">{Array.isArray(answers.filterGoal) ? answers.filterGoal.join(', ') : answers.filterGoal}</span>
                   </div>
                 </div>
 

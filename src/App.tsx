@@ -180,17 +180,44 @@ export default function App() {
     setIsModalOpen(true);
   };
 
-  const handleModalComplete = (answers: Record<string, string>) => {
-    const phoneLine = answers.phone ? `WhatsApp informado: ${answers.phone}\n` : '';
-    const text = `Olá! Vim pela página e respondi o filtro de qualificação.
+  const handleModalComplete = (answers: Record<string, string | string[]>) => {
+    const formatValueList = (value: string | string[] | undefined) => {
+      if (!value) return '• Não informado';
+      if (Array.isArray(value)) {
+        return value.map(v => `• ${v}`).join('\n');
+      }
+      return `• ${value}`;
+    };
 
-Nome: ${answers.name || 'Não informado'}
-${phoneLine}Negócio: ${answers.businessName || 'Não informado'}
-Tipo de oferta: ${answers.offerType || ''}
-Anúncios hoje: ${answers.currentAds || ''}
-Principal problema nos contatos: ${answers.mainProblem || ''}
-O que quero filtrar: ${answers.filterGoal || ''}
-Prazo desejado: ${answers.timeframe || ''}
+    const formatSingleValue = (value: string | string[] | undefined) => {
+      if (!value) return 'Não informado';
+      if (Array.isArray(value)) return value.join(', ');
+      return value;
+    };
+
+    const businessLine = answers.businessName ? `*Negócio:* ${answers.businessName}\n` : '*Negócio:* não informado\n';
+    const phoneLine = answers.phone ? `*WhatsApp informado:* ${answers.phone}\n` : '';
+
+    const text = `Olá! Vim pela página e respondi o filtro de qualificação. ✅
+
+*Resumo do pedido*
+
+*Nome:* ${answers.name || 'Não informado'}
+${businessLine}${phoneLine}
+📌 *Tipo de oferta*
+${formatValueList(answers.offerType)}
+
+📣 *Onde anuncia hoje*
+${formatValueList(answers.currentAds)}
+
+⚠️ *Principais problemas nos contatos*
+${formatValueList(answers.mainProblem)}
+
+🎯 *O que quero filtrar*
+${formatValueList(answers.filterGoal)}
+
+⏱️ *Prazo desejado*
+${formatSingleValue(answers.timeframe)}
 
 Quero entender como uma página de qualificação poderia funcionar no meu caso.`;
 

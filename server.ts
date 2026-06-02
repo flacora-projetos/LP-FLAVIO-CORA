@@ -48,6 +48,36 @@ async function startServer() {
        }, null, 2));
     }
 
+    // Google Sheets Integration
+    const sheetsUrl = process.env.GOOGLE_SHEETS_WEBAPP_URL;
+    const sheetsToken = process.env.GOOGLE_SHEETS_WEBAPP_TOKEN;
+
+    if (sheetsUrl) {
+      try {
+        const sheetsPayload = {
+          token: sheetsToken,
+          timestamp: new Date().toISOString(),
+          eventName,
+          eventID,
+          sourceUrl,
+          fbp,
+          fbc,
+          externalId,
+          customData,
+          clientUserAgent
+        };
+
+        // Fire and forget so we don't block the request
+        fetch(sheetsUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(sheetsPayload)
+        }).catch(e => console.error('Failed to send to Google Sheets:', e.message));
+      } catch (err) {
+         console.error('Error in Google Sheets block:', err);
+      }
+    }
+
     const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
     const META_PIXEL_ID = process.env.META_PIXEL_ID || '2963831520554824'; // Fallback to hardcoded ID to ensure deduplication if not set in ENVs
     const META_TEST_CODE = process.env.META_TEST_CODE;
