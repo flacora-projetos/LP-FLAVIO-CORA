@@ -69,11 +69,13 @@ async function startServer() {
 
         // Vercel serverless functions will terminate before 'fire and forget' requests complete.
         // We must await the fetch to ensure the request is actually sent.
-        await fetch(sheetsUrl, {
+        const sheetRes = await fetch(sheetsUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(sheetsPayload)
-        }).catch(e => console.error('Failed to send to Google Sheets:', e.message));
+        });
+        const sheetText = await sheetRes.text();
+        console.log('Google Sheets result:', sheetRes.status, sheetText);
       } catch (err) {
          console.error('Error in Google Sheets block:', err);
       }
