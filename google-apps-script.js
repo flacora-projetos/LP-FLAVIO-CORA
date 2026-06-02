@@ -198,7 +198,7 @@ function upsertLead(ss, payload) {
   
   // Procurar leadKey na coluna escondida (A)
   for (var i = 1; i < data.length; i++) {
-    if (data[i][0] === leadKey) {
+    if (String(data[i][0]) === String(leadKey)) {
       rowIndex = i + 1;
       existingRow = data[i];
       break;
