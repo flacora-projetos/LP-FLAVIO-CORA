@@ -113,6 +113,16 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
     }
   }
 
+  let utms: Record<string, string> = {};
+  if (typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    utmKeys.forEach(key => {
+      const val = urlParams.get(key);
+      if (val) utms[key] = val;
+    });
+  }
+
   let externalId = '';
   if (typeof window !== 'undefined') {
     externalId = localStorage.getItem('anon_external_id') || '';
@@ -143,6 +153,7 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
       fbp,
       fbc,
       externalId,
+      utms,
       clientUserAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
     }),
   }).catch((err) => console.error('Error sending CAPI event:', err));

@@ -30,7 +30,7 @@ async function startServer() {
 
   // META CAPI Endpoint
   app.post('/api/track', async (req, res) => {
-    const { eventName, eventID, sourceUrl, fbp, fbc, customData, clientUserAgent, externalId } = req.body;
+    const { eventName, eventID, sourceUrl, fbp, fbc, customData, clientUserAgent, externalId, utms } = req.body;
     
     if (!eventName || !eventID) {
       return res.status(400).json({ error: 'Missing required parameters: eventName or eventID' });
@@ -44,6 +44,7 @@ async function startServer() {
          eventName,
          eventID,
          customData,
+         utms,
          sourceUrl
        }, null, 2));
     }
@@ -64,6 +65,7 @@ async function startServer() {
           fbc,
           externalId,
           customData,
+          utms,
           clientUserAgent
         };
 

@@ -74,7 +74,12 @@ function doPost(e) {
     // 2. Atualizar ou Criar na aba de Leads
     upsertLead(ss, payload);
     
-    return responseJson({ status: 'success', message: 'Processado com sucesso' }, 200);
+    return responseJson({ 
+      status: 'success', 
+      message: 'Processado com sucesso',
+      spreadsheetName: ss.getName(),
+      spreadsheetUrl: ss.getUrl()
+    }, 200);
     
   } catch (err) {
     Logger.log("Erro: " + err.toString());
@@ -104,7 +109,15 @@ function registrarEvento(ss, payload) {
   var statusAmigavel = STATUS_MAP[payload.eventName] || payload.eventName;
   
   // Extrair UTMs
-  var utms = extrairUTMs(payload.sourceUrl);
+  var fallbackUtms = extrairUTMs(payload.sourceUrl);
+  var utmsFromPayload = payload.utms || {};
+  var utms = {
+    source: utmsFromPayload.utm_source || fallbackUtms.source,
+    medium: utmsFromPayload.utm_medium || fallbackUtms.medium,
+    campaign: utmsFromPayload.utm_campaign || utmsFromPayload.campaign_name || fallbackUtms.campaign,
+    adset: utmsFromPayload.utm_term || utmsFromPayload.adset_name || fallbackUtms.adset,
+    ad: utmsFromPayload.utm_content || utmsFromPayload.ad_name || fallbackUtms.ad
+  };
   
   var nome = cd.name || '';
   var fone = cd.phone || '';
@@ -154,7 +167,15 @@ function upsertLead(ss, payload) {
 
   // Prepara dados
   var statusAmigavel = STATUS_MAP[payload.eventName] || payload.eventName;
-  var utms = extrairUTMs(payload.sourceUrl);
+  var fallbackUtms = extrairUTMs(payload.sourceUrl);
+  var utmsFromPayload = payload.utms || {};
+  var utms = {
+    source: utmsFromPayload.utm_source || fallbackUtms.source,
+    medium: utmsFromPayload.utm_medium || fallbackUtms.medium,
+    campaign: utmsFromPayload.utm_campaign || utmsFromPayload.campaign_name || fallbackUtms.campaign,
+    adset: utmsFromPayload.utm_term || utmsFromPayload.adset_name || fallbackUtms.adset,
+    ad: utmsFromPayload.utm_content || utmsFromPayload.ad_name || fallbackUtms.ad
+  };
   var dataHora = new Date(payload.timestamp || new Date());
   
   // Formatar Arrays

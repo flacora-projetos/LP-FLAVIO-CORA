@@ -14,7 +14,7 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-    const { eventName, eventID, sourceUrl, fbp, fbc, customData, externalId } = req.body;
+    const { eventName, eventID, sourceUrl, fbp, fbc, customData, externalId, utms } = req.body;
   
     if (!eventName || !eventID) {
       return res.status(400).json({ error: 'Missing required parameters: eventName or eventID' });
@@ -37,6 +37,7 @@ export default async function handler(req: any, res: any) {
           fbc,
           externalId,
           customData,
+          utms,
           clientUserAgent
         };
   
