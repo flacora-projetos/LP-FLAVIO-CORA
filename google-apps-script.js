@@ -343,7 +343,7 @@ function montarMensagem(cd) {
     return '• ' + text;
   };
 
-  var msg = "Olá! Vim pela página e respondi o filtro de qualificação. ✅\\n\\n";
+  var msg = "Olá! Vim pela página e respondi o filtro de qualificação.\\n\\n";
   msg += "*Resumo do pedido*\\n\\n";
   msg += "*Nome:* " + (cd.name || 'Não informado') + "\\n";
   msg += "*Email:* " + (cd.email || 'Não informado') + "\\n";
@@ -351,11 +351,11 @@ function montarMensagem(cd) {
   if (cd.phone) {
     msg += "*WhatsApp informado:* " + cd.phone + "\\n";
   }
-  msg += "\\n📌 *Tipo de oferta*\\n" + formatList(cd.offer_type);
-  msg += "\\n\\n📣 *Onde anuncia hoje*\\n" + formatList(cd.current_ads);
-  msg += "\\n\\n⚠️ *Principais problemas nos contatos*\\n" + formatList(cd.main_problem);
-  msg += "\\n\\n🎯 *O que quero filtrar*\\n" + formatList(cd.filter_goal);
-  msg += "\\n\\n⏱️ *Prazo desejado*\\n" + (cd.timeframe || 'Não informado');
+  msg += "\\n*Tipo de oferta*\\n" + formatList(cd.offer_type);
+  msg += "\\n\\n*Onde anuncia hoje*\\n" + formatList(cd.current_ads);
+  msg += "\\n\\n*Principais problemas nos contatos*\\n" + formatList(cd.main_problem);
+  msg += "\\n\\n*O que quero filtrar*\\n" + formatList(cd.filter_goal);
+  msg += "\\n\\n*Prazo desejado*\\n" + (cd.timeframe || 'Não informado');
   
   return msg;
 }

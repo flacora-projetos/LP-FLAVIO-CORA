@@ -198,25 +198,25 @@ export default function App() {
     const businessLine = answers.businessName ? `*Negócio:* ${answers.businessName}\n` : '*Negócio:* não informado\n';
     const phoneLine = answers.phone ? `*WhatsApp informado:* ${answers.phone}\n` : '';
 
-    const text = `Olá! Vim pela página e respondi o filtro de qualificação. ✅
+    const text = `Olá! Vim pela página e respondi o filtro de qualificação.
 
 *Resumo do pedido*
 
 *Nome:* ${answers.name || 'Não informado'}
 ${businessLine}${phoneLine}
-📌 *Tipo de oferta*
+*Tipo de oferta*
 ${formatValueList(answers.offerType)}
 
-📣 *Onde anuncia hoje*
+*Onde anuncia hoje*
 ${formatValueList(answers.currentAds)}
 
-⚠️ *Principais problemas nos contatos*
+*Principais problemas nos contatos*
 ${formatValueList(answers.mainProblem)}
 
-🎯 *O que quero filtrar*
+*O que quero filtrar*
 ${formatValueList(answers.filterGoal)}
 
-⏱️ *Prazo desejado*
+*Prazo desejado*
 ${formatSingleValue(answers.timeframe)}
 
 Quero entender como uma página de qualificação poderia funcionar no meu caso.`;

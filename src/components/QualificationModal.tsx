@@ -471,8 +471,11 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                   ) : (
                     <div className="flex flex-col gap-5 mt-auto sm:mt-0">
                       <div>
-                        <label className="block text-sm font-bold text-earth-900 mb-1.5">Seu nome</label>
+                        <label htmlFor="nameInput" className="block text-sm font-bold text-earth-900 mb-1.5">Seu nome</label>
                         <input 
+                          id="nameInput"
+                          name="prevent_ac_name"
+                          autoComplete="off"
                           type="text" 
                           value={nameInput}
                           onChange={(e) => setNameInput(e.target.value)}
@@ -481,8 +484,11 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-bold text-earth-900 mb-1.5">Nome do negócio <span className="text-earth-800 font-normal">(Opcional)</span></label>
+                        <label htmlFor="businessInput" className="block text-sm font-bold text-earth-900 mb-1.5">Nome do negócio <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
+                          id="businessInput"
+                          name="prevent_ac_business"
+                          autoComplete="off"
                           type="text" 
                           value={businessInput}
                           onChange={(e) => setBusinessInput(e.target.value)}
@@ -491,8 +497,11 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-bold text-earth-900 mb-1.5">E-mail <span className="text-earth-800 font-normal">(Opcional)</span></label>
+                        <label htmlFor="emailInput" className="block text-sm font-bold text-earth-900 mb-1.5">E-mail <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
+                          id="emailInput"
+                          name="prevent_ac_email"
+                          autoComplete="off"
                           type="email" 
                           value={emailInput}
                           onChange={(e) => setEmailInput(e.target.value)}
@@ -501,8 +510,11 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-bold text-earth-900 mb-1.5">Seu WhatsApp <span className="text-earth-800 font-normal">(Opcional)</span></label>
+                        <label htmlFor="phoneInput" className="block text-sm font-bold text-earth-900 mb-1.5">Seu WhatsApp <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
+                          id="phoneInput"
+                          name="prevent_ac_phone"
+                          autoComplete="off"
                           type="tel" 
                           value={phoneInput}
                           onChange={(e) => setPhoneInput(e.target.value)}
