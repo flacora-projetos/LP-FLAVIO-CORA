@@ -67,8 +67,9 @@ async function startServer() {
           clientUserAgent
         };
 
-        // Fire and forget so we don't block the request
-        fetch(sheetsUrl, {
+        // Vercel serverless functions will terminate before 'fire and forget' requests complete.
+        // We must await the fetch to ensure the request is actually sent.
+        await fetch(sheetsUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(sheetsPayload)
