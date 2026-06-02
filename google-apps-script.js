@@ -103,6 +103,10 @@ function responseJson(data, code) {
 
 function registrarEvento(ss, payload) {
   var sheet = ss.getSheetByName(TAB_EVENTS);
+  var data = sheet.getDataRange().getValues();
+  if (data.length === 0) return;
+  var headers = data[0];
+
   var dataHora = new Date(payload.timestamp || new Date());
   
   var cd = payload.customData || {};
@@ -119,10 +123,6 @@ function registrarEvento(ss, payload) {
     ad: utmsFromPayload.utm_content || utmsFromPayload.ad_name || fallbackUtms.ad
   };
   
-  var nome = cd.name || '';
-  var fone = cd.phone || '';
-  // Pegar phone do first_answer etc se aplicável não é ideal, usar os que passamos no custom_data
-  
   var etapaRaw = cd.step_name || '';
   var etapaAmigavel = etapaRaw === 'currentAds' ? 'Anúncios' 
     : etapaRaw === 'offerType' ? 'Oferta'
@@ -131,21 +131,27 @@ function registrarEvento(ss, payload) {
     : etapaRaw === 'timeframe' ? 'Prazo'
     : etapaRaw;
 
-  // Cria a linha
-  var row = [
-    dataHora,           // Data/hora
-    nome,               // Nome
-    fone,               // WhatsApp
-    payload.eventName,  // Evento
-    etapaAmigavel,      // Etapa
-    statusAmigavel,     // Status do funil
-    utms.campaign,      // Campanha
-    utms.adset,         // Grupo de anúncios
-    utms.ad,            // Anúncio
-    cd.cta_label || ''  // CTA de origem
-  ];
+  var updates = {
+    'Data/hora': dataHora,
+    'Nome': cd.name || '',
+    'WhatsApp': cd.phone || '',
+    'Evento': payload.eventName,
+    'Etapa': etapaAmigavel,
+    'Status do funil': statusAmigavel,
+    'Campanha': utms.campaign,
+    'Grupo de anúncios': utms.adset,
+    'Anúncio': utms.ad,
+    'CTA de origem': cd.cta_label || ''
+  };
+
+  var rowToSave = [];
+  for (var c = 0; c < headers.length; c++) {
+    var headerName = headers[c];
+    var val = updates[headerName];
+    rowToSave[c] = (val !== undefined && val !== null) ? val : '';
+  }
   
-  sheet.appendRow(row);
+  sheet.appendRow(rowToSave);
 }
 
 function upsertLead(ss, payload) {
@@ -153,10 +159,9 @@ function upsertLead(ss, payload) {
   var cd = payload.customData || {};
   
   // Identificador do Lead
-  // Como nem sempre temos FBP/FBC, usamos externalId ou phone como chave
-  var leadKey = payload.externalId;
+  var leadKey = payload.lead_id || payload.session_id || payload.externalId;
   if (!leadKey && cd.phone) {
-    leadKey = cd.phone.replace(/\\D/g, ''); // só números
+    leadKey = cd.phone.replace(/\D/g, ''); // só números
   }
   if (!leadKey) {
     leadKey = payload.fbc || payload.fbp;
@@ -185,96 +190,120 @@ function upsertLead(ss, payload) {
   var filterGoal = formatArray(cd.filter_goal || cd.filterGoal);
   var timeframe = formatArray(cd.timeframe);
 
-  // Apenas tentar identificar se o cara mandou um contact e podemos extrair dados de respostas
-  // Note: O customData envia as chaves mapeadas. Na QualificationComplete manda offer_type com _, etc.
-  
-  // Construir mensagem do WhatsApp para a coluna final
   var msgWhatsApp = montarMensagem(cd);
   
-  // Buscar se o Lead já existe
+  // Buscar se o Lead já existe e mapear cabeçalhos
   var data = sheet.getDataRange().getValues();
-  var rowIndex = -1;
-  var existingRow = [];
+  if (data.length === 0) return;
+  var headers = data[0];
+  var colMap = {};
+  for (var c = 0; c < headers.length; c++) {
+    colMap[headers[c]] = c;
+  }
   
-  // Procurar leadKey na coluna escondida (A)
+  var idColIdx = colMap['ID Interno (Oculto)'];
+  if (idColIdx === undefined) idColIdx = 0;
+  
+  var statusColIdx = colMap['Status do funil'];
+  var dataColIdx = colMap['Data do lead'];
+  
+  // Procurar leadKey na coluna escondida
+  var rowIndices = [];
   for (var i = 1; i < data.length; i++) {
-    if (String(data[i][0]) === String(leadKey)) {
-      rowIndex = i + 1;
-      existingRow = data[i];
-      break;
+    if (String(data[i][idColIdx]) === String(leadKey)) {
+      rowIndices.push({ index: i, row: data[i] });
     }
   }
   
-  var finalStatus = statusAmigavel;
-  var dataDoLead = dataHora;
+  // Deduplicação extra: pegar a linha com o status mais avançado ou a mais recente
+  var targetRowObj = null;
+  if (rowIndices.length > 0) {
+    if (rowIndices.length === 1) {
+      targetRowObj = rowIndices[0];
+    } else {
+      var bestScore = -1;
+      var bestIdx = -1;
+      for (var k = 0; k < rowIndices.length; k++) {
+        var rStat = rowIndices[k].row[statusColIdx] || '';
+        var score = FUNNEL_WEIGHT[rStat] || 0;
+        if (score >= bestScore) {
+          bestScore = score;
+          bestIdx = k;
+        }
+      }
+      targetRowObj = rowIndices[bestIdx];
+    }
+  }
   
-  if (rowIndex > -1) {
-    // Atualiza
-    var currentStatus = existingRow[17]; // Status do funil eq Q (índice 16 + 1(Key))? Vamos conferir as colunas abaixo
+  var updates = {
+    'ID Interno (Oculto)': leadKey,
+    'Nome': cd.name,
+    'Negócio': cd.businessName,
+    'WhatsApp': cd.phone,
+    'E-mail': cd.email,
+    'Tipo de oferta': offerType,
+    'Onde anuncia hoje': currentAds,
+    'Principais problemas': mainProblem,
+    'O que quer filtrar': filterGoal,
+    'Prazo desejado': timeframe,
+    'Origem': utms.source,
+    'Mídia': utms.medium,
+    'Campanha': utms.campaign,
+    'Grupo de anúncios': utms.adset,
+    'Anúncio': utms.ad,
+    'CTA de origem': cd.cta_label,
+    'Último evento': statusAmigavel,
+    'Mensagem enviada para WhatsApp': msgWhatsApp
+  };
+
+  if (targetRowObj) {
+    // Atualiza linha existente
+    var rowIndexInSheet = targetRowObj.index + 1;
+    var existingRow = targetRowObj.row;
+    
+    var currentStatus = existingRow[statusColIdx];
     var currentWeight = FUNNEL_WEIGHT[currentStatus] || 0;
     var newWeight = FUNNEL_WEIGHT[statusAmigavel] || 0;
+    var finalStatus = (newWeight > currentWeight) ? statusAmigavel : currentStatus;
     
-    if (newWeight > currentWeight) {
-      finalStatus = statusAmigavel;
-    } else {
-      finalStatus = currentStatus;
+    updates['Status do funil'] = finalStatus;
+    updates['Data do lead'] = existingRow[dataColIdx] || dataHora;
+    
+    // Mesclar valores existentes para não apagar dados
+    var rowToSave = [];
+    for (var c = 0; c < headers.length; c++) {
+      var headerName = headers[c];
+      var oldVal = existingRow[c];
+      var newVal = updates[headerName];
+      
+      if (newVal === undefined || newVal === null || newVal === '') {
+        rowToSave[c] = oldVal;
+      } else {
+        rowToSave[c] = newVal;
+      }
     }
     
-    // Manter a data inicial do lead
-    dataDoLead = existingRow[1] || dataHora;
-    
-    // Fazer merge de campos para não apagar o que já foi preenchido
-    var newRowValues = [
-      leadKey,                                      // 0: Chave Interna (Oculta)
-      dataDoLead,                                   // 1: Data do lead
-      cd.name || existingRow[2],                    // 2: Nome
-      cd.businessName || existingRow[3],            // 3: Negócio
-      cd.phone || existingRow[4],                   // 4: WhatsApp
-      cd.email || existingRow[5],                   // 5: E-mail
-      offerType || existingRow[6],                  // 6: Tipo de oferta
-      currentAds || existingRow[7],                 // 7: Onde anuncia hoje
-      mainProblem || existingRow[8],                // 8: Principais problemas
-      filterGoal || existingRow[9],                 // 9: O que quer filtrar
-      timeframe || existingRow[10],                 // 10: Prazo desejado
-      utms.source || existingRow[11],               // 11: Origem
-      utms.medium || existingRow[12],               // 12: Mídia
-      utms.campaign || existingRow[13],             // 13: Campanha
-      utms.adset || existingRow[14],                // 14: Grupo de anúncios
-      utms.ad || existingRow[15],                   // 15: Anúncio
-      cd.cta_label || existingRow[16],              // 16: CTA de origem
-      finalStatus,                                  // 17: Status do funil
-      statusAmigavel,                               // 18: Último evento
-      msgWhatsApp || existingRow[19]                // 19: Mensagem WhatsApp
-    ];
-    
-    sheet.getRange(rowIndex, 1, 1, newRowValues.length).setValues([newRowValues]);
+    sheet.getRange(rowIndexInSheet, 1, 1, rowToSave.length).setValues([rowToSave]);
     
   } else {
-    // Cria
-    var newRowValues = [
-      leadKey,                                      // 0: Chave Interna (Oculta)
-      dataDoLead,                                   // 1: Data do lead
-      cd.name || '',                                // 2: Nome
-      cd.businessName || '',                        // 3: Negócio
-      cd.phone || '',                               // 4: WhatsApp
-      cd.email || '',                               // 5: E-mail
-      offerType || '',                              // 6: Tipo de oferta
-      currentAds || '',                             // 7: Onde anuncia hoje
-      mainProblem || '',                            // 8: Principais problemas
-      filterGoal || '',                             // 9: O que quer filtrar
-      timeframe || '',                              // 10: Prazo desejado
-      utms.source || 'Não informado',               // 11: Origem
-      utms.medium || 'Não informado',               // 12: Mídia
-      utms.campaign || 'Não informado',             // 13: Campanha
-      utms.adset || 'Não informado',                // 14: Grupo de anúncios
-      utms.ad || 'Não informado',                   // 15: Anúncio
-      cd.cta_label || '',                           // 16: CTA de origem
-      finalStatus,                                  // 17: Status do funil
-      statusAmigavel,                               // 18: Último evento
-      msgWhatsApp || ''                             // 19: Mensagem WhatsApp
-    ];
+    // Cria nova linha
+    updates['Status do funil'] = statusAmigavel;
+    updates['Data do lead'] = dataHora;
     
-    sheet.appendRow(newRowValues);
+    if (!updates['Origem']) updates['Origem'] = 'Não informado';
+    if (!updates['Mídia']) updates['Mídia'] = 'Não informado';
+    if (!updates['Campanha']) updates['Campanha'] = 'Não informado';
+    if (!updates['Grupo de anúncios']) updates['Grupo de anúncios'] = 'Não informado';
+    if (!updates['Anúncio']) updates['Anúncio'] = 'Não informado';
+    
+    var rowToSave = [];
+    for (var c = 0; c < headers.length; c++) {
+      var headerName = headers[c];
+      var val = updates[headerName];
+      rowToSave[c] = (val !== undefined && val !== null) ? val : '';
+    }
+    
+    sheet.appendRow(rowToSave);
   }
 }
 
