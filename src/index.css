@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Red Hat Display", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Red Hat Display", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --color-sand-50: #FFFFFF; /* fundo branco para cards */
   --color-sand-100: #F2EFEB; /* fundo principal off-white */
   --color-sand-300: #E8E5E1; /* claro alternativo */

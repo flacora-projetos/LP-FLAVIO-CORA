@@ -11,6 +11,15 @@ interface QualificationModalProps {
 
 const steps = [
   {
+    key: 'identification',
+    question: 'Como posso identificar seu pedido?',
+    inputs: [
+      { key: 'name', label: 'Nome', placeholder: 'Seu nome', required: true },
+      { key: 'businessName', label: 'Nome do negócio', placeholder: 'Empresa (opcional)', required: false },
+      { key: 'phone', label: 'Seu WhatsApp', placeholder: '(11) 99999-9999', required: false, description: 'Ajuda a identificar melhor seu atendimento quando você chamar.' },
+    ],
+  },
+  {
     key: 'offerType',
     question: 'Que tipo de oferta você quer divulgar?',
     multiple: true,
@@ -70,15 +79,6 @@ const steps = [
       'Nos próximos 15 dias',
       'Neste mês',
       'Estou só pesquisando',
-    ],
-  },
-  {
-    key: 'identification',
-    question: 'Como posso identificar seu pedido?',
-    inputs: [
-      { key: 'name', label: 'Nome', placeholder: 'Seu nome', required: true },
-      { key: 'businessName', label: 'Nome do negócio', placeholder: 'Empresa (opcional)', required: false },
-      { key: 'phone', label: 'Seu WhatsApp', placeholder: '(11) 99999-9999', required: false, description: 'Ajuda a identificar melhor seu atendimento quando você chamar.' },
     ],
   },
 ];
@@ -273,8 +273,18 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       email: emailInput,
     };
     setAnswers(newAnswers);
-    trackEvent('QualificationStep', { step_number: currentStep + 1, step_name: 'identification', cta_label: ctaLabel });
-    finishFilter(newAnswers);
+    
+    if (currentStep === 0) {
+      trackEvent('QualificationStart', { cta_label: ctaLabel, first_answer: 'Formulário de identificação' });
+    } else {
+      trackEvent('QualificationStep', { step_number: currentStep + 1, step_name: 'identification', cta_label: ctaLabel });
+    }
+
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      finishFilter(newAnswers);
+    }
   };
 
   const finishFilter = (finalAnswers: Record<string, string | string[]>) => {
@@ -474,8 +484,9 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         <label htmlFor="nameInput" className="block text-sm font-bold text-earth-900 mb-1.5">Seu nome</label>
                         <input 
                           id="nameInput"
-                          name="prevent_ac_name"
-                          autoComplete="off"
+                          name="rnd_name_form"
+                          autoComplete="new-password"
+                          spellCheck="false"
                           type="text" 
                           value={nameInput}
                           onChange={(e) => setNameInput(e.target.value)}
@@ -487,8 +498,9 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         <label htmlFor="businessInput" className="block text-sm font-bold text-earth-900 mb-1.5">Nome do negócio <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
                           id="businessInput"
-                          name="prevent_ac_business"
-                          autoComplete="off"
+                          name="rnd_business_form"
+                          autoComplete="new-password"
+                          spellCheck="false"
                           type="text" 
                           value={businessInput}
                           onChange={(e) => setBusinessInput(e.target.value)}
@@ -500,8 +512,9 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         <label htmlFor="emailInput" className="block text-sm font-bold text-earth-900 mb-1.5">E-mail <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
                           id="emailInput"
-                          name="prevent_ac_email"
-                          autoComplete="off"
+                          name="rnd_email_form"
+                          autoComplete="new-password"
+                          spellCheck="false"
                           type="email" 
                           value={emailInput}
                           onChange={(e) => setEmailInput(e.target.value)}
@@ -513,8 +526,9 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         <label htmlFor="phoneInput" className="block text-sm font-bold text-earth-900 mb-1.5">Seu WhatsApp <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
                           id="phoneInput"
-                          name="prevent_ac_phone"
-                          autoComplete="off"
+                          name="rnd_phone_form"
+                          autoComplete="new-password"
+                          spellCheck="false"
                           type="tel" 
                           value={phoneInput}
                           onChange={(e) => setPhoneInput(e.target.value)}
