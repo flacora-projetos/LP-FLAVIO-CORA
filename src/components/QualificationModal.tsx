@@ -83,6 +83,20 @@ const steps = [
   },
 ];
 
+const maskPhone = (value: string): string => {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (digits.length === 0) return '';
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
+
+const normalizePhone = (masked: string): string => {
+  const digits = masked.replace(/\D/g, '');
+  if (digits.length >= 10) return `55${digits}`;
+  return digits;
+};
+
 export const trackEvent = (eventName: string, params: Record<string, any> = {}) => {
   const eventID = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 15);
   
@@ -292,6 +306,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       return val;
     };
 
+    const phoneNormalized = normalizePhone(String(finalAnswers.phone || ''));
     trackEvent('QualificationComplete', {
       cta_label: ctaLabel,
       offer_type: formatForEvent(finalAnswers.offerType),
@@ -301,7 +316,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       timeframe: formatForEvent(finalAnswers.timeframe),
       name: finalAnswers.name,
       businessName: finalAnswers.businessName,
-      phone: finalAnswers.phone,
+      phone: phoneNormalized,
       email: finalAnswers.email,
     });
     trackEvent('Lead', {
@@ -310,7 +325,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       cta_label: ctaLabel,
       name: finalAnswers.name,
       businessName: finalAnswers.businessName,
-      phone: finalAnswers.phone,
+      phone: phoneNormalized,
       email: finalAnswers.email,
     });
   };
@@ -334,7 +349,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
       timeframe: formatForEvent(answers.timeframe),
       name: answers.name,
       businessName: answers.businessName,
-      phone: answers.phone,
+      phone: normalizePhone(String(answers.phone || '')),
       email: answers.email,
     });
     
@@ -527,7 +542,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                           spellCheck="false"
                           type="tel" 
                           value={phoneInput}
-                          onChange={(e) => setPhoneInput(e.target.value)}
+                          onChange={(e) => setPhoneInput(maskPhone(e.target.value))}
                           placeholder="(11) 99999-9999"
                           className="w-full px-4 py-3.5 rounded-[12px] bg-white border border-sand-400 focus:outline-none focus:ring-2 focus:ring-terracotta focus:border-transparent font-medium text-earth-900 placeholder:text-earth-800/40 mb-1"
                         />

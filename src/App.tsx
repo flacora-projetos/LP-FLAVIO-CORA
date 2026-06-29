@@ -47,7 +47,10 @@ const images = {
   prof3: getImageSrc('1zudYJnyM78gWQlzSKghrZRcYEH_md7Ou'),
   prof4: getImageSrc('1wa0g7YNL97QT-UgsXGT7tzD4M1QC3bM_'),
   dacoraBg: getImageSrc('1UOVkGZWLMgWOfF0XXB33Bgm26a5wEz2W'),
-  provaSocial: getImageSrc('1dpfqWL0a-M_wxgPzFufKbGTwLvC1OAoQ'),
+  avatarFernanda: getImageSrc('1kKOfy5Vx0j8JPaUVu3VKrj60d7Bx2nYO'),
+  avatarSuzana: getImageSrc('13ZIXXdEwUNSkr9I_NjinYL3wtz62eHxT'),
+  avatarNathalia: getImageSrc('1fcgroqE9S8lbjSKkR37oYSedSWYkRnpN'),
+  avatarKaryne: getImageSrc('12zZSoQu59-kI47-C36BJ8SlAUzNv-9AL'),
 };
 
 const FadeIn = ({
@@ -788,13 +791,13 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
           </div>
         </Section>
 
-        {/* 7.5. Prova Social */}
+        {/* 7.5. Depoimentos */}
         <Section className="bg-white border-t border-sand-400/50">
           <div className="max-w-[1240px] mx-auto px-4">
             <FadeIn className="text-center mb-10 md:mb-14">
               <div className="inline-flex items-center bg-white border border-sand-400 shadow-sm rounded-full px-3 py-1 mb-5">
                 <span className="text-[12px] font-bold text-earth-900 tracking-wide uppercase">
-                  Resultado real
+                  Quem já usou
                 </span>
               </div>
               <h2 className="text-[28px] sm:text-[34px] md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight leading-tight">
@@ -804,17 +807,58 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                 Contatos mais organizados, menos tempo perdido, campanhas mais fáceis de otimizar.
               </p>
             </FadeIn>
-            <FadeIn delay={0.1} className="max-w-[860px] mx-auto">
-              <div className="rounded-2xl overflow-hidden shadow-lg border border-sand-400/30">
-                <img
-                  src={images.provaSocial}
-                  alt="Resultado real de qualificação de leads — prova social"
-                  className="w-full h-auto object-contain"
-                  loading="lazy"
-                />
-              </div>
-            </FadeIn>
-            <FadeIn delay={0.2} className="text-center mt-10">
+
+            <div className="grid sm:grid-cols-2 gap-5 max-w-[900px] mx-auto">
+              {[
+                {
+                  quote: 'As páginas ficaram lindas, gostei muito e vou indicar seu trabalho para meus clientes de tráfego, parabéns!',
+                  name: 'Fernanda Corá',
+                  role: 'CEO Dácora',
+                  avatar: images.avatarFernanda,
+                },
+                {
+                  quote: 'Gostei demais, muito lindo, tá chegando um pessoal bem mais qualificado, obrigado!',
+                  name: 'Suzana Santos',
+                  role: 'Estomaterapeuta · Laserterapeuta',
+                  avatar: images.avatarSuzana,
+                },
+                {
+                  quote: 'Que maravilha, ficou show demais, vamos começar as campanhas amanhã mesmo',
+                  name: 'Nathália',
+                  role: 'CEO Verde Verduras',
+                  avatar: images.avatarNathalia,
+                },
+                {
+                  quote: 'As páginas ficaram lindas, gostei muito. Com certeza vou indicar para todos os meus clientes!',
+                  name: 'Karyne Magalhães',
+                  role: 'Especialista em Halitose',
+                  avatar: images.avatarKaryne,
+                },
+              ].map((t, i) => (
+                <FadeIn delay={i * 0.1} key={i} className="h-full">
+                  <div className="bg-[#FFFDF8] border border-sand-400/60 rounded-2xl p-6 shadow-sm h-full flex flex-col">
+                    <div className="text-terracotta text-5xl font-serif leading-none mb-3 select-none">"</div>
+                    <p className="text-earth-900 font-medium text-[15px] leading-relaxed flex-1 mb-6">
+                      {t.quote}
+                    </p>
+                    <div className="flex items-center gap-3 pt-4 border-t border-sand-400/30">
+                      <img
+                        src={t.avatar}
+                        alt={t.name}
+                        className="w-11 h-11 rounded-full object-cover border border-sand-400/30 shrink-0 bg-sand-100"
+                        loading="lazy"
+                      />
+                      <div>
+                        <p className="font-bold text-earth-900 text-sm leading-tight">{t.name}</p>
+                        <p className="text-earth-800 text-xs font-medium mt-0.5">{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+
+            <FadeIn delay={0.3} className="text-center mt-10">
               <Button
                 href={waLink}
                 className="w-full sm:w-auto bg-terracotta text-white hover:bg-caramel border-none text-[15px] font-bold px-8 py-3.5 shadow-md shadow-terracotta/20 rounded-[14px]"
@@ -833,8 +877,8 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
           <div className="absolute inset-0 z-0">
              <img src={images.dacoraBg} alt="Dácora" className="w-full h-full object-cover opacity-100" />
           </div>
-          {/* Dark Overlay for contrast */}
-          <div className="absolute inset-0 z-0 bg-earth-900/85 pointer-events-none"></div>
+          {/* Overlay — reduzido para a foto da Fernanda aparecer */}
+          <div className="absolute inset-0 z-0 bg-earth-900/58 pointer-events-none"></div>
           
           <FadeIn className="relative z-10 max-w-4xl mx-auto px-4 text-center">
             {/* Tag */}
