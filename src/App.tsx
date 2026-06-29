@@ -829,7 +829,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   avatar: images.avatarNathalia,
                 },
                 {
-                  quote: 'As páginas ficaram lindas, gostei muito. Com certeza vou indicar para todos os meus clientes!',
+                  quote: 'Eu tô encantada! Vamos para Google e Instagram? Ficou belíssimo. Gente, será que eu vou conseguir dormir direito? Eu fiquei empolgada demais!',
                   name: 'Karyne Magalhães',
                   role: 'Especialista em Halitose',
                   avatar: images.avatarKaryne,
