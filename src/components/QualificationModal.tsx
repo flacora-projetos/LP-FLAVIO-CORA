@@ -11,15 +11,6 @@ interface QualificationModalProps {
 
 const steps = [
   {
-    key: 'identification',
-    question: 'Como posso identificar seu pedido?',
-    inputs: [
-      { key: 'name', label: 'Nome', placeholder: 'Seu nome', required: true },
-      { key: 'businessName', label: 'Nome do negócio', placeholder: 'Empresa (opcional)', required: false },
-      { key: 'phone', label: 'Seu WhatsApp', placeholder: '(11) 99999-9999', required: false, description: 'Ajuda a identificar melhor seu atendimento quando você chamar.' },
-    ],
-  },
-  {
     key: 'offerType',
     question: 'Que tipo de oferta você quer divulgar?',
     multiple: true,
@@ -79,6 +70,15 @@ const steps = [
       'Nos próximos 15 dias',
       'Neste mês',
       'Estou só pesquisando',
+    ],
+  },
+  {
+    key: 'identification',
+    question: 'Quase lá! Como posso identificar seu pedido?',
+    inputs: [
+      { key: 'name', label: 'Nome', placeholder: 'Seu nome', required: true },
+      { key: 'businessName', label: 'Nome do negócio', placeholder: 'Empresa (opcional)', required: false },
+      { key: 'phone', label: 'Seu WhatsApp', placeholder: '(11) 99999-9999', required: false, description: 'Ajuda a identificar melhor seu atendimento quando você chamar.' },
     ],
   },
 ];
@@ -274,11 +274,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
     };
     setAnswers(newAnswers);
     
-    if (currentStep === 0) {
-      trackEvent('QualificationStart', { cta_label: ctaLabel, first_answer: 'Formulário de identificação' });
-    } else {
-      trackEvent('QualificationStep', { step_number: currentStep + 1, step_name: 'identification', cta_label: ctaLabel });
-    }
+    trackEvent('QualificationStep', { step_number: currentStep + 1, step_name: 'identification', cta_label: ctaLabel });
 
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
@@ -543,10 +539,13 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         disabled={!nameInput.trim()}
                         className="mt-4 w-full bg-terracotta text-white font-bold py-4 rounded-[14px] shadow-md hover:bg-caramel disabled:opacity-50 disabled:hover:bg-terracotta transition-colors flex items-center justify-center"
                       >
-                        Responder perguntas rápidas
+                        Enviar para o WhatsApp
                       </button>
                       <p className="text-[11px] text-center text-earth-800/80 mt-1 pb-1">
-                        Suas informações serão usadas apenas para preparar o atendimento e melhorar a mensuração da campanha.
+                        Suas informações são usadas apenas para preparar o atendimento.{' '}
+                        <a href="/privacidade" target="_blank" rel="noopener noreferrer" className="underline hover:text-terracotta transition-colors">
+                          Política de privacidade
+                        </a>
                       </p>
                     </div>
                   )}

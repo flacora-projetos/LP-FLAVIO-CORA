@@ -35,7 +35,7 @@ import {
 const waLink =
   'https://wa.me/5562999465725?text=Ol%C3%A1%2C%20quero%20criar%20uma%20landing%20page%20para%20minha%20oferta.';
 
-const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}?v=${Date.now()}`;
+const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}`;
 
 const images = {
   comoFunciona: getImageSrc('1CQ1uFP0UkWhg_fOzK6ZMyugW6KTYC5Oj'),
@@ -47,6 +47,7 @@ const images = {
   prof3: getImageSrc('1zudYJnyM78gWQlzSKghrZRcYEH_md7Ou'),
   prof4: getImageSrc('1wa0g7YNL97QT-UgsXGT7tzD4M1QC3bM_'),
   dacoraBg: getImageSrc('1UOVkGZWLMgWOfF0XXB33Bgm26a5wEz2W'),
+  provaSocial: getImageSrc('1dpfqWL0a-M_wxgPzFufKbGTwLvC1OAoQ'),
 };
 
 const FadeIn = ({
@@ -237,11 +238,11 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
         onComplete={handleModalComplete}
         ctaLabel={modalCtaLabel}
       />
-      {/* Navbar Minimalist */}
+      {/* Navbar Desktop */}
       <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 bg-sand-100/90 backdrop-blur-md border-b border-sand-400/20 transition-all">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="font-semibold text-earth-900 text-xl tracking-tight">
-            
+          <div className="font-bold text-earth-900 text-base tracking-tight">
+            Flávio Corá
           </div>
           <div className="flex items-center gap-8">
             <a
@@ -263,9 +264,27 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
         </div>
       </nav>
 
-      <main className="md:pt-20">
+      {/* Navbar Mobile — sticky top bar */}
+      <nav className="md:hidden fixed top-0 left-0 right-0 z-50 bg-sand-100/95 backdrop-blur-md border-b border-sand-400/20">
+        <div className="px-4 h-14 flex items-center justify-between">
+          <span className="font-bold text-earth-900 text-sm tracking-tight">Flávio Corá</span>
+          <div className="flex items-center gap-3">
+            <a href="#como-funciona" className="text-earth-800 hover:text-terracotta transition-colors text-xs font-medium">
+              Como funciona
+            </a>
+            <button
+              onClick={() => openModal('Nav Mobile')}
+              className="bg-terracotta text-white font-bold text-xs px-3 py-2 rounded-[10px] shadow-sm"
+            >
+              Criar página
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <main className="pt-14 md:pt-20 pb-20 md:pb-0">
         {/* 1. Hero */}
-        <section className="relative min-h-[auto] lg:min-h-[90vh] flex items-center pt-24 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400 bg-sand-100">
+        <section className="relative min-h-[auto] lg:min-h-[90vh] flex items-center pt-8 md:pt-24 pb-16 md:pb-24 px-6 overflow-hidden border-b border-sand-400 bg-sand-100">
           
           {/* Background integrado para Desktop */}
           <div className="hidden lg:block absolute inset-0 z-0 overflow-hidden">
@@ -302,8 +321,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   sem contexto?
                 </h1>
                 <p className="text-[17px] sm:text-[19px] md:text-[21px] text-earth-800 leading-relaxed max-w-[540px] font-medium mb-8">
-                  Crio páginas de qualificação para campanhas de WhatsApp Ads,
-                  com perguntas simples antes do atendimento. Receba contatos mais organizados e prontos para comprar.
+                  Crio páginas de qualificação para campanhas de WhatsApp Ads. O lead responde perguntas antes do atendimento — você recebe o contato com contexto, pronto para fechar.
                 </p>
                 
                 <div className="flex flex-wrap lg:flex-nowrap items-center gap-2 md:gap-4 text-earth-900 font-bold mb-10 text-[13px] sm:text-[14px] md:text-base pb-2">
@@ -757,11 +775,53 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
             </FadeIn>
 
             <FadeIn delay={0.2} className="text-center flex flex-col items-center">
-              <p className="text-earth-900 font-bold mb-5 text-[15px] md:text-base">
+              <p className="text-earth-900 font-bold mb-2 text-[15px] md:text-base">
                 Pronto para receber contatos mais organizados?
+              </p>
+              <p className="text-earth-800 text-sm font-medium mb-6">
+                A partir de <strong className="text-earth-900">R$ 500</strong>, dependendo da complexidade do projeto.
               </p>
               <Button href={waLink} className="w-full sm:w-auto bg-terracotta text-white hover:bg-caramel border-none text-[15px] sm:text-base font-bold px-8 py-3.5 md:py-4 shadow-lg shadow-terracotta/20 transition-all rounded-[14px]" onClick={() => openModal('Quero esse kit para minha campanha')}>
                 Quero esse kit para minha campanha
+              </Button>
+            </FadeIn>
+          </div>
+        </Section>
+
+        {/* 7.5. Prova Social */}
+        <Section className="bg-white border-t border-sand-400/50">
+          <div className="max-w-[1240px] mx-auto px-4">
+            <FadeIn className="text-center mb-10 md:mb-14">
+              <div className="inline-flex items-center bg-white border border-sand-400 shadow-sm rounded-full px-3 py-1 mb-5">
+                <span className="text-[12px] font-bold text-earth-900 tracking-wide uppercase">
+                  Resultado real
+                </span>
+              </div>
+              <h2 className="text-[28px] sm:text-[34px] md:text-4xl lg:text-5xl font-bold text-earth-900 mb-4 tracking-tight leading-tight">
+                Quem usa sente a diferença no atendimento
+              </h2>
+              <p className="text-[17px] md:text-lg text-earth-800 leading-relaxed max-w-2xl mx-auto font-medium">
+                Contatos mais organizados, menos tempo perdido, campanhas mais fáceis de otimizar.
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.1} className="max-w-[860px] mx-auto">
+              <div className="rounded-2xl overflow-hidden shadow-lg border border-sand-400/30">
+                <img
+                  src={images.provaSocial}
+                  alt="Resultado real de qualificação de leads — prova social"
+                  className="w-full h-auto object-contain"
+                  loading="lazy"
+                />
+              </div>
+            </FadeIn>
+            <FadeIn delay={0.2} className="text-center mt-10">
+              <Button
+                href={waLink}
+                className="w-full sm:w-auto bg-terracotta text-white hover:bg-caramel border-none text-[15px] font-bold px-8 py-3.5 shadow-md shadow-terracotta/20 rounded-[14px]"
+                onClick={() => openModal('Quero um resultado assim')}
+              >
+                Quero um resultado assim
+                <ArrowRight className="ml-2 w-5 h-5 shrink-0" />
               </Button>
             </FadeIn>
           </div>
@@ -828,11 +888,28 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
           </FadeIn>
         </Section>
         
-        {/* Footer Real */}
+        {/* Footer */}
         <footer className="py-8 bg-sand-100 text-center text-earth-800 text-sm font-medium">
-          <p>© {new Date().getFullYear()} • Soluções de Qualificação para WhatsApp Ads</p>
+          <p className="mb-2">© {new Date().getFullYear()} • Soluções de Qualificação para WhatsApp Ads</p>
+          <a
+            href="/privacidade"
+            className="text-xs text-earth-800 hover:text-terracotta underline underline-offset-2 transition-colors"
+          >
+            Política de Privacidade e LGPD
+          </a>
         </footer>
       </main>
+
+      {/* Mobile Sticky Bottom CTA Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-sand-100/95 backdrop-blur-md border-t border-sand-400/30 px-4 py-3 shadow-lg">
+        <button
+          onClick={() => openModal('CTA Sticky Mobile')}
+          className="w-full bg-terracotta text-white font-bold py-3.5 rounded-[12px] shadow-md text-[15px] flex items-center justify-center gap-2 hover:bg-caramel transition-colors active:scale-[0.98]"
+        >
+          <MessageCircle className="w-4 h-4 shrink-0" />
+          Criar minha página de qualificação
+        </button>
+      </div>
 
       {/* Floating WhatsApp Button */}
       <a
