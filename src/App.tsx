@@ -35,22 +35,19 @@ import {
 const waLink =
   'https://wa.me/5562999465725?text=Ol%C3%A1%2C%20quero%20criar%20uma%20landing%20page%20para%20minha%20oferta.';
 
-const getImageSrc = (id: string) => `https://lh3.googleusercontent.com/d/${id}`;
-
 const images = {
-  comoFunciona: getImageSrc('1CQ1uFP0UkWhg_fOzK6ZMyugW6KTYC5Oj'),
-  evolucaoLead: getImageSrc('1MrsUT4wWwu3fzePYJzRlh3uVM7_7mQ5x'),
-  mosaico: getImageSrc('1fa9UdRLtrcnadFDIa8PThkflN6nYWM1f'),
-  paginaQualificacao: getImageSrc('1JLHrPXSkRh5W8mAgHCxPHRKgp86xkr_8'),
-  prof1: getImageSrc('1KMiw6v10t4yhN2Kv0WIFw9Zb68NivKIj'),
-  prof2: getImageSrc('1lBDULsl8cOLMMfzQoakhm4vd2hQG11hc'),
-  prof3: getImageSrc('1zudYJnyM78gWQlzSKghrZRcYEH_md7Ou'),
-  prof4: getImageSrc('1wa0g7YNL97QT-UgsXGT7tzD4M1QC3bM_'),
-  dacoraBg: getImageSrc('1UOVkGZWLMgWOfF0XXB33Bgm26a5wEz2W'),
-  avatarFernanda: getImageSrc('1kKOfy5Vx0j8JPaUVu3VKrj60d7Bx2nYO'),
-  avatarSuzana: getImageSrc('13ZIXXdEwUNSkr9I_NjinYL3wtz62eHxT'),
-  avatarNathalia: getImageSrc('1fcgroqE9S8lbjSKkR37oYSedSWYkRnpN'),
-  avatarKaryne: getImageSrc('12zZSoQu59-kI47-C36BJ8SlAUzNv-9AL'),
+  comoFunciona: '/images/comoFunciona.webp',
+  mosaico: '/images/mosaico.webp',
+  paginaQualificacao: '/images/paginaQualificacao.webp',
+  prof1: '/images/prof1.webp',
+  prof2: '/images/prof2.webp',
+  prof3: '/images/prof3.webp',
+  prof4: '/images/prof4.webp',
+  dacoraBg: '/images/dacoraBg.webp',
+  avatarFernanda: '/images/avatarFernanda.webp',
+  avatarSuzana: '/images/avatarSuzana.webp',
+  avatarNathalia: '/images/avatarNathalia.webp',
+  avatarKaryne: '/images/avatarKaryne.webp',
 };
 
 const FadeIn = ({

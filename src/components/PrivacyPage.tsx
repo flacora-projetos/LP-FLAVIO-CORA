@@ -187,7 +187,7 @@ export default function PrivacyPage() {
                 </li>
                 <li>
                   <strong className="text-earth-900">Site:</strong>{' '}
-                  <a href="https://querominhapagina.com.br" className="text-terracotta hover:underline font-medium">
+                  <a href="https://www.querominhapagina.com.br/" className="text-terracotta hover:underline font-medium">
                     querominhapagina.com.br
                   </a>
                 </li>

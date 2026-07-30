@@ -1,0 +1,24 @@
+# Flávio Corá — Páginas de Qualificação para WhatsApp Ads
+
+> Criação de landing pages de qualificação (filtro) para negócios que anunciam no Meta Ads e atendem pelo WhatsApp. A página fica entre o anúncio e o WhatsApp: o lead responde um filtro rápido de 6 perguntas antes de ser direcionado, com mensagem pré-preenchida, para que o atendimento comece com contexto em vez de curiosos sem intenção de compra.
+
+## O que é
+
+Serviço de criação de páginas de qualificação (não é CRM, chatbot, WhatsApp Business API ou disparador automático de mensagens). Fluxo: Anúncio → Landing Page → Filtro (6 perguntas) → Mensagem pré-preenchida → WhatsApp. O envio da mensagem é manual, feito pelo próprio lead.
+
+## Para quem
+
+Empresas e profissionais que anunciam no Meta Ads (Facebook/Instagram) e fazem o atendimento comercial pelo WhatsApp, e querem separar curiosos de compradores antes de gastar tempo de atendimento.
+
+## Preço
+
+A partir de R$ 500, dependendo da complexidade do projeto (ver /pricing.md).
+
+## Páginas
+
+- [Página principal](https://www.querominhapagina.com.br/): oferta, prova social, como funciona, e formulário de contato via WhatsApp
+- [Política de Privacidade](https://www.querominhapagina.com.br/privacidade)
+
+## Contato
+
+WhatsApp: via botão na página principal (mensagem pré-preenchida)

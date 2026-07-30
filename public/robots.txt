@@ -1,0 +1,34 @@
+# Search engine crawlers — full access
+User-agent: *
+Allow: /
+
+# AI search/citation crawlers — explicitly allowed (visibility in AI answers)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI training-only crawler with no citation benefit — blocked
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+Sitemap: https://www.querominhapagina.com.br/sitemap.xml
