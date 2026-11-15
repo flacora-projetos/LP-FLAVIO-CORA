@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { QualificationModal } from './components/QualificationModal';
 import {
   ArrowRight,
@@ -58,9 +58,11 @@ const FadeIn = ({
   children: React.ReactNode;
   delay?: number;
   className?: string;
-}) => (
+}) => {
+  const reduceMotion = useReducedMotion();
+  return (
   <motion.div
-    initial={{ opacity: 0, y: 20 }}
+    initial={reduceMotion ? false : { opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-50px' }}
     transition={{ duration: 0.6, delay, ease: 'easeOut' }}
@@ -68,7 +70,8 @@ const FadeIn = ({
   >
     {children}
   </motion.div>
-);
+  );
+};
 
 const Section = ({
   children,
@@ -95,7 +98,7 @@ const Button = ({
   children: React.ReactNode;
   variant?: 'primary' | 'secondary';
   className?: string;
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick?: () => void;
 }) => {
   const baseStyle =
     'inline-flex items-center justify-center font-bold rounded-[14px] transition-all duration-300 px-8 py-4 text-[16px]';
@@ -104,22 +107,13 @@ const Button = ({
   const secondaryStyle =
     'bg-transparent border-2 border-sand-400 text-terracotta hover:bg-sand-400/20 active:bg-sand-400/40';
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (onClick) {
-      e.preventDefault();
-      onClick(e);
-      return;
-    }
-  };
+  const classes = `${baseStyle} ${variant === 'primary' ? primaryStyle : secondaryStyle} ${className}`;
+  if (onClick) {
+    return <button type="button" className={classes} onClick={onClick}>{children}</button>;
+  }
 
   return (
-    <a
-      href={onClick ? '#' : href}
-      target={onClick ? undefined : (href.startsWith('http') ? '_blank' : '_self')}
-      rel="noopener noreferrer"
-      className={`${baseStyle} ${variant === 'primary' ? primaryStyle : secondaryStyle} ${className}`}
-      onClick={handleClick}
-    >
+    <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" className={classes}>
       {children}
     </a>
   );
@@ -832,7 +826,8 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                   avatar: images.avatarKaryne,
                 },
               ].map((t, i) => (
-                <FadeIn delay={i * 0.1} key={i} className="h-full">
+                <div key={t.name} className="h-full">
+                  <FadeIn delay={i * 0.1} className="h-full">
                   <div className="bg-[#FFFDF8] border border-sand-400/60 rounded-2xl p-6 shadow-sm h-full flex flex-col">
                     <div className="text-terracotta text-5xl font-serif leading-none mb-3 select-none">"</div>
                     <p className="text-earth-900 font-medium text-[15px] leading-relaxed flex-1 mb-6">
@@ -851,7 +846,8 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
                       </div>
                     </div>
                   </div>
-                </FadeIn>
+                  </FadeIn>
+                </div>
               ))}
             </div>
 
@@ -955,7 +951,7 @@ Quero entender como uma página de qualificação poderia funcionar no meu caso.
       {/* Floating WhatsApp Button */}
       <a
         href="#"
-        className="fixed bottom-6 right-6 z-50 bg-terracotta text-white p-4 rounded-full shadow-lg shadow-terracotta/30 hover:bg-caramel hover:scale-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
+        className="fixed bottom-24 md:bottom-6 right-6 z-50 bg-terracotta text-white p-4 rounded-full shadow-lg shadow-terracotta/30 hover:bg-caramel hover:scale-110 hover:shadow-xl transition-all duration-300 flex items-center justify-center group"
         aria-label="Falar no WhatsApp"
         onClick={(e) => {
           e.preventDefault();
