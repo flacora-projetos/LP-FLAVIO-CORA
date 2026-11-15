@@ -18,3 +18,7 @@ View your app in AI Studio: https://ai.studio/apps/f10ac3b6-98cf-4e65-9e12-cccb9
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Revisão do filtro
+
+O filtro usa diálogo nativo, foco por etapa e preenchimento automático. Para conferir, rode `npm run lint` e `npm run build`. No navegador, percorra o filtro com teclado em desktop e celular, teste um e-mail inválido e simule WhatsApp e rastreamento. O nome do negócio continua no contexto para atendimento e fica fora dos parâmetros do Pixel no navegador.

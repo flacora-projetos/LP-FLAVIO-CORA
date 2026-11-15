@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { X, ArrowLeft, ArrowRight, MessageCircle } from 'lucide-react';
 
 interface QualificationModalProps {
@@ -84,7 +84,7 @@ const steps = [
 ];
 
 const maskPhone = (value: string): string => {
-  const digits = value.replace(/\D/g, '').slice(0, 11);
+  const digits = value.replace(/^\s*\+55/, '').replace(/\D/g, '').slice(0, 11);
   if (digits.length === 0) return '';
   if (digits.length <= 2) return `(${digits}`;
   if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
@@ -146,7 +146,7 @@ export const trackEvent = (eventName: string, params: Record<string, any> = {}) 
     }
   }
 
-  const { name: piiName, phone: piiPhone, email: piiEmail, ...safeParams } = params;
+  const { name: piiName, phone: piiPhone, email: piiEmail, businessName: organization, ...safeParams } = params;
 
   if (typeof window !== 'undefined' && 'fbq' in window) {
     // Determine whether to use track or trackCustom based on standard events
@@ -183,6 +183,27 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
   const [businessInput, setBusinessInput] = useState('');
   const [phoneInput, setPhoneInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
+  const dialogRef = React.useRef<HTMLDialogElement>(null);
+  const backdropPressed = React.useRef(false);
+  const reduceMotion = useReducedMotion();
+  const focusQuestion = React.useCallback((heading: HTMLHeadingElement | null) => {
+    heading?.focus({ preventScroll: true });
+  }, [isOpen]);
+
+  React.useLayoutEffect(() => {
+    backdropPressed.current = false;
+    const dialog = dialogRef.current;
+    if (!isOpen || !dialog) return;
+
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialog.showModal();
+    dialog.querySelector<HTMLElement>('h3')?.focus({ preventScroll: true });
+
+    return () => {
+      dialog.close();
+      opener?.focus({ preventScroll: true });
+    };
+  }, [isOpen]);
 
   // Track opening
   React.useEffect(() => {
@@ -374,32 +395,33 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center sm:items-center sm:p-4">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="absolute inset-0 bg-earth-900/60 backdrop-blur-sm"
-          onClick={onClose}
-        ></motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 100, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 100, scale: 0.95 }}
-          transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-          className="relative bg-[#FFFDF8] w-full sm:max-w-lg h-full sm:h-auto sm:max-h-[90vh] sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden border-t sm:border border-sand-400"
-        >
+    <motion.dialog
+      ref={dialogRef}
+      aria-labelledby="qualification-modal-title"
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onPointerDown={(event) => {
+        backdropPressed.current = event.target === event.currentTarget;
+      }}
+      onClick={(event) => {
+        if (backdropPressed.current && event.target === event.currentTarget) onClose();
+        backdropPressed.current = false;
+      }}
+      className="fixed inset-0 m-auto bg-[#FFFDF8] w-full max-w-none sm:max-w-lg h-full max-h-none sm:h-auto sm:max-h-[90dvh] sm:rounded-2xl shadow-2xl open:flex flex-col overflow-hidden border-t sm:border border-sand-400 backdrop:bg-earth-900/60 backdrop:backdrop-blur-sm"
+    >
           {/* Header */}
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-sand-400/50 bg-white z-10 shrink-0">
             <div>
               <p className="text-xs font-bold text-terracotta uppercase tracking-wider mb-1">Passo a passo</p>
-              <h2 className="text-lg font-bold text-earth-900 leading-tight">
+              <h2 id="qualification-modal-title" className="text-lg font-bold text-earth-900 leading-tight">
                 {isFinished ? 'Tudo certo!' : 'Vamos entender sua necessidade?'}
               </h2>
             </div>
             <button
+              type="button"
+              aria-label="Fechar filtro"
               onClick={onClose}
               className="w-8 h-8 flex items-center justify-center rounded-full bg-sand-100 text-earth-800 hover:bg-sand-400/50 transition-colors"
             >
@@ -422,17 +444,17 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentStep}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={reduceMotion ? false : { opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2 }}
                   className="flex-1 flex flex-col"
                 >
                   <p className="text-[15px] font-medium text-earth-800 mb-6 bg-sand-100 inline-block px-3 py-1.5 rounded-lg border border-sand-400 self-start">
                     Pergunta {currentStep + 1} de {steps.length}
                   </p>
                   
-                  <h3 className="text-2xl font-bold text-earth-900 mb-2 leading-tight">
+                  <h3 ref={focusQuestion} tabIndex={-1} className="text-2xl font-bold text-earth-900 mb-2 leading-tight">
                     {steps[currentStep].question}
                   </h3>
                   
@@ -457,6 +479,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         return (
                           <button
                             key={idx}
+                            aria-pressed={steps[currentStep].multiple ? isSelected : undefined}
                             onClick={() => handleOptionSelect(steps[currentStep].key, option, steps[currentStep].multiple)}
                             className={`w-full text-left px-5 py-4 rounded-[14px] border shadow-sm transition-all text-[16px] flex items-center justify-between group ${
                               isSelected 
@@ -490,13 +513,20 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                       )}
                     </div>
                   ) : (
-                    <div className="flex flex-col gap-5 mt-auto sm:mt-0">
+                    <form
+                      className="flex flex-col gap-5 mt-auto sm:mt-0"
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        handleNextInput();
+                      }}
+                    >
                       <div>
                         <label htmlFor="nameInput" className="block text-sm font-bold text-earth-900 mb-1.5">Seu nome</label>
                         <input 
                           id="nameInput"
-                          name="rnd_name_form"
-                          autoComplete="new-password"
+                          required
+                          name="name"
+                          autoComplete="name"
                           spellCheck="false"
                           type="text" 
                           value={nameInput}
@@ -509,8 +539,8 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         <label htmlFor="businessInput" className="block text-sm font-bold text-earth-900 mb-1.5">Nome do negócio <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
                           id="businessInput"
-                          name="rnd_business_form"
-                          autoComplete="new-password"
+                          name="organization"
+                          autoComplete="organization"
                           spellCheck="false"
                           type="text" 
                           value={businessInput}
@@ -523,8 +553,8 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         <label htmlFor="emailInput" className="block text-sm font-bold text-earth-900 mb-1.5">E-mail <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
                           id="emailInput"
-                          name="rnd_email_form"
-                          autoComplete="new-password"
+                          name="email"
+                          autoComplete="email"
                           spellCheck="false"
                           type="email" 
                           value={emailInput}
@@ -537,8 +567,8 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                         <label htmlFor="phoneInput" className="block text-sm font-bold text-earth-900 mb-1.5">Seu WhatsApp <span className="text-earth-800 font-normal">(Opcional)</span></label>
                         <input 
                           id="phoneInput"
-                          name="rnd_phone_form"
-                          autoComplete="new-password"
+                          name="phone"
+                          autoComplete="tel-national"
                           spellCheck="false"
                           type="tel" 
                           value={phoneInput}
@@ -550,8 +580,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                       </div>
                       
                       <button
-                        onClick={handleNextInput}
-                        disabled={!nameInput.trim()}
+                        type="submit"
                         className="mt-4 w-full bg-terracotta text-white font-bold py-4 rounded-[14px] shadow-md hover:bg-caramel disabled:opacity-50 disabled:hover:bg-terracotta transition-colors flex items-center justify-center"
                       >
                         Enviar para o WhatsApp
@@ -562,7 +591,7 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
                           Política de privacidade
                         </a>
                       </p>
-                    </div>
+                    </form>
                   )}
                   
                   {currentStep > 0 && (
@@ -577,14 +606,14 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
               </AnimatePresence>
             ) : (
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={reduceMotion ? false : { opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex-1 flex flex-col items-center text-center justify-center py-4 sm:py-8"
               >
                 <div className="w-16 h-16 bg-terracotta/10 rounded-2xl flex items-center justify-center mb-6 border border-terracotta/30">
                   <MessageCircle className="w-8 h-8 text-terracotta" />
                 </div>
-                <h3 className="text-2xl font-bold text-earth-900 mb-3 leading-tight">
+                <h3 ref={focusQuestion} tabIndex={-1} className="text-2xl font-bold text-earth-900 mb-3 leading-tight">
                   Já organizei suas respostas.
                 </h3>
                 <p className="text-[16px] text-earth-800 mb-8 font-medium max-w-sm">
@@ -612,8 +641,6 @@ export function QualificationModal({ isOpen, onClose, onComplete, ctaLabel }: Qu
               </motion.div>
             )}
           </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
+    </motion.dialog>
   );
 }
